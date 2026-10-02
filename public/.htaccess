@@ -1,0 +1,31 @@
+# Nur relevant, wenn die Seite auf einem Apache-Server liegt (z. B. beim bisherigen Webhoster).
+# Auf Netlify gilt stattdessen netlify.toml.
+
+RewriteEngine On
+
+# HTTPS erzwingen und auf www leiten
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^ https://www.ilpomodoro-filderstrase25.de%{REQUEST_URI} [L,R=301]
+
+# Alte Adressen (Jimdo)
+RewriteRule ^wochen-und-speisekarte/?.*$ /speisekarte/ [L,R=301]
+RewriteRule ^wochenkarte/?$ /speisekarte/#wochenkarte [L,R=301,NE]
+
+ErrorDocument 404 /404.html
+
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self'; img-src 'self' data: https://*.googleusercontent.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://docs.google.com https://*.googleusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-src https://www.google.com https://maps.google.com; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests"
+  <FilesMatch "\.(woff2|svg|png|jpg|webp|ico|css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/manifest+json text/xml
+</IfModule>
