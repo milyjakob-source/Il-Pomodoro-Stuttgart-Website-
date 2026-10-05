@@ -41,12 +41,13 @@ export const ZEITEN = [
 // Küchenschluss; leer lassen, wenn er mit den Öffnungszeiten zusammenfällt.
 export const KUECHE_BIS = '';
 
-// Hauptnavigation: sechs Seiten. Pfade sind Ordner, damit die Adressen sauber bleiben (/speisekarte/).
+// Hauptnavigation. Pfade sind Ordner, damit die Adressen sauber bleiben (/speisekarte/).
 export const NAV = [
   { slug: '', label: 'Start' },
   { slug: 'speisekarte/', label: 'Speisekarte' },
   { slug: 'ueber-uns/', label: 'Über uns' },
   { slug: 'galerie/', label: 'Galerie' },
+  { slug: 'bestellen/', label: 'Bestellen' },
   { slug: 'kontakt/', label: 'Kontakt' },
   { slug: 'reservierung/', label: 'Reservieren', cta: true },
 ];

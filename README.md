@@ -11,6 +11,8 @@ ilpomodoro-filderstrase25.de. Statische Seiten ohne Framework: schnell, gut für
 | Galerie | `/galerie/` | Fotos im Mauerwerk-Raster |
 | Kontakt | `/kontakt/` | Telefon, E-Mail, Zeiten, Karte, Anfrageformular (Feiern, Gutscheine, Abholung) |
 | Reservieren | `/reservierung/` | Online-Reservierung über Google |
+| Bestellen | `/bestellen/` | Bestellung zur Abholung oder Lieferung mit Warenkorb, Preise live aus der Inhaber-App |
+| Inhaber-App | `/app/` | Nur für das Restaurant (PIN): Bestellungen, Reservierungen, Plätze, Karte, Texte, Bilder |
 | Rechtliches | `/impressum/`, `/datenschutz/`, `/agb/`, `404.html` | |
 
 Hell- und Dunkelmodus (folgt dem System, umschaltbar oben rechts), Einblend-Animationen und weiche
@@ -45,9 +47,11 @@ Die alte Website war aus dieser Arbeitsumgebung nicht abrufbar. Inhalte stammen 
 - [x] **Fotos:** Laterne mit Schild, Holzofen, Pizza mit Burrata, Gastraum, Eingang und Plätze draußen sind eingebaut. Weitere Fotos
       nach `bilder-original/` legen (Dateiname = Bildplatz), `npm run bilder`, in Seite oder Galerie eintragen.
       Eingang und Terrasse liegen nur in kleiner Auflösung vor und stehen deshalb nur in der Galerie.
-- [ ] **Speisekarte** in `src/speisekarte.mjs` mit der aktuellen Karte abgleichen (Preise werden bewusst nicht
-      gezeigt), optional PDF verlinken (`KARTE_PDF`).
-- [ ] **Wochenkarte:** Google Sheet anlegen und verbinden (siehe unten).
+- [ ] **Speisekarte und Preise** in der Inhaber-App pflegen (`src/speisekarte.mjs` ist nur noch die
+      Anzeige, solange das Apps Script nicht verbunden ist). Optional PDF verlinken (`KARTE_PDF`).
+- [ ] **App-PIN** 2580 nach der Einrichtung in der App ändern.
+- [ ] **Wochenkarte:** in der Inhaber-App pflegen (der Weg über ein veröffentlichtes Google Sheet unten
+      funktioniert weiterhin als Alternative).
 - [x] **Öffnungszeiten** vom Restaurant bestätigt (Mo–Do 11:30–14:00 und 17:30–22:30, Fr bis 23:00,
       Sa 17:00–23:00, So Ruhetag). Bei Änderungen `src/site.mjs`, `public/assets/js/config.js` und
       `apps-script/Code.gs` anpassen.
@@ -89,25 +93,28 @@ Uhrzeit (Kapazität einstellbar), gegen Spam gibt es ein unsichtbares Feld, eine
 Drosselung pro E-Mail. Kosten: keine.
 
 1. Mit dem Google-Konto des Restaurants eine neue Google-Tabelle „Il Pomodoro Reservierungen“ anlegen.
-2. *Erweiterungen → Apps Script*. Den Inhalt von `apps-script/Code.gs` in `Code.gs` kopieren.
+2. *Erweiterungen → Apps Script*. Den Inhalt von `apps-script/Code.gs` in `Code.gs` kopieren und mit
+   *Datei +* zwei weitere Skriptdateien `App` und `Bestellung` anlegen, darin `apps-script/App.gs` und
+   `apps-script/Bestellung.gs`.
    Unter *Projekteinstellungen* „appsscript.json im Editor anzeigen“ einschalten und den Inhalt von
    `apps-script/appsscript.json` übernehmen.
 3. *Projekteinstellungen → Skripteigenschaften*:
-   - `NOTIFY_EMAIL`: Adresse, die über neue Reservierungen informiert wird (die E-Mail-Adresse des Restaurants)
+   - `NOTIFY_EMAIL`: Adresse, die über neue Reservierungen und Bestellungen informiert wird (leer = das
+     Google-Konto, dem das Skript gehört)
    - `CALENDAR_ID` (optional): eigener Kalender „Reservierungen“ (Kalender-Einstellungen → Kalender-ID).
      Leer = Hauptkalender des Kontos.
-4. Im Editor die Funktion `einrichten` auswählen und ausführen, Berechtigungen erlauben. Legt die Tabs
-   „Reservierungen“ und „Anfragen“ an und löscht künftig jede Nacht Reservierungen, die älter als 90 Tage
-   sind (Datenschutz).
+4. Im Editor die Funktion `einrichten` auswählen und ausführen, Berechtigungen erlauben. Legt alle Tabs
+   an (Reservierungen, Anfragen, Bestellungen, Einstellungen, Karte, Wochenkarte, Inhalte), füllt die Karte
+   mit den Gerichten der Website, setzt die App-PIN **2580** und löscht künftig jede Nacht Reservierungen
+   und Bestellungen, die älter als 90 Tage sind (Datenschutz).
 5. *Bereitstellen → Neue Bereitstellung → Web-App*: „Ausführen als: Ich“, „Zugriff: Jeder“. Die Adresse
    (endet auf `/exec`) in `public/assets/js/config.js` bei `endpoint` eintragen, `npm run build`,
    veröffentlichen.
 6. Testen: Reservierung auf der Seite abschicken. Zeile in der Tabelle, Termin im Kalender, zwei E-Mails.
 
-Einstellungen wie Kapazität (`kapazitaet`, Gäste gleichzeitig), Sitzdauer, Zeitraster, sofortige
-Bestätigung oder Prüfung von Hand stehen oben in `Code.gs` unter `EINSTELLUNGEN`. Zeiten und Raster
-müssen zu `reservierung` in `config.js` passen. Wer von Hand bestätigen will: `sofortBestaetigen: false`,
-dann in der Tabelle den Status auf `bestaetigt` setzen und den Gast anrufen oder anschreiben.
+Plätze, Sitzdauer, sofortige Bestätigung, Pause und geschlossene Tage stellt das Restaurant in der
+Inhaber-App ein (siehe unten). Zeitraster und buchbare Uhrzeiten stehen oben in `Code.gs` unter
+`EINSTELLUNGEN` und müssen zu `reservierung` in `config.js` passen.
 
 Nach Änderungen am Skript: *Bereitstellen → Bereitstellungen verwalten → Bearbeiten → Neue Version*,
 damit die Adresse gleich bleibt.
@@ -120,6 +127,45 @@ Netlify-Formular raus (Benachrichtigung per E-Mail unter *Forms → Notification
 `https://www.ilpomodoro-filderstrase25.de/reservierung/` eintragen. Dann führt der Knopf „Reservieren“ in Google Maps
 und in der Suche direkt zum Formular. Wer zusätzlich eine Google-Kalender-Terminbuchungsseite nutzt, kann
 deren Link in `config.js` bei `googleBookingUrl` eintragen.
+
+## Inhaber-App (für das Restaurant)
+
+Unter **`/app/`** (z. B. `https://www.ilpomodoro-filderstrase25.de/app/`) liegt die App für den Inhaber.
+Sie braucht das Apps Script von oben und läuft im Browser auf Handy, Tablet oder Computer. Auf dem Handy
+im Browser *Teilen → Zum Home-Bildschirm*, dann startet sie wie eine App. Suchmaschinen sehen sie nicht.
+
+**Anmelden:** PIN eingeben (am Anfang **2580**, bitte gleich unter *Mehr → PIN ändern* ändern). Nach
+10 falschen Versuchen ist 10 Minuten Pause. Die Anmeldung gilt, solange die App benutzt wird (6 Stunden
+ohne Benutzung, dann neu anmelden).
+
+| Bereich | Was man dort macht |
+|---|---|
+| **Heute** | Neue Bestellungen, offene Reservierungsanfragen, Gäste heute. Schalter: Online-Reservierung und Online-Bestellung an/aus. Knopf *Telefon-Reservierung*. |
+| **Bestellungen** | Neue Bestellung *Annehmen* und die Minuten wählen (der Gast bekommt sofort eine E-Mail mit der Uhrzeit) oder *Ablehnen*. Danach *In Zubereitung* → *Losgefahren* bzw. *Abholbereit* → *Erledigt*. Adresse öffnet Google Maps, Telefonnummer ruft an. |
+| **Tische** | Reservierungen pro Tag, Auslastung pro Uhrzeit, Anfragen bestätigen, *Da*, *Nicht gekommen*, *Stornieren*. *+ Reservierung* für Anrufe: Die Plätze sind auf der Website sofort vergeben. Ist es voll, fragt die App, ob trotzdem eingetragen werden soll. |
+| **Karte** | Preise direkt eintippen, Schalter = online bestellbar (z. B. aus, wenn etwas ausverkauft ist). Gericht antippen zum Bearbeiten, Ausblenden oder Löschen, Pfeile zum Sortieren, *Neues Gericht*. Reiter *Wochenkarte* für die Gerichte der Woche. *Speichern* nicht vergessen. |
+| **Mehr** | Plätze für Online-Reservierungen (mit Knöpfen *Sommer* und *Winter*), Sitzdauer, sofort bestätigen, geschlossene Tage, Lieferung (Liefergebiet, Mindestbestellwert, Liefergebühr, Vorlaufzeit), Texte der Website, Bilder austauschen, PIN. Einstellungen speichern sich sofort. |
+
+Alle 20 Sekunden schaut die App nach neuen Bestellungen und Reservierungen und klingelt (Glocke oben
+schaltet den Ton). Die App muss dafür geöffnet sein; zusätzlich kommt jede Bestellung per E-Mail.
+
+Änderungen an Karte, Texten und Bildern erscheinen nach spätestens einer Minute auf der Website, ohne
+Netlify und ohne neue Veröffentlichung. Alles liegt in der Google-Tabelle des Restaurants und kann dort
+auch direkt bearbeitet werden. Hochgeladene Bilder landen im Google Drive im Ordner „Il Pomodoro
+Website-Bilder“.
+
+**Wichtig vor dem Start der Bestellungen:** In der App unter *Karte* alle Preise eintragen. Gerichte
+ohne Preis zeigt die Website ohne Preis und sie sind nicht bestellbar. Liefergebiet (PLZ), Mindestbestellwert
+und Liefergebühr unter *Mehr* prüfen; voreingestellt sind die PLZ rund um Stuttgart-Süd, 15 € und 2,50 €.
+
+## Online-Bestellung
+
+Die Seite `/bestellen/` zeigt die Karte mit Preisen aus der App, einen Warenkorb und die Wahl zwischen
+Abholen und Liefern. Bestellbar ist nur während der Öffnungszeiten und frühestens nach der Vorlaufzeit
+(Uhrzeiten im 15-Minuten-Raster oder „so schnell wie möglich“). Das Apps Script rechnet alle Preise selbst
+aus der Karte nach, prüft Liefergebiet, Mindestbestellwert und Uhrzeit, speichert die Bestellung im Tab
+„Bestellungen“ und schickt eine E-Mail an Restaurant und Gast. Bezahlt wird bei Übergabe. Ohne Apps
+Script oder bei pausierter Bestellung zeigt die Seite die Telefonnummer.
 
 ## Google-Bewertungen und Fotos einbinden
 

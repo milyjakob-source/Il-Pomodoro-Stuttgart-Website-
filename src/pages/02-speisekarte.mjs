@@ -55,8 +55,10 @@ ${wochenkarte(ctx)}
   <div>
     <div class="menu-note reveal">
       ${icon('warning')}
-      <p>Informationen zu Allergenen und Zusatzstoffen erhalten Sie bei unserem Service. Jede Pizza gibt es auch mit glutenfreiem Boden; unsere Küche ist allerdings nicht glutenfrei. Die vollständige Karte mit Preisen bekommen Sie bei uns im Restaurant.</p>
+      <p>Informationen zu Allergenen und Zusatzstoffen erhalten Sie bei unserem Service. Jede Pizza gibt es auch mit glutenfreiem Boden; unsere Küche ist allerdings nicht glutenfrei.<span data-preisnote> Die vollständige Karte mit Preisen bekommen Sie bei uns im Restaurant.</span></p>
     </div>
+    <template data-tag-icons>${Object.keys(TAGS).map((t) => `<span class="tag" data-tag="${t}">${TAGS[t][0]}${TAGS[t][1]}</span>`).join('')}</template>
+    <div data-karte>
     ${KARTE.map(
       (k) => `<section class="menu-section" id="${k.id}" aria-labelledby="h-${k.id}">
       <h2 id="h-${k.id}">${k.titel}</h2>
@@ -74,14 +76,15 @@ ${wochenkarte(ctx)}
       </ul>
     </section>`,
     ).join('')}
+    </div>
     <div class="cta-band reveal">
       <div>
         <h2>Lust bekommen?</h2>
-        <p>Reservieren Sie Ihren Tisch online oder bestellen Sie telefonisch zum Abholen.</p>
+        <p>Reservieren Sie Ihren Tisch online oder bestellen Sie zur Abholung und Lieferung.</p>
       </div>
       <div class="cta-actions">
         <a class="btn btn-lg" href="${ctx.root}reservierung/">${icon('calendar-check')}Tisch reservieren</a>
-        <a class="btn btn-ghost btn-lg" href="tel:${SITE.telefon.replace(/\s/g, '')}" data-track="anruf">${icon('phone')}Zum Abholen bestellen</a>
+        <a class="btn btn-ghost btn-lg" href="${ctx.root}bestellen/" data-bestell-link>${icon('storefront')}Online bestellen</a>
       </div>
     </div>
   </div>

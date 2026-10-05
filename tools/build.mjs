@@ -184,7 +184,8 @@ function layout(page) {
   const depth = page.slug === '' ? 0 : page.slug.split('/').filter(Boolean).length;
   // 404 kann unter jeder Adresse ausgeliefert werden, deshalb dort absolute Pfade.
   const ctx = { root: page.absolute ? '/' : depth === 0 ? './' : '../'.repeat(depth), slug: page.slug };
-  const scripts = ['config.js', 'main.js', ...(page.scripts || [])]
+  if (page.layout === 'app') return appLayout(page, ctx);
+  const scripts = ['config.js', 'main.js', 'live.js', ...(page.scripts || [])]
     .map((s) => `<script src="${ctx.root}assets/js/${s}?v=${VERSION}" defer></script>`)
     .join('\n');
   return `${head(page, ctx)}
@@ -195,6 +196,21 @@ ${page.body(ctx)}
 </main>
 ${footer(ctx)}
 ${scripts}
+</body>
+</html>
+`;
+}
+
+// Inhaber-App: eigene Oberfläche ohne Website-Kopf und -Footer, nicht für Suchmaschinen.
+function appLayout(page, ctx) {
+  const r = ctx.root;
+  return head(page, ctx)
+    .replace(`<link rel="manifest" href="${r}site.webmanifest">`, `<link rel="manifest" href="${r}app/manifest.webmanifest">`)
+    .replace('</head>', `  <link rel="stylesheet" href="${r}assets/css/app.css?v=${VERSION}">\n</head>`) + `
+<body class="app">
+${page.body(ctx)}
+<script src="${r}assets/js/config.js?v=${VERSION}" defer></script>
+<script src="${r}assets/js/app.js?v=${VERSION}" defer></script>
 </body>
 </html>
 `;
@@ -268,6 +284,7 @@ ${sitemap
     `User-agent: *
 Allow: /
 Disallow: /404.html
+Disallow: /app/
 
 Sitemap: ${SITE.url}/sitemap.xml
 `,

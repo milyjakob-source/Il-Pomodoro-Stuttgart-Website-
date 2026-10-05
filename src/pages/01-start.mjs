@@ -40,7 +40,7 @@ export default {
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <h1>Pizza aus dem Holzofen im <em>Stuttgarter Süden</em></h1>
-      <p class="lead">Pizza, Pinsa und Pasta an der Filderstraße. Seit ${SITE.seit} mittags und abends, zu fairen Preisen.</p>
+      <p class="lead" data-text="start_text">Pizza, Pinsa und Pasta an der Filderstraße. Seit ${SITE.seit} mittags und abends, zu fairen Preisen.</p>
       <div class="hero-actions">
         <a class="btn btn-accent btn-lg" href="${ctx.root}reservierung/">${icon('calendar-check')}Tisch reservieren</a>
         <a class="btn btn-ghost btn-lg" href="${ctx.root}speisekarte/">Speisekarte${icon('arrow-right', 'icon icon-move')}</a>

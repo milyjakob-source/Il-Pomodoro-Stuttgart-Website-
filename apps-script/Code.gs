@@ -34,6 +34,16 @@ var EINSTELLUNGEN = {
     6: [['17:00', '22:00']],
   },
   geschlossen: [], // 'JJJJ-MM-TT'
+  // Öffnungszeiten für Bestellungen (Lieferung und Abholung), wie auf der Website.
+  oeffnung: {
+    0: [],
+    1: [['11:30', '14:00'], ['17:30', '22:30']],
+    2: [['11:30', '14:00'], ['17:30', '22:30']],
+    3: [['11:30', '14:00'], ['17:30', '22:30']],
+    4: [['11:30', '14:00'], ['17:30', '22:30']],
+    5: [['11:30', '14:00'], ['17:30', '23:00']],
+    6: [['17:00', '23:00']],
+  },
   loeschenNachTagen: 90,
   restaurant: {
     name: 'Il Pomodoro',
@@ -55,12 +65,15 @@ var ALPHABET = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
 function doPost(e) {
   try {
     var d = JSON.parse((e && e.postData && e.postData.contents) || '{}');
+    // Inhaber-App (PIN-Login, siehe App.gs): eigene Prüfung, kein Honeypot und keine Einwilligung nötig.
+    if (String(d.action || '').indexOf('admin') === 0) return json(admin(d));
     // Honeypot gefüllt oder in unter 3 Sekunden abgeschickt: freundlich „ok“ sagen, nichts speichern.
     if (text(d['bot-field']) || (Number(d.t0) && Date.now() - Number(d.t0) < 3000)) return json({ ok: true, status: 'angefragt' });
     if (!drosseln(d.email)) return json({ ok: false, message: 'Zu viele Anfragen in kurzer Zeit. Bitte versuchen Sie es später noch einmal.' });
     if (d.datenschutz !== 'ja') return json({ ok: false, message: 'Bitte stimmen Sie der Verarbeitung Ihrer Angaben zu.' });
     if (d.action === 'reservierung') return json(reservieren(d));
     if (d.action === 'anfrage') return json(anfrage(d));
+    if (d.action === 'bestellung') return json(bestellen(d));
     return json({ ok: false, message: 'Unbekannte Aktion.' });
   } catch (fehler) {
     console.error(fehler);
@@ -72,6 +85,7 @@ function doGet(e) {
   var p = (e && e.parameter) || {};
   try {
     if (p.action === 'belegung') return json(belegung(p.datum));
+    if (p.action === 'oeffentlich') return json(oeffentlich());
     if (p.action === 'bewertungen' || p.action === 'google') return json(bewertungen());
     if (p.action === 'storno') return stornoSeite(p.id, p.token, p.bestaetigen === '1');
     return json({ ok: true, text: 'Il-Pomodoro-Skript bereit.' });
@@ -101,13 +115,13 @@ function reservieren(d) {
   sperre.waitLock(20000);
   try {
     var belegt = belegung(r.datum).belegt[r.uhrzeit] || 0;
-    if (belegt + r.personen > E.kapazitaet) {
+    if (belegt + r.personen > kapazitaet()) {
       return { ok: false, message: 'Um ' + r.uhrzeit + ' Uhr ist online leider nichts mehr frei. Bitte wählen Sie eine andere Uhrzeit oder rufen Sie uns an.' };
     }
     r.id = neueId('R');
     r.token = neueId('T') + neueId('');
     r.eingang = new Date();
-    r.status = E.sofortBestaetigen ? 'bestaetigt' : 'angefragt';
+    r.status = einstellung('sofortBestaetigen', E.sofortBestaetigen) ? 'bestaetigt' : 'angefragt';
     r.quelle = 'Website';
     r.kalender_id = kalenderEintrag(r);
     blatt(TAB_RES, SPALTEN_RES).appendRow(SPALTEN_RES.map(function (s) {
@@ -137,7 +151,8 @@ function pruefeReservierung(r) {
   if (r.name.length < 2) return 'Bitte geben Sie Ihren Namen an.';
   if (r.telefon.replace(/[^\d]/g, '').length < 6) return 'Bitte eine erreichbare Telefonnummer angeben.';
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(r.email)) return 'Bitte eine gültige E-Mail-Adresse angeben.';
-  if (E.geschlossen.indexOf(r.datum) !== -1) return 'An diesem Tag nehmen wir online keine Reservierungen an.';
+  if (!einstellung('reservierungOnline', true)) return 'Online-Reservierungen sind gerade pausiert. Bitte rufen Sie uns an: ' + E.restaurant.telefon;
+  if (geschlosseneTage().indexOf(r.datum) !== -1) return 'An diesem Tag nehmen wir online keine Reservierungen an.';
   if (erlaubteZeiten(r.datum).indexOf(r.uhrzeit) === -1) return 'Diese Uhrzeit ist online nicht buchbar. Bitte wählen Sie eine andere.';
   return '';
 }
@@ -170,10 +185,10 @@ function belegung(datum) {
     var start = minuten(t);
     belegt[t] = zeilen.reduce(function (summe, z) {
       var s = minuten(zeitText(z.uhrzeit));
-      return s < start + E.dauerMinuten && start < s + E.dauerMinuten ? summe + Number(z.personen || 0) : summe;
+      return s < start + dauer() && start < s + dauer() ? summe + Number(z.personen || 0) : summe;
     }, 0);
   });
-  return { ok: true, kapazitaet: E.kapazitaet, belegt: belegt };
+  return { ok: true, kapazitaet: kapazitaet(), belegt: belegt, online: einstellung('reservierungOnline', true), geschlossen: geschlosseneTage().indexOf(datum) !== -1 };
 }
 
 function erlaubteZeitenOhneFrist(datum) {
@@ -378,11 +393,13 @@ function mailRestaurant(betreff, zeilen, antwortAn) {
 function einrichten() {
   blatt(TAB_RES, SPALTEN_RES);
   blatt(TAB_ANF, SPALTEN_ANF);
+  blatt(TAB_BEST, SPALTEN_BEST);
+  einrichtenApp();
   ScriptApp.getProjectTriggers().forEach(function (t) {
     if (t.getHandlerFunction() === 'aufraeumen') ScriptApp.deleteTrigger(t);
   });
   ScriptApp.newTrigger('aufraeumen').timeBased().everyDays(1).atHour(4).inTimezone(TZ).create();
-  console.log('Fertig. Tabs angelegt, Aufräumen täglich um 4 Uhr.');
+  console.log('Fertig. Tabs angelegt, Aufräumen täglich um 4 Uhr. App-PIN: ' + eigenschaft('ADMIN_PIN') + ' (in der App ändern).');
 }
 
 /** Löscht Reservierungen, deren Termin länger als loeschenNachTagen zurückliegt (Datenschutz). */
@@ -393,6 +410,13 @@ function aufraeumen() {
   var spalte = daten[0].indexOf('datum');
   for (var i = daten.length - 1; i >= 1; i--) {
     if (datumText(daten[i][spalte]) < grenze) b.deleteRow(i + 1);
+  }
+  // Bestellungen ebenso (Name, Adresse, Telefon) nach loeschenNachTagen entfernen.
+  var bb = blatt(TAB_BEST, SPALTEN_BEST);
+  var best = bb.getDataRange().getValues();
+  var ein = best[0].indexOf('eingang');
+  for (var j = best.length - 1; j >= 1; j--) {
+    if (datumText(best[j][ein]) < grenze) bb.deleteRow(j + 1);
   }
 }
 
@@ -411,10 +435,10 @@ function blatt(name, spalten) {
     b.getRange(1, 1, 1, spalten.length).setValues([spalten]).setFontWeight('bold');
     b.setFrozenRows(1);
     // Datum und Uhrzeit als Text, damit Sheets nichts umrechnet.
-    var di = spalten.indexOf('datum');
-    if (di !== -1) b.getRange(2, di + 1, b.getMaxRows() - 1, 1).setNumberFormat('@');
-    var ui = spalten.indexOf('uhrzeit');
-    if (ui !== -1) b.getRange(2, ui + 1, b.getMaxRows() - 1, 1).setNumberFormat('@');
+    ['datum', 'uhrzeit', 'wunschzeit', 'fertig_um', 'plz', 'telefon', 'wert'].forEach(function (k) {
+      var i = spalten.indexOf(k);
+      if (i !== -1) b.getRange(2, i + 1, b.getMaxRows() - 1, 1).setNumberFormat('@');
+    });
   }
   return b;
 }

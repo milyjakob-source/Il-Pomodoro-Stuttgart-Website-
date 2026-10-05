@@ -21,7 +21,7 @@ export default {
   <div class="wrap split">
     <div class="prose reveal">
       <h2>Italienisch, ehrlich, mitten im Süden</h2>
-      <p class="muted">Im Il Pomodoro gibt es Pizza aus dem Holzofen, feine Pasta sowie Fleisch- und Fischgerichte, manche davon ebenfalls aus dem Ofen. Dazu vegetarische Spezialitäten und eine Wochenkarte, die sich nach Saison und Markt richtet.</p>
+      <p class="muted" data-text="ueber_text">Im Il Pomodoro gibt es Pizza aus dem Holzofen, feine Pasta sowie Fleisch- und Fischgerichte, manche davon ebenfalls aus dem Ofen. Dazu vegetarische Spezialitäten und eine Wochenkarte, die sich nach Saison und Markt richtet.</p>
       <p class="muted">Wer an der Bar sitzt, sieht zu, wie der Teig durch die Luft fliegt, bevor er in den Ofen kommt. Mittags geht es schnell, abends darf es länger dauern, und die Preise bleiben fair.</p>
     </div>
     ${foto(ctx, 'holzofen', 'Brennendes Holz im Pizzaofen des Il Pomodoro', { ratio: 'portrait', sizes: '(min-width: 1024px) 45vw, 100vw' })}
@@ -40,7 +40,7 @@ export default {
       <div class="value">${icon('leaf')}<h3>Glutenfrei möglich</h3><p class="muted">Jede Pizza und Pinsa auch mit glutenfreiem Boden. Unsere Küche ist allerdings nicht glutenfrei.</p></div>
       <div class="value">${icon('calendar-check')}<h3>Jede Woche neu</h3><p class="muted">Wechselnde Gerichte auf der Wochenkarte, frisch nach Saison.</p></div>
       <div class="value">${icon('users-three')}<h3>Feiern und Gruppen</h3><p class="muted">Geburtstag, Team-Essen oder Familienfeier: wir planen mit Ihnen.</p></div>
-      <div class="value">${icon('storefront')}<h3>Zum Mitnehmen</h3><p class="muted">Telefonisch bestellen und im Restaurant abholen.</p></div>
+      <div class="value">${icon('storefront')}<h3>Abholen und Liefern</h3><p class="muted"><a href="${ctx.root}bestellen/">Online bestellen</a> oder anrufen, dann abholen oder liefern lassen.</p></div>
     </div>
   </div>
 </section>

@@ -1,0 +1,14 @@
+{
+  "name": "Il Pomodoro Inhaber-App",
+  "short_name": "Pomodoro App",
+  "lang": "de",
+  "start_url": "/app/",
+  "scope": "/app/",
+  "display": "standalone",
+  "background_color": "#f2f3ef",
+  "theme_color": "#a82f3e",
+  "icons": [
+    { "src": "/assets/img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/img/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

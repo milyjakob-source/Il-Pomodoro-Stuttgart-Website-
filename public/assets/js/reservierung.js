@@ -111,6 +111,13 @@
       return;
     }
     var info = belegung[iso];
+    // In der Inhaber-App pausiert oder als geschlossen eingetragen.
+    if (info && (info.online === false || info.geschlossen)) {
+      slotsBox.innerHTML =
+        '<p class="slots-empty">' + (info.geschlossen ? 'An diesem Tag nehmen wir online keine Reservierungen an.' : 'Online-Reservierungen sind gerade pausiert.') +
+        ' Rufen Sie uns gern an.</p>';
+      return;
+    }
     var p = personen();
     slotsBox.innerHTML = '';
     groups.forEach(function (g) {
@@ -144,7 +151,7 @@
       })
       .then(function (res) {
         if (res && res.ok) {
-          belegung[iso] = { kapazitaet: res.kapazitaet, belegt: res.belegt || {} };
+          belegung[iso] = { kapazitaet: res.kapazitaet, belegt: res.belegt || {}, online: res.online, geschlossen: res.geschlossen };
           if (dateInput.value === iso) renderSlots();
         }
       })

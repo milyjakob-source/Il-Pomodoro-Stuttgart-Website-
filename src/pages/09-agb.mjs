@@ -7,10 +7,10 @@ export default {
   title: 'AGB und Reservierungsbedingungen',
   description: 'Allgemeine Geschäftsbedingungen des Il Pomodoro für Reservierungen, Gruppen, Feiern und Gutscheine.',
   body: (ctx) => `
-<section class="wrap page-hero"><h1>AGB und Reservierungs&shy;bedingungen</h1><p class="lead">Kurz und fair: So handhaben wir Reservierungen, Feiern und Gutscheine.</p></section>
+<section class="wrap page-hero"><h1>AGB und Reservierungs&shy;bedingungen</h1><p class="lead">Kurz und fair: So handhaben wir Reservierungen, Bestellungen, Feiern und Gutscheine.</p></section>
 <div class="wrap legal-text">
   <h2>1. Geltungsbereich</h2>
-  <p>Diese Bedingungen gelten für Tischreservierungen, Gruppen- und Veranstaltungsbuchungen sowie Gutscheine des ${SITE.name}, ${SITE.inhaber.join(' und ')}, ${SITE.strasse}, ${SITE.plz} ${SITE.ort}. Für den Restaurantbesuch ohne Reservierung gelten die gesetzlichen Bestimmungen.</p>
+  <p>Diese Bedingungen gelten für Tischreservierungen, Online-Bestellungen zur Abholung und Lieferung, Gruppen- und Veranstaltungsbuchungen sowie Gutscheine des ${SITE.name}, ${SITE.inhaber.join(' und ')}, ${SITE.strasse}, ${SITE.plz} ${SITE.ort}. Für den Restaurantbesuch ohne Reservierung gelten die gesetzlichen Bestimmungen.</p>
 
   <h2>2. Reservierung</h2>
   <ul>
@@ -39,16 +39,25 @@ export default {
   <h2>6. Allergien und Unverträglichkeiten</h2>
   <p>Bitte teilen Sie uns Allergien und Unverträglichkeiten bei der Reservierung oder vor der Bestellung mit. Informationen zu Allergenen erhalten Sie beim Service. Spuren von Allergenen können wir in unserer Küche nicht vollständig ausschließen.</p>
 
-  <h2>7. Zahlung</h2>
+  <h2 id="bestellung">7. Online-Bestellung, Abholung und Lieferung</h2>
+  <ul>
+    <li>Mit dem Klick auf „Zahlungspflichtig bestellen“ geben Sie ein verbindliches Angebot ab. Der Vertrag kommt zustande, wenn wir die Bestellung annehmen; darüber informieren wir Sie per E-Mail mit der Uhrzeit, zu der Ihr Essen fertig ist oder geliefert wird. Können wir nicht liefern, sagen wir Ihnen ebenfalls per E-Mail Bescheid.</li>
+    <li>Alle Preise sind Endpreise einschließlich gesetzlicher Mehrwertsteuer. Bei Lieferung kommt die angezeigte Liefergebühr hinzu; es gilt der angezeigte Mindestbestellwert und das angezeigte Liefergebiet.</li>
+    <li>Bezahlt wird bei Abholung oder Übergabe, bar oder mit Karte.</li>
+    <li>Die angegebene Uhrzeit ist eine sorgfältige Schätzung; in Stoßzeiten kann es einige Minuten länger dauern.</li>
+    <li>Ein Widerrufsrecht besteht nicht, weil frisch zubereitete Speisen schnell verderben (§ 312g Abs. 2 Nr. 2 BGB). Ist etwas mit Ihrer Bestellung nicht in Ordnung, rufen Sie uns bitte gleich an: ${SITE.telefonAnzeige}.</li>
+  </ul>
+
+  <h2>8. Zahlung</h2>
   <p>Die Rechnung ist am Ende des Besuchs fällig. Welche Zahlungsarten wir annehmen, sagt Ihnen gern unser Service.</p>
 
-  <h2>8. Haftung</h2>
+  <h2>9. Haftung</h2>
   <p>Wir haften unbeschränkt für Vorsatz und grobe Fahrlässigkeit sowie für Schäden an Leben, Körper und Gesundheit. Für leichte Fahrlässigkeit haften wir nur bei Verletzung wesentlicher Vertragspflichten, begrenzt auf den vorhersehbaren Schaden. Für mitgebrachte Garderobe und Wertgegenstände haften wir nur nach den gesetzlichen Vorschriften (§§ 701 ff. BGB).</p>
 
-  <h2>9. Datenschutz</h2>
-  <p>Wie wir Ihre Daten bei Reservierung und Anfrage verarbeiten, steht in der <a href="${ctx.root}datenschutz/">Datenschutzerklärung</a>.</p>
+  <h2>10. Datenschutz</h2>
+  <p>Wie wir Ihre Daten bei Reservierung, Bestellung und Anfrage verarbeiten, steht in der <a href="${ctx.root}datenschutz/">Datenschutzerklärung</a>.</p>
 
-  <h2>10. Schlussbestimmungen</h2>
+  <h2>11. Schlussbestimmungen</h2>
   <p>Es gilt deutsches Recht. Sollte eine Bestimmung unwirksam sein, bleibt der Rest wirksam.</p>
   
 </div>

@@ -1,4 +1,4 @@
-// Wochenkarte aus einem Google Sheet: Das Restaurant trägt die Gerichte in eine Tabelle ein,
+// Wochenkarte: zuerst aus der Inhaber-App (live.js), sonst aus einem Google Sheet: Das Restaurant trägt die Gerichte in eine Tabelle ein,
 // die Seite liest sie beim Aufruf als CSV. Keine Neuveröffentlichung der Website nötig.
 //
 // Spalten (erste Zeile = Überschriften): Kategorie | Gericht | Beschreibung | Preis
@@ -7,7 +7,7 @@
   'use strict';
   var CFG = window.SITE_CONFIG || {};
   var boxes = document.querySelectorAll('[data-wochenkarte]');
-  if (!boxes.length || !CFG.wochenkarteCsv) return;
+  if (!boxes.length) return;
 
   // CSV mit Anführungszeichen, Kommas und Zeilenumbrüchen in Feldern.
   function parseCsv(text) {
@@ -115,18 +115,30 @@
     if (data.hinweis) box.querySelector('[data-wk-hinweis]').textContent = data.hinweis;
   }
 
-  fetch(CFG.wochenkarteCsv, { cache: 'no-store' })
-    .then(function (r) {
-      if (!r.ok) throw new Error(r.status);
-      return r.text();
-    })
-    .then(function (text) {
-      var data = toData(parseCsv(text));
-      if (data) boxes.forEach(function (b) {
-        render(b, data);
+  function ausCsv() {
+    if (!CFG.wochenkarteCsv) return;
+    fetch(CFG.wochenkarteCsv, { cache: 'no-store' })
+      .then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        return r.text();
+      })
+      .then(function (text) {
+        var data = toData(parseCsv(text));
+        if (data) boxes.forEach(function (b) {
+          render(b, data);
+        });
+      })
+      .catch(function () {
+        /* Sheet nicht erreichbar: die beim Bauen eingesetzte Karte bleibt stehen. */
       });
-    })
-    .catch(function () {
-      /* Sheet nicht erreichbar: die beim Bauen eingesetzte Karte bleibt stehen. */
-    });
+  }
+
+  (window.siteLive ? window.siteLive() : Promise.resolve(null)).then(function (d) {
+    var wk = d && d.wochenkarte;
+    if (wk && wk.gerichte && wk.gerichte.length) {
+      boxes.forEach(function (b) {
+        render(b, wk);
+      });
+    } else ausCsv();
+  });
 })();
