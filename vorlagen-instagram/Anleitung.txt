@@ -1,0 +1,29 @@
+INSTAGRAM-VORLAGEN IL POMODORO – SO GEHT'S
+
+Einmalig vorbereiten (auf dem Mac)
+1. Ordner "Schriften" öffnen und jede .ttf-Datei doppelt anklicken -> "Installieren".
+   (Das sind die Schriften der Website. Ohne sie zeigt Pages eine Ersatzschrift.)
+2. Die Vorlage in Pages öffnen: Datei rechts anklicken -> "Öffnen mit" -> Pages.
+3. Tipp: In Pages "Ablage -> Als Vorlage sichern …" wählen. Dann liegt die Vorlage
+   künftig direkt in der Vorlagenauswahl von Pages.
+
+Wochenkarte (Il-Pomodoro-Wochenkarte-Instagram)
+- Datum oben anklicken und überschreiben, z. B. "13. bis 17. Oktober 2026".
+- In der Tabelle Gericht, Beschreibung und Preis überschreiben.
+- Höchstens 6 Gerichte, damit alles auf das Bild passt. Weniger Gerichte:
+  Zeile auswählen -> rechts klicken -> "Zeile löschen".
+- Hintergrund, Logo, Überschrift und Fußzeile sind fest und lassen sich nicht verschieben.
+
+Neuigkeiten (Il-Pomodoro-Neuigkeiten-Instagram)
+- Zwei Seiten: Seite 1 in Rot (z. B. Urlaub, geschlossen), Seite 2 hell (z. B. Feier, Aktion).
+  Die nicht gebrauchte Seite einfach ignorieren (beim Export nur eine Seite wählen).
+- Überschrift, Text und die Zeile mit dem Strich davor überschreiben.
+- Überschrift kurz halten: 2 bis 3 Zeilen sehen am besten aus.
+
+Als Bild für Instagram speichern
+- "Ablage -> Exportieren -> Bilder …", Format PNG, beste Qualität,
+  bei Neuigkeiten nur die gewünschte Seite wählen.
+- Das Bild hat genau das Instagram-Format 4:5 (1080 × 1350). Auf das Handy schicken (AirDrop)
+  und posten.
+
+Die Bilder "Vorschau-…png" zeigen, wie die Vorlagen aussehen sollen.
