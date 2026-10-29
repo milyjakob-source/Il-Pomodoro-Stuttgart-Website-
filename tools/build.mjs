@@ -95,7 +95,7 @@ function header(page, ctx) {
     </a>
     <nav class="nav" aria-label="Hauptnavigation" id="hauptnavigation" data-nav>
       <ul>${links}</ul>
-      <a class="btn btn-accent nav-cta" href="${r}reservierung/">${icon('calendar-check')}Tisch reservieren</a>
+      <a class="btn btn-accent nav-cta" href="${r}bestellen/"${page.slug === 'bestellen/' ? ' aria-current="page"' : ''}>${icon('shopping-bag')}Online bestellen</a>
     </nav>
     <div class="header-tools">
       <button class="icon-btn" type="button" data-theme-toggle aria-label="Farbmodus wechseln">
@@ -155,7 +155,7 @@ function footer(ctx) {
 </footer>
 <div class="mobile-bar" data-mobile-bar>
   <a class="btn btn-ghost" href="tel:${SITE.telefon.replace(/\s/g, '')}" data-track="anruf">${icon('phone')}Anrufen</a>
-  <a class="btn btn-accent" href="${r}reservierung/">${icon('calendar-check')}Tisch reservieren</a>
+  <a class="btn btn-accent" href="${r}bestellen/">${icon('shopping-bag')}Online bestellen</a>
 </div>
 ${consentBanner(ctx)}`;
 }
@@ -239,7 +239,7 @@ export function restaurantJsonLd() {
     logo: SITE.url + '/assets/img/logo.svg',
     servesCuisine: ['Italienisch', 'Pasta', 'Pizza', 'Fisch'],
     priceRange: '€€',
-    acceptsReservations: SITE.url + '/reservierung/',
+    acceptsReservations: true, // telefonisch
     hasMenu: SITE.url + '/speisekarte/',
     address: {
       '@type': 'PostalAddress',

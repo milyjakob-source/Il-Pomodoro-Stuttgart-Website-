@@ -14,14 +14,14 @@ export default {
 
   <h2>2. Reservierung</h2>
   <ul>
-    <li>Eine Online-Reservierung ist verbindlich, sobald Sie unsere Bestätigung per E-Mail erhalten. Bei Reservierungen, die wir erst prüfen müssen, melden wir uns per E-Mail oder Telefon.</li>
+    <li>Tische reservieren Sie telefonisch unter ${SITE.telefonAnzeige}. Die Reservierung ist verbindlich, sobald wir sie am Telefon zusagen; nennen Sie uns Ihre E-Mail-Adresse, bekommen Sie zusätzlich eine Bestätigung.</li>
     <li>Reservierte Tische halten wir 15 Minuten nach der vereinbarten Uhrzeit frei. Danach können wir den Tisch anderweitig vergeben, wenn Sie sich nicht gemeldet haben.</li>
     <li>Ein Anspruch auf einen bestimmten Tisch oder Platz besteht nicht; Wünsche berücksichtigen wir gern.</li>
   </ul>
 
   <h2>3. Änderung und Stornierung</h2>
   <ul>
-    <li>Bitte ändern oder stornieren Sie spätestens 24 Stunden vor dem Termin, über den Link in der Bestätigung oder telefonisch unter ${SITE.telefonAnzeige}.</li>
+    <li>Bitte ändern oder stornieren Sie spätestens 24 Stunden vor dem Termin, telefonisch unter ${SITE.telefonAnzeige} oder über den Link in Ihrer Bestätigung.</li>
     <li>Für Reservierungen bis 8 Personen berechnen wir keine Stornogebühr.</li>
     <li>Für Gruppen ab 9 Personen und Veranstaltungen gelten die mit Ihnen vereinbarten Bedingungen; bitte sagen Sie solche Reservierungen spätestens 48 Stunden vorher ab.</li>
   </ul>
@@ -37,7 +37,7 @@ export default {
   </ul>
 
   <h2>6. Allergien und Unverträglichkeiten</h2>
-  <p>Bitte teilen Sie uns Allergien und Unverträglichkeiten bei der Reservierung oder vor der Bestellung mit. Informationen zu Allergenen erhalten Sie beim Service. Spuren von Allergenen können wir in unserer Küche nicht vollständig ausschließen.</p>
+  <p>Bitte teilen Sie uns Allergien und Unverträglichkeiten bei der Reservierung oder in der Bestellung mit. Informationen zu Allergenen erhalten Sie beim Service. Spuren von Allergenen können wir in unserer Küche nicht vollständig ausschließen.</p>
 
   <h2 id="bestellung">7. Online-Bestellung, Abholung und Lieferung</h2>
   <ul>

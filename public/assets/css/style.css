@@ -1256,7 +1256,7 @@ p {
 
 /* Galerie: Mauerwerk mit Spalten. */
 .gallery {
-  columns: 2 300px;
+  columns: 3 280px;
   column-gap: 16px;
 }
 .gallery .media {
@@ -2404,4 +2404,52 @@ textarea.input {
   .nav-cta {
     padding: 0 16px;
   }
+}
+
+/* Fotos aus Küche und Gastraum ------------------------------------------- */
+.teller {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.duo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.teller figcaption {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.teller .media {
+  position: relative;
+}
+@media (max-width: 1023px) {
+  .teller {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 639px) {
+  .duo {
+    grid-template-columns: 1fr;
+  }
+  .teller {
+    gap: 10px;
+  }
+}
+/* Köpfe im Team-Foto nicht abschneiden */
+.duo .media img {
+  object-position: 50% 20%;
+}
+.duo [data-foto='holzofen-feuer'] img {
+  object-position: 50% 70%;
 }

@@ -81,11 +81,10 @@ ${sprite()}
       <div class="kpis">
         <button type="button" class="kpi" data-goto="bestellungen"><strong data-kpi="bestellungen">0</strong><span>neue Bestellungen</span></button>
         <button type="button" class="kpi" data-goto="reservierungen"><strong data-kpi="gaeste">0</strong><span>Gäste heute</span></button>
-        <button type="button" class="kpi" data-goto="reservierungen"><strong data-kpi="anfragen">0</strong><span>Anfragen offen</span></button>
-        <button type="button" class="kpi" data-goto="einstellungen"><strong data-kpi="plaetze">0</strong><span>Plätze online</span></button>
+        <button type="button" class="kpi" data-goto="reservierungen"><strong data-kpi="anfragen">0</strong><span>Tische heute</span></button>
+        <button type="button" class="kpi" data-goto="einstellungen"><strong data-kpi="plaetze">0</strong><span>Plätze</span></button>
       </div>
       <div class="card quick">
-        ${toggle('reservierungOnline', 'Online-Reservierung', 'Aus: Gäste sehen „bitte anrufen“')}
         ${toggle('bestellungAktiv', 'Online-Bestellung', 'Aus: Bestellseite ist pausiert')}
       </div>
       <h3 class="list-title" data-titel-neu hidden>Neue Bestellungen</h3>
@@ -164,8 +163,8 @@ ${sprite()}
       <div class="view-head"><h2>Einstellungen</h2><span class="fine" data-gespeichert></span></div>
       <form class="settings" data-settings novalidate>
         <div class="card">
-          <div class="card-head"><h3>${icon('users-three')}Plätze für Online-Reservierungen</h3></div>
-          <p class="fine">So viele Gäste dürfen gleichzeitig online reserviert sein. Telefonische Reservierungen zählen mit.</p>
+          <div class="card-head"><h3>${icon('users-three')}Plätze im Restaurant</h3></div>
+          <p class="fine">So viele Gäste passen gleichzeitig rein. Beim Eintragen einer Reservierung warnt die App, wenn es voll wird.</p>
           <div class="big-stepper">
             <button class="icon-btn" type="button" data-schritt="-2" aria-label="Weniger Plätze">${icon('minus')}</button>
             <label class="sr-only" for="s-kapazitaet">Plätze</label>
@@ -189,13 +188,11 @@ ${sprite()}
               </select>
             </div>
           </details>
-          ${toggle('sofortBestaetigen', 'Online-Reservierungen sofort bestätigen', 'Aus: Sie bestätigen jede Anfrage in der App')}
-          ${toggle('reservierungOnline', 'Online-Reservierung aktiv', '')}
         </div>
 
         <div class="card">
           <div class="card-head"><h3>${icon('calendar-plus')}Geschlossene Tage</h3></div>
-          <p class="fine">Betriebsferien oder Feiertage: An diesen Tagen gibt es keine Online-Reservierung und keine Bestellung.</p>
+          <p class="fine">Betriebsferien oder Feiertage: An diesen Tagen nimmt die Website keine Bestellungen an.</p>
           <div class="row-gap">
             <label class="sr-only" for="s-zu">Tag</label>
             <input class="input input-auto" type="date" id="s-zu" data-zu-datum>

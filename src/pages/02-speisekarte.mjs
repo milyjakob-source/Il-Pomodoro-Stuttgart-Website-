@@ -80,11 +80,11 @@ ${wochenkarte(ctx)}
     <div class="cta-band reveal">
       <div>
         <h2>Lust bekommen?</h2>
-        <p>Reservieren Sie Ihren Tisch online oder bestellen Sie zur Abholung und Lieferung.</p>
+        <p>Bestellen Sie online zum Abholen und Liefern oder reservieren Sie telefonisch einen Tisch.</p>
       </div>
       <div class="cta-actions">
-        <a class="btn btn-lg" href="${ctx.root}reservierung/">${icon('calendar-check')}Tisch reservieren</a>
-        <a class="btn btn-ghost btn-lg" href="${ctx.root}bestellen/" data-bestell-link>${icon('storefront')}Online bestellen</a>
+        <a class="btn btn-lg" href="${ctx.root}bestellen/" data-bestell-link>${icon('shopping-bag')}Online bestellen</a>
+        <a class="btn btn-ghost btn-lg" href="tel:${SITE.telefon.replace(/\s/g, '')}" data-track="anruf">${icon('phone')}Tisch reservieren</a>
       </div>
     </div>
   </div>

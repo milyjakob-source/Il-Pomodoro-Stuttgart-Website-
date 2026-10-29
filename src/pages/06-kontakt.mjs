@@ -25,7 +25,7 @@ ${besuch(ctx, { titel: 'Anfahrt und Öffnungszeiten' })}
   <div class="wrap form-layout">
     <div class="form-card">
       <h2 class="mt-12">Anfrage schicken</h2>
-      <p class="muted mt-12">Wir antworten in der Regel innerhalb von ein bis zwei Tagen. Für Tischreservierungen nutzen Sie bitte die <a href="${ctx.root}reservierung/">Online-Reservierung</a>.</p>
+      <p class="muted mt-12">Wir antworten in der Regel innerhalb von ein bis zwei Tagen. Tische reservieren Sie am einfachsten telefonisch unter <a href="tel:${SITE.telefon.replace(/\s/g, '')}">${SITE.telefonAnzeige}</a>.</p>
       <form class="form mt-28" name="anfrage" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-guard data-inquiry novalidate>
         <input type="hidden" name="form-name" value="anfrage">
         <input type="hidden" name="t0" value="">
@@ -36,7 +36,6 @@ ${besuch(ctx, { titel: 'Anfahrt und Öffnungszeiten' })}
           <select class="input" id="a-thema" name="thema" required data-msg-required="Bitte ein Thema wählen.">
             <option value="Feier oder Gruppe">Feier oder Gruppe (ab 9 Personen)</option>
             <option value="Gutschein">Gutschein</option>
-            <option value="Abholung">Bestellung zum Abholen</option>
             <option value="Sonstiges">Sonstiges</option>
           </select>
           <p class="field-error" role="alert"></p>

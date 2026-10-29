@@ -248,7 +248,7 @@
         $('[data-kpi="gaeste"]').textContent = aktiveRes.reduce(function (s, r) {
           return s + r.personen;
         }, 0);
-        $('[data-kpi="anfragen"]').textContent = res.angefragt.length;
+        $('[data-kpi="anfragen"]').textContent = aktiveRes.length;
         $('[data-kpi="plaetze"]').textContent = res.einstellungen.kapazitaet;
         $('[data-titel-neu]').hidden = !neu.length;
         $('[data-heute-bestellungen]').innerHTML = neu.map(bestellKarte).join('');
@@ -428,7 +428,7 @@
     var gaeste = aktiv.reduce(function (s, r) {
       return s + r.personen;
     }, 0);
-    $('[data-auslastung-info]').textContent = gaeste + ' Gäste · ' + (b.kapazitaet || 0) + ' Plätze online';
+    $('[data-auslastung-info]').textContent = gaeste + ' Gäste · ' + (b.kapazitaet || 0) + ' Plätze';
     if (!zeiten.length) {
       box.innerHTML = '<p class="leer">Ruhetag.</p>';
       return;
@@ -934,10 +934,19 @@
 
   // Bilder
   var BILDER = [
-    ['holzofen', 'Holzofen', 'Startseite oben, Über uns'],
-    ['pizza-burrata', 'Pizza', 'Startseite'],
-    ['gastraum', 'Gastraum', 'Startseite'],
+    ['holzofen', 'Holzofen', 'Startseite oben'],
+    ['pizza-burrata', 'Pizza mit Burrata', 'Startseite oben'],
+    ['pizza-herz', 'Pizza in Herzform', 'Startseite, Kachel Pizza'],
+    ['team-pasta', 'Team mit Pasta', 'Startseite'],
+    ['pizzaiolo', 'Pizzaiolo am Ofen', 'Startseite, Über uns'],
+    ['calamari', 'Calamari', 'Startseite'],
+    ['tiramisu', 'Tiramisù', 'Startseite'],
+    ['dessert-pistazie', 'Dessert', 'Startseite'],
     ['laterne', 'Laterne', 'Über uns oben'],
+    ['team-fisch', 'Team mit Fisch', 'Über uns'],
+    ['holzofen-feuer', 'Feuer im Ofen', 'Über uns'],
+    ['gastraum-eckbank', 'Gastraum', 'Über uns'],
+    ['tafel-antipasti', 'Tafel mit Antipasti', 'Über uns'],
     ['eingang', 'Eingang', 'Galerie'],
     ['terrasse', 'Terrasse', 'Galerie'],
   ];

@@ -20,7 +20,7 @@ var STANDARD = {
   kapazitaet: 40, // Gäste gleichzeitig, die online reserviert sein dürfen
   dauerMinuten: 120, // so lange rechnen wir mit einem Tisch
   sofortBestaetigen: true,
-  reservierungOnline: true, // false = Online-Reservierung pausiert
+  reservierungOnline: false, // Online-Reservierung gibt es auf der Website nicht mehr
   geschlossen: '', // Tage ohne Online-Reservierung und Bestellung, JJJJ-MM-TT, durch Komma getrennt
   presetSommer: 60,
   presetWinter: 40,

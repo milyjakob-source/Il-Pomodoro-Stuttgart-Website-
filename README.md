@@ -9,8 +9,7 @@ ilpomodoro-filderstrase25.de. Statische Seiten ohne Framework: schnell, gut für
 | Speisekarte | `/speisekarte/` | Wochenkarte (aus Google Sheets) und feste Karte nach Kategorien |
 | Über uns | `/ueber-uns/` | Haus, Holzofen, Werte, Feiern |
 | Galerie | `/galerie/` | Fotos im Mauerwerk-Raster |
-| Kontakt | `/kontakt/` | Telefon, E-Mail, Zeiten, Karte, Anfrageformular (Feiern, Gutscheine, Abholung) |
-| Reservieren | `/reservierung/` | Online-Reservierung über Google |
+| Kontakt | `/kontakt/` | Telefon (auch für Tischreservierungen), E-Mail, Zeiten, Karte, Anfrageformular (Feiern, Gutscheine) |
 | Bestellen | `/bestellen/` | Bestellung zur Abholung oder Lieferung mit Warenkorb, Preise live aus der Inhaber-App |
 | Inhaber-App | `/app/` | Nur für das Restaurant (PIN): Bestellungen, Reservierungen, Plätze, Karte, Texte, Bilder |
 | Rechtliches | `/impressum/`, `/datenschutz/`, `/agb/`, `404.html` | |
@@ -84,7 +83,10 @@ wenigen Minuten (Google aktualisiert veröffentlichte Tabellen mit kurzer Verzö
 Weitere Personen (z. B. Küche oder Service) bekommen über *Freigeben* in der Google-Tabelle Bearbeitungsrechte.
 Ist die Tabelle einmal nicht erreichbar, zeigt die Seite die Karte aus `src/wochenkarte.mjs`.
 
-## Reservierung über Google einrichten
+## Google Apps Script einrichten (Bestellungen, App, Telefon-Reservierungen)
+
+**Online-Reservierung gibt es nicht mehr** (Wunsch des Restaurants, Oktober 2026): Gäste reservieren telefonisch, das Restaurant trägt die Reservierung in der Inhaber-App unter *Tische* ein. Alte Links auf `/reservierung/` leiten auf `/kontakt/` weiter.
+
 
 Die Reservierung läuft über ein Google Apps Script im Google-Konto des Restaurants. Jede Reservierung
 landet als Zeile in einer Google-Tabelle, als Termin im Google Kalender, der Gast bekommt eine
@@ -123,8 +125,7 @@ damit die Adresse gleich bleibt.
 Netlify-Formular raus (Benachrichtigung per E-Mail unter *Forms → Notifications*), der Knopf heißt dann
 „Reservierung anfragen“ und das Restaurant bestätigt selbst.
 
-**Google-Unternehmensprofil:** Unter *Profil bearbeiten → Buchungen / Reservierungen* als Link
-`https://www.ilpomodoro-filderstrase25.de/reservierung/` eintragen. Dann führt der Knopf „Reservieren“ in Google Maps
+**Google-Unternehmensprofil:** Einen alten Reservierungs-Link (`/reservierung/`) unter *Profil bearbeiten → Buchungen* entfernen oder durch `https://www.ilpomodoro-filderstrase25.de/bestellen/` ersetzen. Dann führt der Knopf „Reservieren“ in Google Maps
 und in der Suche direkt zum Formular. Wer zusätzlich eine Google-Kalender-Terminbuchungsseite nutzt, kann
 deren Link in `config.js` bei `googleBookingUrl` eintragen.
 

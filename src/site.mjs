@@ -47,9 +47,8 @@ export const NAV = [
   { slug: 'speisekarte/', label: 'Speisekarte' },
   { slug: 'ueber-uns/', label: 'Über uns' },
   { slug: 'galerie/', label: 'Galerie' },
-  { slug: 'bestellen/', label: 'Bestellen' },
   { slug: 'kontakt/', label: 'Kontakt' },
-  { slug: 'reservierung/', label: 'Reservieren', cta: true },
+  { slug: 'bestellen/', label: 'Bestellen', cta: true },
 ];
 
 export const LEGAL = [

@@ -24,7 +24,19 @@ export default {
       <p class="muted" data-text="ueber_text">Im Il Pomodoro gibt es Pizza aus dem Holzofen, feine Pasta sowie Fleisch- und Fischgerichte, manche davon ebenfalls aus dem Ofen. Dazu vegetarische Spezialitäten und eine Wochenkarte, die sich nach Saison und Markt richtet.</p>
       <p class="muted">Wer an der Bar sitzt, sieht zu, wie der Teig durch die Luft fliegt, bevor er in den Ofen kommt. Mittags geht es schnell, abends darf es länger dauern, und die Preise bleiben fair.</p>
     </div>
-    ${foto(ctx, 'holzofen', 'Brennendes Holz im Pizzaofen des Il Pomodoro', { ratio: 'portrait', sizes: '(min-width: 1024px) 45vw, 100vw' })}
+    ${foto(ctx, 'pizzaiolo', 'Pizzaiolo am Holzofen mit der Pizzaschaufel', { ratio: 'portrait', sizes: '(min-width: 1024px) 45vw, 100vw' })}
+  </div>
+</section>
+
+<section class="section-tight" aria-labelledby="team-title">
+  <div class="wrap">
+    <div class="section-head reveal"><span class="eyebrow">La squadra</span><h2 id="team-title">Unser Team und unser Gastraum</h2></div>
+    <div class="duo reveal-stagger">
+      ${foto(ctx, 'team-fisch', 'Drei Köche des Il Pomodoro in der Küche, einer hält einen großen frischen Fisch', { ratio: 'wide', sizes: '(min-width: 768px) 50vw, 100vw' })}
+      ${foto(ctx, 'holzofen-feuer', 'Holzscheite brennen im Pizzaofen', { ratio: 'wide', sizes: '(min-width: 768px) 50vw, 100vw' })}
+      ${foto(ctx, 'gastraum-eckbank', 'Gedeckte Tische an der hölzernen Eckbank im Gastraum', { ratio: 'wide', sizes: '(min-width: 768px) 50vw, 100vw' })}
+      ${foto(ctx, 'tafel-antipasti', 'Festlich gedeckte Tafel mit Antipasti, Wurst- und Käseplatten für eine Feier', { ratio: 'wide', sizes: '(min-width: 768px) 50vw, 100vw' })}
+    </div>
   </div>
 </section>
 
@@ -53,7 +65,7 @@ export default {
         <p>Am besten bei einer Pizza direkt aus dem Ofen. Wir freuen uns auf Ihren Besuch.</p>
       </div>
       <div class="cta-actions">
-        <a class="btn btn-lg" href="${ctx.root}reservierung/">${icon('calendar-check')}Tisch reservieren</a>
+        <a class="btn btn-lg" href="tel:${SITE.telefon.replace(/\s/g, '')}" data-track="anruf">${icon('phone')}Tisch reservieren</a>
         <a class="btn btn-ghost btn-lg" href="${ctx.root}kontakt/#anfrage">Feier anfragen</a>
       </div>
     </div>

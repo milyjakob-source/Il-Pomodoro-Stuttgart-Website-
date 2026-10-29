@@ -33,7 +33,7 @@ export default {
   priority: 1,
   title: 'Start',
   description:
-    'Il Pomodoro in Stuttgart-Süd: Pizza aus dem Holzofen, Pinsa, Pasta, Fisch und Fleisch zu fairen Preisen. Wochenkarte, Mittagstisch, Tisch online reservieren.',
+    'Il Pomodoro in Stuttgart-Süd: Pizza aus dem Holzofen, Pinsa, Pasta, Fisch und Fleisch zu fairen Preisen. Wochenkarte, Mittagstisch, online bestellen.',
   jsonld: restaurantJsonLd(),
   body: (ctx) => `
 <section class="hero">
@@ -42,7 +42,7 @@ export default {
       <h1>Pizza aus dem Holzofen im <em>Stuttgarter Süden</em></h1>
       <p class="lead" data-text="start_text">Pizza, Pinsa und Pasta an der Filderstraße. Seit ${SITE.seit} mittags und abends, zu fairen Preisen.</p>
       <div class="hero-actions">
-        <a class="btn btn-accent btn-lg" href="${ctx.root}reservierung/">${icon('calendar-check')}Tisch reservieren</a>
+        <a class="btn btn-accent btn-lg" href="${ctx.root}bestellen/">${icon('shopping-bag')}Online bestellen</a>
         <a class="btn btn-ghost btn-lg" href="${ctx.root}speisekarte/">Speisekarte${icon('arrow-right', 'icon icon-move')}</a>
       </div>
     </div>
@@ -57,7 +57,7 @@ export default {
   <div class="facts reveal-stagger">
     <div class="fact">${icon('clock')}<div><strong class="status" data-open-status>Mo-Fr mittags und abends</strong><span class="muted">Sonntag Ruhetag</span></div></div>
     <div class="fact">${icon('map-pin')}<div><strong><a href="${SITE.mapsLink}" rel="noopener" target="_blank">${SITE.strasse}</a></strong><span class="muted">${SITE.plz} ${SITE.ort}-Süd</span></div></div>
-    <div class="fact">${icon('phone')}<div><strong><a href="tel:${SITE.telefon.replace(/\s/g, '')}" data-track="anruf">${SITE.telefonAnzeige}</a></strong><span class="muted">Reservierung und Abholung</span></div></div>
+    <div class="fact">${icon('phone')}<div><strong><a href="tel:${SITE.telefon.replace(/\s/g, '')}" data-track="anruf">${SITE.telefonAnzeige}</a></strong><span class="muted">Tisch reservieren und bestellen</span></div></div>
   </div>
 </section>
 
@@ -69,7 +69,7 @@ export default {
     </div>
     <div class="bento reveal-stagger">
       <a class="tile tile-a" href="${ctx.root}speisekarte/#pizza">
-        ${foto(ctx, 'pizza-burrata', 'Pizza aus dem Holzofen mit Burrata und Basilikum', { sizes: '(min-width: 768px) 58vw, 100vw' })}
+        ${foto(ctx, 'pizza-herz', 'Pizza in Herzform mit Kirschtomaten, Rucola und Mozzarella', { sizes: '(min-width: 768px) 58vw, 100vw' })}
         <div class="tile-body"><h3>Pizza aus dem Holzofen</h3><p>Von der Margherita bis zur Pizza Gialla mit gelben Tomaten und scharfer Spianata. Jede Pizza gibt es auch glutenfrei.</p></div>
       </a>
       <a class="tile tile-b tile-plain tile-accent" href="${ctx.root}speisekarte/#pinsa">
@@ -100,12 +100,32 @@ export default {
 
 <section class="section">
   <div class="wrap story">
-    ${foto(ctx, 'gastraum', 'Voller Gastraum im Il Pomodoro mit Bar und Pizzaofen im Hintergrund', { cls: 'reveal-clip', sizes: '(min-width: 1024px) 66vw, 100vw' })}
+    ${foto(ctx, 'team-pasta', 'Das Küchenteam des Il Pomodoro mit einem Sieb frisch gekochter Pasta', { cls: 'reveal-clip', sizes: '(min-width: 1024px) 66vw, 100vw' })}
     <div class="story-card reveal">
       <h2>Eine Pizzeria, wie sie sein soll</h2>
-      <p class="muted">Lange Bar, Holzstühle, der Ofen mitten im Raum. Seit ${SITE.seit} kommen Nachbarn, Kolleginnen und Familien ins Il Pomodoro, mittags für einen schnellen Teller Pasta, abends für Pizza und ein Glas Wein.</p>
+      <p class="muted">In der Küche steht ein eingespieltes Team, das jeden Teller frisch zubereitet. Seit ${SITE.seit} kommen Nachbarn, Kolleginnen und Familien ins Il Pomodoro, mittags für einen schnellen Teller Pasta, abends für Pizza und ein Glas Wein.</p>
       <a class="text-link" href="${ctx.root}ueber-uns/">Mehr über uns${icon('arrow-right')}</a>
     </div>
+  </div>
+</section>
+
+<section class="section-tight" aria-labelledby="teller-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Dalla cucina</span>
+      <h2 id="teller-title">Frisch aus Ofen und Küche</h2>
+    </div>
+    <div class="teller reveal-stagger">
+      ${[
+        ['pizzaiolo', 'Pizzaiolo schiebt eine Pizza mit der Schaufel in den Holzofen', 'Am Ofen'],
+        ['calamari', 'Frittierte Calamari mit Zitrone und gemischtem Salat', 'Calamari fritti'],
+        ['tiramisu', 'Tiramisù mit Kakao und Physalis vor der Dessertkarte', 'Tiramisù'],
+        ['dessert-pistazie', 'Dessert mit gehackten Pistazien, Sahne und Physalis', 'Dolci'],
+      ]
+        .map(([name, alt, titel]) => foto(ctx, name, alt, { ratio: 'portrait', sizes: '(min-width: 1024px) 25vw, 50vw' }).replace('</picture>', `</picture><figcaption>${titel}</figcaption>`))
+        .join('')}
+    </div>
+    <a class="text-link mt-28" href="${ctx.root}galerie/">Alle Bilder ansehen${icon('arrow-right')}</a>
   </div>
 </section>
 
@@ -143,11 +163,11 @@ export default {
   <div class="cta-band reveal">
     <div>
       <h2>Heute Abend schon was vor?</h2>
-      <p>Tisch in einer Minute online reservieren. Für Gruppen ab 9 Personen und Feiern melden Sie sich gern direkt bei uns.</p>
+      <p>Rufen Sie uns an, wir halten Ihnen gern einen Tisch frei. Oder bestellen Sie online zum Abholen und Liefern.</p>
     </div>
     <div class="cta-actions">
-      <a class="btn btn-lg" href="${ctx.root}reservierung/">${icon('calendar-check')}Tisch reservieren</a>
-      <a class="btn btn-ghost btn-lg" href="tel:${SITE.telefon.replace(/\s/g, '')}" data-track="anruf">${icon('phone')}Anrufen</a>
+      <a class="btn btn-lg" href="tel:${SITE.telefon.replace(/\s/g, '')}" data-track="anruf">${icon('phone')}Tisch telefonisch reservieren</a>
+      <a class="btn btn-ghost btn-lg" href="${ctx.root}bestellen/">${icon('shopping-bag')}Online bestellen</a>
     </div>
   </div>
 </section>

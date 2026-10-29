@@ -71,7 +71,8 @@ function doPost(e) {
     if (text(d['bot-field']) || (Number(d.t0) && Date.now() - Number(d.t0) < 3000)) return json({ ok: true, status: 'angefragt' });
     if (!drosseln(d.email)) return json({ ok: false, message: 'Zu viele Anfragen in kurzer Zeit. Bitte versuchen Sie es später noch einmal.' });
     if (d.datenschutz !== 'ja') return json({ ok: false, message: 'Bitte stimmen Sie der Verarbeitung Ihrer Angaben zu.' });
-    if (d.action === 'reservierung') return json(reservieren(d));
+    // Online-Reservierung ist abgeschaltet; Reservierungen trägt das Restaurant telefonisch in der App ein.
+    if (d.action === 'reservierung') return json({ ok: false, message: 'Bitte reservieren Sie telefonisch: ' + EINSTELLUNGEN.restaurant.telefon });
     if (d.action === 'anfrage') return json(anfrage(d));
     if (d.action === 'bestellung') return json(bestellen(d));
     return json({ ok: false, message: 'Unbekannte Aktion.' });

@@ -26,6 +26,15 @@
   from = "/wochen-und-speisekarte/*"
   to = "/speisekarte/"
   status = 301
+# Online-Reservierung gibt es nicht mehr: alte Links führen zu Kontakt (Telefon).
+[[redirects]]
+  from = "/reservierung/*"
+  to = "/kontakt/"
+  status = 301
+[[redirects]]
+  from = "/reservierung"
+  to = "/kontakt/"
+  status = 301
 [[redirects]]
   from = "/wochenkarte"
   to = "/speisekarte/#wochenkarte"

@@ -29,10 +29,10 @@
   <link rel="manifest" href="../app/manifest.webmanifest">
   <link rel="preload" href="../assets/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/css/style.css?v=muvufsa1">
-  <script src="../assets/js/theme.js?v=muvufsa1"></script>
+  <link rel="stylesheet" href="../assets/css/style.css?v=mvtzmffj">
+  <script src="../assets/js/theme.js?v=mvtzmffj"></script>
   
-  <link rel="stylesheet" href="../assets/css/app.css?v=muvufsa1">
+  <link rel="stylesheet" href="../assets/css/app.css?v=mvtzmffj">
 </head>
 <body class="app">
 
@@ -83,14 +83,10 @@
       <div class="kpis">
         <button type="button" class="kpi" data-goto="bestellungen"><strong data-kpi="bestellungen">0</strong><span>neue Bestellungen</span></button>
         <button type="button" class="kpi" data-goto="reservierungen"><strong data-kpi="gaeste">0</strong><span>Gäste heute</span></button>
-        <button type="button" class="kpi" data-goto="reservierungen"><strong data-kpi="anfragen">0</strong><span>Anfragen offen</span></button>
-        <button type="button" class="kpi" data-goto="einstellungen"><strong data-kpi="plaetze">0</strong><span>Plätze online</span></button>
+        <button type="button" class="kpi" data-goto="reservierungen"><strong data-kpi="anfragen">0</strong><span>Tische heute</span></button>
+        <button type="button" class="kpi" data-goto="einstellungen"><strong data-kpi="plaetze">0</strong><span>Plätze</span></button>
       </div>
       <div class="card quick">
-        <label class="switch-row">
-  <span><strong>Online-Reservierung</strong><span class="fine">Aus: Gäste sehen „bitte anrufen“</span></span>
-  <input type="checkbox" class="switch" name="reservierungOnline" data-setting>
-</label>
         <label class="switch-row">
   <span><strong>Online-Bestellung</strong><span class="fine">Aus: Bestellseite ist pausiert</span></span>
   <input type="checkbox" class="switch" name="bestellungAktiv" data-setting>
@@ -172,8 +168,8 @@
       <div class="view-head"><h2>Einstellungen</h2><span class="fine" data-gespeichert></span></div>
       <form class="settings" data-settings novalidate>
         <div class="card">
-          <div class="card-head"><h3><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>Plätze für Online-Reservierungen</h3></div>
-          <p class="fine">So viele Gäste dürfen gleichzeitig online reserviert sein. Telefonische Reservierungen zählen mit.</p>
+          <div class="card-head"><h3><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>Plätze im Restaurant</h3></div>
+          <p class="fine">So viele Gäste passen gleichzeitig rein. Beim Eintragen einer Reservierung warnt die App, wenn es voll wird.</p>
           <div class="big-stepper">
             <button class="icon-btn" type="button" data-schritt="-2" aria-label="Weniger Plätze"><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z"/></svg></button>
             <label class="sr-only" for="s-kapazitaet">Plätze</label>
@@ -197,19 +193,11 @@
               </select>
             </div>
           </details>
-          <label class="switch-row">
-  <span><strong>Online-Reservierungen sofort bestätigen</strong><span class="fine">Aus: Sie bestätigen jede Anfrage in der App</span></span>
-  <input type="checkbox" class="switch" name="sofortBestaetigen" data-setting>
-</label>
-          <label class="switch-row">
-  <span><strong>Online-Reservierung aktiv</strong></span>
-  <input type="checkbox" class="switch" name="reservierungOnline" data-setting>
-</label>
         </div>
 
         <div class="card">
           <div class="card-head"><h3><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Zm-48-56a8,8,0,0,1-8,8H136v16a8,8,0,0,1-16,0V160H104a8,8,0,0,1,0-16h16V128a8,8,0,0,1,16,0v16h16A8,8,0,0,1,160,152Z"/></svg>Geschlossene Tage</h3></div>
-          <p class="fine">Betriebsferien oder Feiertage: An diesen Tagen gibt es keine Online-Reservierung und keine Bestellung.</p>
+          <p class="fine">Betriebsferien oder Feiertage: An diesen Tagen nimmt die Website keine Bestellungen an.</p>
           <div class="row-gap">
             <label class="sr-only" for="s-zu">Tag</label>
             <input class="input input-auto" type="date" id="s-zu" data-zu-datum>
@@ -344,7 +332,7 @@
 
 <div class="toast" data-toast role="status" aria-live="polite" hidden></div>
 
-<script src="../assets/js/config.js?v=muvufsa1" defer></script>
-<script src="../assets/js/app.js?v=muvufsa1" defer></script>
+<script src="../assets/js/config.js?v=mvtzmffj" defer></script>
+<script src="../assets/js/app.js?v=mvtzmffj" defer></script>
 </body>
 </html>

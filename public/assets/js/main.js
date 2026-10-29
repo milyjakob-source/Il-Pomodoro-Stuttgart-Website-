@@ -342,8 +342,8 @@
   document.addEventListener('click', function (e) {
     var el = e.target.closest('[data-track]');
     if (el) window.siteTrack(el.getAttribute('data-track'), { link_url: el.getAttribute('href') || '' });
-    var reserve = e.target.closest('a[href$="reservierung/"]');
-    if (reserve) window.siteTrack('reservierung_klick', { ort: document.body.className });
+    var order = e.target.closest('a[href$="bestellen/"]');
+    if (order) window.siteTrack('bestellen_klick', { ort: document.body.className });
   });
 
   /* Google Maps erst auf Klick oder mit Zustimmung ------------------------- */
