@@ -311,19 +311,28 @@ p {
   position: sticky;
   top: 0;
   z-index: 40;
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease;
+}
+/* Milchglas auf einer eigenen Ebene: backdrop-filter direkt am Kopf würde das ausklappbare Menü
+   (position: fixed) auf die Höhe der Kopfzeile einsperren, besonders in Safari. */
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: color-mix(in srgb, var(--bg) 82%, transparent);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border-bottom: 1px solid transparent;
-  transition: border-color 200ms ease;
 }
 .site-header.is-scrolled {
   border-bottom-color: var(--line);
 }
 @media (prefers-reduced-transparency: reduce) {
-  .site-header {
+  .site-header::before {
     background: var(--bg);
     backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 }
 .header-row {
@@ -401,6 +410,9 @@ p {
   .nav {
     position: fixed;
     inset: var(--header-h) 0 0 0;
+    height: calc(100dvh - var(--header-h));
+    z-index: 45;
+    overscroll-behavior: contain;
     flex-direction: column;
     align-items: stretch;
     gap: 28px;
@@ -452,6 +464,16 @@ p {
   }
   body.menu-is-open {
     overflow: hidden;
+  }
+  .header-tools {
+    margin-left: auto;
+  }
+  body.menu-is-open .site-header::before {
+    background: var(--bg);
+  }
+  body.menu-is-open .mobile-bar,
+  body.menu-is-open .cart-bar {
+    display: none !important;
   }
 }
 
@@ -1758,9 +1780,6 @@ textarea.input {
   .mobile-bar .btn {
     min-height: 46px;
     padding: 0 12px;
-  }
-  .page-reservierung .mobile-bar {
-    display: none;
   }
 }
 

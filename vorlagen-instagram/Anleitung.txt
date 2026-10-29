@@ -8,8 +8,8 @@ Einmalig vorbereiten (auf dem Mac)
    künftig direkt in der Vorlagenauswahl von Pages.
 
 Wochenkarte (Il-Pomodoro-Wochenkarte-Instagram)
-- Datum oben anklicken und überschreiben, z. B. "13. bis 17. Oktober 2026".
-- In der Tabelle Gericht, Beschreibung und Preis überschreiben.
+- "Datum der Woche" anklicken und überschreiben, z. B. "13. bis 17. Oktober 2026".
+- In der Tabelle "Gericht", "Kurze Beschreibung" und "00,00 €" überschreiben.
 - Höchstens 6 Gerichte, damit alles auf das Bild passt. Weniger Gerichte:
   Zeile auswählen -> rechts klicken -> "Zeile löschen".
 - Hintergrund, Logo, Überschrift und Fußzeile sind fest und lassen sich nicht verschieben.
@@ -17,7 +17,7 @@ Wochenkarte (Il-Pomodoro-Wochenkarte-Instagram)
 Neuigkeiten (Il-Pomodoro-Neuigkeiten-Instagram)
 - Zwei Seiten: Seite 1 in Rot (z. B. Urlaub, geschlossen), Seite 2 hell (z. B. Feier, Aktion).
   Die nicht gebrauchte Seite einfach ignorieren (beim Export nur eine Seite wählen).
-- Überschrift, Text und die Zeile mit dem Strich davor überschreiben.
+- "Überschrift", den Text und "Datum oder Hinweis" überschreiben.
 - Überschrift kurz halten: 2 bis 3 Zeilen sehen am besten aus.
 
 Als Bild für Instagram speichern

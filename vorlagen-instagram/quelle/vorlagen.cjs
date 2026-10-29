@@ -28,14 +28,8 @@ const lauf = (text, o) => new d.TextRun({ text, font: o.font, size: o.size, bold
 const leer = (px, kinder = []) => new d.Paragraph({ spacing: zeile(px), children: kinder });
 
 /* Wochenkarte ------------------------------------------------------------ */
-const GERICHTE = [
-  ['Pici al Ragù', 'Handgerollte Pasta mit Wildschweinragout', '15,90 €'],
-  ['Risotto ai Funghi', 'Cremiges Risotto mit Steinpilzen', '14,50 €'],
-  ['Saltimbocca alla Romana', 'Kalbsschnitzel mit Salbei und Parmaschinken', '21,50 €'],
-  ['Orata al Forno', 'Dorade aus dem Holzofen mit Ofengemüse', '22,90 €'],
-  ['Pizza Autunno', 'Kürbiscreme, Salsiccia und Rosmarin', '13,90 €'],
-  ['Panna Cotta', 'Mit Waldbeeren', '6,50 €'],
-];
+// Platzhalter: werden in Pages überschrieben.
+const GERICHTE = Array.from({ length: 6 }, (_, i) => ['Gericht ' + (i + 1), 'Kurze Beschreibung', '00,00 €']);
 const ohne = { style: d.BorderStyle.NONE, size: 0, color: 'FFFFFF' };
 const tabelle = new d.Table({
   width: { size: 8720, type: d.WidthType.DXA },
@@ -73,7 +67,7 @@ const wochenkarte = new d.Document({
   sections: [{
     properties: { page: { ...SEITE, margin: { top: 3800, bottom: 200, left: 640, right: 1040, header: 0, footer: 0 } } },
     children: [
-      new d.Paragraph({ spacing: zeile(60), children: [hintergrund('bg-wochenkarte.png'), lauf('6. bis 10. Oktober 2026', { font: 'Geist SemiBold', size: 32, color: C.accent })] }),
+      new d.Paragraph({ spacing: zeile(60), children: [hintergrund('bg-wochenkarte.png'), lauf('Datum der Woche', { font: 'Geist SemiBold', size: 32, color: C.accent })] }),
       leer(80),
       tabelle,
     ],
@@ -105,13 +99,13 @@ const neuigkeiten = new d.Document({
   styles: { default: { document: { run: { font: 'Geist', size: 24, color: C.ink } } } },
   sections: [
     neuigkeit('bg-news-rot.png', { titel: C.light, text: C.onRed, info: C.light },
-      ['Wir machen', 'Weihnachts-', 'ferien'],
-      'Vom 24. Dezember bis 6. Januar bleibt unsere Küche kalt. Wir danken Ihnen für ein wunderbares Jahr und wünschen schöne Feiertage!',
-      'Ab 7. Januar wieder für Sie da'),
+      ['Überschrift'],
+      'Hier steht Ihr Text. Zwei bis drei Sätze passen gut, zum Beispiel wann und warum.',
+      'Datum oder Hinweis'),
     neuigkeit('bg-news-hell.png', { titel: C.ink, text: C.muted, info: C.accent },
-      ['Weihnachtsfeier', 'im Il Pomodoro'],
-      'Feiern Sie mit Ihrem Team oder Ihrer Familie bei uns: Antipasti, Pasta, Pizza aus dem Holzofen und Dolci, ganz nach Ihren Wünschen.',
-      'Jetzt anfragen: 0711 51 87 66 50'),
+      ['Überschrift'],
+      'Hier steht Ihr Text. Zwei bis drei Sätze passen gut, zum Beispiel wann und warum.',
+      'Datum oder Hinweis'),
   ],
 });
 
