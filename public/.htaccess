@@ -10,7 +10,7 @@ RewriteRule ^ https://www.ilpomodorosued.de%{REQUEST_URI} [L,R=301]
 
 # Alte Adressen (Jimdo)
 RewriteRule ^wochen-und-speisekarte/?.*$ /speisekarte/ [L,R=301]
-RewriteRule ^wochenkarte/?$ /speisekarte/#wochenkarte [L,R=301,NE]
+RewriteRule ^wochenkarte/?$ https://www.instagram.com/ilpomodorosud/ [L,R=301]
 
 ErrorDocument 404 /404.html
 

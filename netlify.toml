@@ -27,7 +27,7 @@
   status = 301
 [[redirects]]
   from = "/wochenkarte"
-  to = "/speisekarte/#wochenkarte"
+  to = "https://www.instagram.com/ilpomodorosud/"
   status = 301
 
 # Sicherheits-Header für alle Seiten.
