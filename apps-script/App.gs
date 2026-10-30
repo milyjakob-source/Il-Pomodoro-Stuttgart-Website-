@@ -24,7 +24,7 @@ var STANDARD = {
   geschlossen: '', // Tage ohne Online-Reservierung und Bestellung, JJJJ-MM-TT, durch Komma getrennt
   presetSommer: 60,
   presetWinter: 40,
-  bestellungAktiv: true,
+  bestellungAktiv: false, // Bestellungen über Lieferando und Wolt
   lieferungAktiv: true,
   abholungAktiv: true,
   liefergebietPlz: '70173,70178,70180,70182,70184,70197,70199',

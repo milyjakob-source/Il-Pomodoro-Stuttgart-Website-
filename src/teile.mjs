@@ -1,7 +1,6 @@
 // Bausteine, die auf mehreren Seiten vorkommen.
 import { icon } from '../tools/build.mjs';
 import { SITE, ZEITEN, KUECHE_BIS, zeitText } from './site.mjs';
-import { WOCHENKARTE } from './wochenkarte.mjs';
 
 /** Öffnungszeiten als Liste; die Zeile von heute wird im Browser markiert. */
 export function zeitenListe() {
@@ -44,39 +43,58 @@ export function besuch(ctx, { titel = 'So finden Sie uns', h = 'h2' } = {}) {
 }
 
 /**
- * Wochenkarte: wird beim Bauen aus src/wochenkarte.mjs gefüllt und im Browser aus dem Google Sheet
- * aktualisiert (assets/js/wochenkarte.js). kompakt: nur die ersten Gerichte, mit Link zur ganzen Karte.
+ * Instagram-Bereich: Wochenkarte und Neuigkeiten erscheinen auf Instagram (@ilpomodorosud).
+ * Daneben ein Raster aus eigenen Fotos im Stil eines Instagram-Profils.
  */
-export function wochenkarte(ctx, { kompakt = false } = {}) {
-  const liste = WOCHENKARTE.gerichte;
-  const gruppen = [];
-  for (const g of kompakt ? liste.slice(0, 6) : liste) {
-    let gr = gruppen.find((x) => x.titel === (g.kategorie || ''));
-    if (!gr) gruppen.push((gr = { titel: g.kategorie || '', gerichte: [] }));
-    gr.gerichte.push(g);
-  }
-  const inhalt = gruppen.length
-    ? gruppen
-        .map(
-          (gr) => `<div class="wk-gruppe">${gr.titel ? `<h3 class="wk-titel">${esc(gr.titel)}</h3>` : ''}<ul class="wk-liste">${gr.gerichte
-            .map(
-              (g) => `<li><div><strong>${esc(g.gericht)}</strong>${g.beschreibung ? `<span>${esc(g.beschreibung)}</span>` : ''}</div>${g.preis ? `<em>${esc(g.preis)}</em>` : ''}</li>`,
-            )
-            .join('')}</ul></div>`,
-        )
-        .join('')
-    : `<p class="wk-leer">Die Wochenkarte wird gerade aktualisiert. Fragen Sie gern telefonisch nach den Gerichten der Woche: <a href="tel:${SITE.telefon.replace(/\s/g, '')}">${SITE.telefonAnzeige}</a></p>`;
-  return `<section class="section${kompakt ? '-tight' : ''}" id="wochenkarte" aria-labelledby="wk-title">
+export function instagram(ctx) {
+  const fotos = [
+    ['pizza-herz', 'Pizza in Herzform'],
+    ['tiramisu', 'Tiramisù'],
+    ['team-pasta', 'Das Küchenteam mit Pasta'],
+    ['calamari', 'Calamari fritti'],
+    ['pizzaiolo', 'Pizzaiolo am Holzofen'],
+    ['dessert-pistazie', 'Dessert mit Pistazien'],
+  ];
+  return `<section class="section" id="instagram" aria-labelledby="ig-title">
   <div class="wrap">
-    <div class="wk-karte reveal" data-wochenkarte data-kompakt="${kompakt ? '1' : ''}">
-      <div class="wk-kopf">
-        <div>
-          <h2 id="wk-title">Wochenkarte</h2>
-          <p class="muted" data-wk-hinweis>${esc(WOCHENKARTE.hinweis || 'Frisch für diese Woche, mittags und abends.')}</p>
-        </div>
-        ${kompakt ? `<a class="btn btn-ghost" href="${ctx.root}speisekarte/#wochenkarte">Ganze Karte${icon('arrow-right', 'icon icon-move')}</a>` : ''}
+    <div class="ig reveal">
+      <div class="ig-text">
+        <span class="ig-badge">${icon('instagram-logo')}Instagram</span>
+        <h2 id="ig-title">Wochenkarte und Neuigkeiten auf <span class="ig-name">@${SITE.instagramName}</span></h2>
+        <p class="lead">Jede Woche posten wir dort unsere neue Wochenkarte mit dem Mittagstisch. Und alles, was sonst los ist: Feiertage, Aktionen, Feiern und neue Gerichte.</p>
+        <ul class="ig-punkte">
+          <li>${icon('calendar-check')}Die Wochenkarte, jeden Montag neu</li>
+          <li>${icon('star')}Aktionen und neue Gerichte zuerst</li>
+          <li>${icon('clock')}Geänderte Öffnungszeiten und Ruhetage</li>
+        </ul>
+        <a class="btn btn-ig btn-lg" href="${SITE.social.instagram}" rel="noopener" target="_blank" data-track="instagram">${icon('instagram-logo')}@${SITE.instagramName} folgen</a>
       </div>
-      <div class="wk-inhalt" data-wk-inhalt>${inhalt}</div>
+      <a class="ig-feed" href="${SITE.social.instagram}" rel="noopener" target="_blank" aria-label="Il Pomodoro auf Instagram öffnen" data-track="instagram">
+        ${fotos.map(([n, alt]) => `<img src="${ctx.root}assets/img/fotos/${n}-800.jpg" alt="${alt}" width="400" height="400" loading="lazy" decoding="async">`).join('')}
+      </a>
+    </div>
+  </div>
+</section>`;
+}
+
+/** Bestellen über Lieferando und Wolt, als großer Bereich (Startseite, Speisekarte) oder kompakt. */
+export function lieferung(ctx, { titel = 'Lieber zu Hause genießen?', h = 'h2' } = {}) {
+  return `<section class="section-tight" id="liefern" aria-labelledby="liefern-title">
+  <div class="wrap">
+    <div class="liefern reveal">
+      <div>
+        <span class="eyebrow">A casa</span>
+        <${h} id="liefern-title">${titel}</${h}>
+        <p class="lead">Unsere Pizza aus dem Holzofen, Pasta und Dolci gibt es auch zum Liefern und Abholen. Bestellen Sie ganz bequem über Lieferando oder Wolt.</p>
+      </div>
+      <div class="liefern-buttons">
+        <a class="btn-dienst btn-lieferando" href="${SITE.lieferando}" rel="noopener" target="_blank" data-track="lieferando">
+          <span class="dienst-name">Lieferando</span><span class="dienst-text">Jetzt bestellen${icon('arrow-up-right')}</span>
+        </a>
+        <a class="btn-dienst btn-wolt" href="${SITE.wolt}" rel="noopener" target="_blank" data-track="wolt">
+          <span class="dienst-name">Wolt</span><span class="dienst-text">Jetzt bestellen${icon('arrow-up-right')}</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>`;

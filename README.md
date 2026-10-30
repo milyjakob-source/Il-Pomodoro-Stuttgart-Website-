@@ -6,11 +6,11 @@ ilpomodoro-filderstrase25.de. Statische Seiten ohne Framework: schnell, gut für
 | Seite | Adresse | Inhalt |
 |---|---|---|
 | Start | `/` | Hero mit Holzofen, Status „jetzt geöffnet“, Küche, Geschichte, Bewertungen, Wochenkarte, Anfahrt mit Karte |
-| Speisekarte | `/speisekarte/` | Wochenkarte (aus Google Sheets) und feste Karte nach Kategorien |
+| Speisekarte | `/speisekarte/` | Feste Karte nach Kategorien; die Wochenkarte steht auf Instagram |
 | Über uns | `/ueber-uns/` | Haus, Holzofen, Werte, Feiern |
 | Galerie | `/galerie/` | Fotos im Mauerwerk-Raster |
 | Kontakt | `/kontakt/` | Telefon (auch für Tischreservierungen), E-Mail, Zeiten, Karte, Anfrageformular (Feiern, Gutscheine) |
-| Bestellen | `/bestellen/` | Bestellung zur Abholung oder Lieferung mit Warenkorb, Preise live aus der Inhaber-App |
+| Bestellen | `/bestellen/` | Führt zu Lieferando und Wolt (eigene Online-Bestellung gibt es nicht) |
 | Inhaber-App | `/app/` | Nur für das Restaurant (PIN): Bestellungen, Reservierungen, Plätze, Karte, Texte, Bilder |
 | Rechtliches | `/impressum/`, `/datenschutz/`, `/agb/`, `404.html` | |
 
@@ -59,29 +59,13 @@ Die alte Website war aus dieser Arbeitsumgebung nicht abrufbar. Inhalte stammen 
 - [ ] **E-Mail-Adresse** in `src/site.mjs` prüfen (stammt aus einem Branchenverzeichnis).
 - [ ] **Google-Sternewert** in `src/site.mjs` (`googleBewertung`) prüfen; mit Places-API-Schlüssel kommt er live.
 
-## Wochenkarte pflegen (für das Restaurant)
+## Wochenkarte, Neuigkeiten und Bestellen
 
-Die Wochenkarte steht in einer Google-Tabelle. Wer sie ändert, ändert die Website: kein Login auf der
-Website, keine Programmierkenntnisse, keine neue Veröffentlichung nötig. Änderungen erscheinen nach
-wenigen Minuten (Google aktualisiert veröffentlichte Tabellen mit kurzer Verzögerung).
-
-**Einmal einrichten**
-1. Mit dem Google-Konto des Restaurants eine neue Google-Tabelle anlegen, Name z. B. „Il Pomodoro Wochenkarte“.
-2. *Datei → Importieren → Hochladen* und `wochenkarte-vorlage.csv` aus diesem Ordner hochladen
-   („Aktuelles Tabellenblatt ersetzen“). Das Tabellenblatt in „Wochenkarte“ umbenennen.
-3. *Datei → Freigeben → Im Web veröffentlichen*: Tabellenblatt „Wochenkarte“, Format
-   „Kommagetrennte Werte (.csv)“, *Veröffentlichen*. Die angezeigte Adresse kopieren.
-4. Die Adresse in `public/assets/js/config.js` bei `wochenkarteCsv` eintragen und die Seite einmal neu
-   veröffentlichen. Danach nie wieder nötig.
-
-**Jede Woche**
-- Zeilen in der Tabelle überschreiben. Spalten: **Kategorie** (z. B. Vorspeise, Pasta, Hauptgang, Dessert
-  oder Montag, Dienstag …), **Gericht**, **Beschreibung**, **Preis** (so, wie er erscheinen soll, z. B. „12,90 €“).
-- Die erste Zeile mit Kategorie **Hinweis** erscheint über der Karte, z. B. „Gültig vom 6. bis 10. Oktober“.
-- Leere Zeilen werden ignoriert. Zum Ausblenden eines Gerichts einfach die Zeile löschen.
-
-Weitere Personen (z. B. Küche oder Service) bekommen über *Freigeben* in der Google-Tabelle Bearbeitungsrechte.
-Ist die Tabelle einmal nicht erreichbar, zeigt die Seite die Karte aus `src/wochenkarte.mjs`.
+- **Wochenkarte und Neuigkeiten** erscheinen auf Instagram (**@ilpomodorosud**), nicht auf der Website. Die
+  Website verlinkt den Kanal groß auf Start-, Speisekarten- und Bestellseite. Vorlagen für die Posts
+  (Pages): `vorlagen-instagram/`.
+- **Bestellen** geht nur über **Lieferando** und **Wolt**. Die Links stehen in `src/site.mjs`
+  (`lieferando`, `wolt`); bitte einmal prüfen, ob sie auf die richtige Filiale führen.
 
 ## Google Apps Script einrichten (Bestellungen, App, Telefon-Reservierungen)
 
@@ -158,15 +142,6 @@ Website-Bilder“.
 **Wichtig vor dem Start der Bestellungen:** In der App unter *Karte* alle Preise eintragen. Gerichte
 ohne Preis zeigt die Website ohne Preis und sie sind nicht bestellbar. Liefergebiet (PLZ), Mindestbestellwert
 und Liefergebühr unter *Mehr* prüfen; voreingestellt sind die PLZ rund um Stuttgart-Süd, 15 € und 2,50 €.
-
-## Online-Bestellung
-
-Die Seite `/bestellen/` zeigt die Karte mit Preisen aus der App, einen Warenkorb und die Wahl zwischen
-Abholen und Liefern. Bestellbar ist nur während der Öffnungszeiten und frühestens nach der Vorlaufzeit
-(Uhrzeiten im 15-Minuten-Raster oder „so schnell wie möglich“). Das Apps Script rechnet alle Preise selbst
-aus der Karte nach, prüft Liefergebiet, Mindestbestellwert und Uhrzeit, speichert die Bestellung im Tab
-„Bestellungen“ und schickt eine E-Mail an Restaurant und Gast. Bezahlt wird bei Übergabe. Ohne Apps
-Script oder bei pausierter Bestellung zeigt die Seite die Telefonnummer.
 
 ## Google-Bewertungen und Fotos einbinden
 

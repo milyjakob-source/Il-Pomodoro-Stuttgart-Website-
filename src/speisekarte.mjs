@@ -1,7 +1,7 @@
 // Auszug aus der festen Karte. Gerichte stammen aus öffentlichen Quellen (alte Website, Speisekarten-Portale)
 // und sind vor dem Livegang mit dem Restaurant abzugleichen. PRÜFEN
 // Preise werden bewusst nicht gezeigt; die aktuelle Karte mit Preisen gibt es im Restaurant.
-// Die wechselnden Gerichte stehen auf der Wochenkarte (Google Sheet, siehe README).
+// Die wechselnden Gerichte stehen auf der Wochenkarte bei Instagram (@ilpomodorosud).
 // tags: 'veg' (vegetarisch), 'gf' (glutenfrei möglich), 'haus' (Empfehlung des Hauses), 'scharf'
 
 export const KARTE_PDF = ''; // z. B. '../assets/speisekarte.pdf', dann erscheint ein Download-Knopf
@@ -52,7 +52,7 @@ export const KARTE = [
   {
     id: 'pesce',
     titel: 'Fisch und Fleisch',
-    intro: 'Teilweise im Holzofen zubereitet. Weitere Gerichte auf der Wochenkarte.',
+    intro: 'Teilweise im Holzofen zubereitet. Weitere Gerichte auf der Wochenkarte bei Instagram.',
     gerichte: [
       { name: 'Salmone al Forno', text: 'Lachssteak aus dem Holzofen mit frischem Gemüse in Tomatensauce', tags: ['haus'] },
     ],

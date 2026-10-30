@@ -74,7 +74,8 @@ function doPost(e) {
     // Online-Reservierung ist abgeschaltet; Reservierungen trägt das Restaurant telefonisch in der App ein.
     if (d.action === 'reservierung') return json({ ok: false, message: 'Bitte reservieren Sie telefonisch: ' + EINSTELLUNGEN.restaurant.telefon });
     if (d.action === 'anfrage') return json(anfrage(d));
-    if (d.action === 'bestellung') return json(bestellen(d));
+    // Bestellungen laufen über Lieferando und Wolt.
+    if (d.action === 'bestellung') return json({ ok: false, message: 'Bitte bestellen Sie über Lieferando oder Wolt.' });
     return json({ ok: false, message: 'Unbekannte Aktion.' });
   } catch (fehler) {
     console.error(fehler);

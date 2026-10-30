@@ -917,3 +917,22 @@
     transition: none !important;
   }
 }
+
+/* Bestellungen laufen über Lieferando und Wolt: Schalter „online bestellbar“ ausblenden, drei Kennzahlen. */
+.mini-switch {
+  display: none;
+}
+.kpis {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.dish-row {
+  grid-template-columns: 1fr auto auto;
+}
+@media (max-width: 520px) {
+  .kpi strong {
+    font-size: 1.7rem;
+  }
+  .kpi {
+    padding: 14px;
+  }
+}

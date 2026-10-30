@@ -1,7 +1,7 @@
 import { icon, esc } from '../../tools/build.mjs';
 import { SITE } from '../site.mjs';
 import { KARTE, KARTE_PDF } from '../speisekarte.mjs';
-import { wochenkarte } from '../teile.mjs';
+import { instagram, lieferung } from '../teile.mjs';
 
 const TAGS = {
   veg: [icon('leaf'), 'Vegetarisch'],
@@ -35,21 +35,19 @@ export default {
   priority: 0.9,
   title: 'Speisekarte',
   description:
-    'Speisekarte und Wochenkarte des Il Pomodoro in Stuttgart-Süd: Pizza aus dem Holzofen, Pinsa, Pasta, Antipasti und Fisch. Jede Pizza auch glutenfrei.',
+    'Speisekarte des Il Pomodoro in Stuttgart-Süd: Pizza aus dem Holzofen, Pinsa, Pasta, Antipasti und Fisch. Jede Pizza auch glutenfrei.',
   jsonld: menuJsonLd(),
   body: (ctx) => `
 <section class="wrap page-hero">
   <span class="eyebrow">Menu</span>
   <h1>Speisekarte</h1>
-  <p class="lead">Oben die Wochenkarte mit den Gerichten dieser Woche, darunter ein Auszug aus unserer festen Karte.</p>
+  <p class="lead">Ein Auszug aus unserer festen Karte. Die Wochenkarte mit dem Mittagstisch posten wir jeden Montag auf <a href="${SITE.social.instagram}" rel="noopener" target="_blank">Instagram @${SITE.instagramName}</a>.</p>
   ${KARTE_PDF ? `<p><a class="btn btn-ghost" href="${KARTE_PDF}" download>Karte als PDF</a></p>` : ''}
 </section>
 
-${wochenkarte(ctx)}
 
 <div class="wrap menu-layout">
   <nav class="menu-nav" aria-label="Kategorien der Speisekarte" data-menu-nav>
-    <a href="#wochenkarte">Wochenkarte</a>
     ${KARTE.map((k) => `<a href="#${k.id}">${k.titel}</a>`).join('')}
   </nav>
   <div>
@@ -77,18 +75,11 @@ ${wochenkarte(ctx)}
     </section>`,
     ).join('')}
     </div>
-    <div class="cta-band reveal">
-      <div>
-        <h2>Lust bekommen?</h2>
-        <p>Bestellen Sie online zum Abholen und Liefern oder reservieren Sie telefonisch einen Tisch.</p>
-      </div>
-      <div class="cta-actions">
-        <a class="btn btn-lg" href="${ctx.root}bestellen/" data-bestell-link>${icon('shopping-bag')}Online bestellen</a>
-        <a class="btn btn-ghost btn-lg" href="tel:${SITE.telefon.replace(/\s/g, '')}" data-track="anruf">${icon('phone')}Tisch reservieren</a>
-      </div>
-    </div>
-  </div>
 </div>
+
+${lieferung(ctx, { titel: 'Die Karte gibt es auch zum Liefern' })}
+
+${instagram(ctx)}
 `,
-  scripts: ['speisekarte.js', 'wochenkarte.js'],
+  scripts: ['speisekarte.js'],
 };

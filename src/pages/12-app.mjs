@@ -1,6 +1,7 @@
 import { icon } from '../../tools/build.mjs';
 
-// Inhaber-App: Bestellungen annehmen, Reservierungen eintragen, Plätze, Karte, Texte und Bilder pflegen.
+// Inhaber-App: Reservierungen eintragen, Plätze, Karte, Texte und Bilder pflegen.
+// Bestellungen laufen über Lieferando und Wolt; die Bestell-Bereiche bleiben im Code, sind aber ausgeblendet.
 // Läuft im Browser (auch als App auf dem Startbildschirm), spricht nur mit dem Apps Script. Logik: assets/js/app.js
 
 const SPRITE = ['plus', 'minus', 'check', 'x', 'phone', 'map-pin', 'moped', 'storefront', 'trash', 'arrow-up', 'arrow-down', 'pencil-simple', 'clock', 'users-three', 'chef-hat', 'calendar-plus', 'caret-left', 'caret-right', 'bell', 'warning', 'image'];
@@ -15,7 +16,7 @@ function sprite() {
 
 const TABS = [
   ['heute', 'house', 'Heute'],
-  ['bestellungen', 'shopping-bag', 'Bestellungen'],
+  ['bestellungen', 'shopping-bag', 'Bestellungen', true],
   ['reservierungen', 'calendar-check', 'Tische'],
   ['karte', 'note-pencil', 'Karte'],
   ['einstellungen', 'gear', 'Mehr'],
@@ -32,7 +33,7 @@ export default {
   layout: 'app',
   noindex: true,
   title: 'Inhaber-App',
-  description: 'Interne App für das Il Pomodoro: Bestellungen, Reservierungen, Plätze, Speisekarte und Bilder verwalten. Nur mit PIN.',
+  description: 'Interne App für das Il Pomodoro: Reservierungen, Plätze, Speisekarte, Texte und Bilder verwalten. Nur mit PIN.',
   body: (ctx) => `
 ${sprite()}
 
@@ -42,7 +43,7 @@ ${sprite()}
     <img class="login-logo logo-light" src="${ctx.root}assets/img/logo.svg" alt="Il Pomodoro" width="173" height="46">
     <img class="login-logo logo-dark" src="${ctx.root}assets/img/logo-dark.svg" alt="Il Pomodoro" width="173" height="46">
     <h1>Inhaber-App</h1>
-    <p class="muted">Bestellungen, Reservierungen und Ihre Website an einem Ort.</p>
+    <p class="muted">Reservierungen, Speisekarte und Ihre Website an einem Ort.</p>
     <form class="form" data-login-form novalidate>
       <div class="field">
         <label for="pin">PIN</label>
@@ -61,14 +62,14 @@ ${sprite()}
     <img class="app-logo logo-light" src="${ctx.root}assets/img/logo.svg" alt="Il Pomodoro" width="120" height="32">
     <img class="app-logo logo-dark" src="${ctx.root}assets/img/logo-dark.svg" alt="Il Pomodoro" width="120" height="32">
     <span class="live" data-live title="Verbindung">Live</span>
-    <button class="icon-btn" type="button" data-sound aria-pressed="true" aria-label="Ton bei neuen Bestellungen">${icon('bell')}</button>
+    <button class="icon-btn" type="button" data-sound hidden aria-pressed="true" aria-label="Ton bei neuen Bestellungen">${icon('bell')}</button>
     <button class="icon-btn" type="button" data-theme-toggle aria-label="Farbmodus wechseln">
       <span class="theme-icon theme-icon-sun">${icon('sun')}</span><span class="theme-icon theme-icon-moon">${icon('moon')}</span>
     </button>
   </header>
 
   <nav class="app-tabs" aria-label="Bereiche">
-    ${TABS.map(([id, ic, label]) => `<button type="button" data-tab="${id}">${icon(ic)}<span>${label}</span><b class="badge" data-badge="${id}" hidden></b></button>`).join('')}
+    ${TABS.map(([id, ic, label, aus]) => `<button type="button" data-tab="${id}"${aus ? ' hidden' : ''}>${icon(ic)}<span>${label}</span><b class="badge" data-badge="${id}" hidden></b></button>`).join('')}
   </nav>
 
   <main class="app-main" id="inhalt">
@@ -79,12 +80,12 @@ ${sprite()}
         <button class="btn btn-accent" type="button" data-neue-res>${icon('phone')}Telefon-Reservierung</button>
       </div>
       <div class="kpis">
-        <button type="button" class="kpi" data-goto="bestellungen"><strong data-kpi="bestellungen">0</strong><span>neue Bestellungen</span></button>
+        <button type="button" class="kpi" data-goto="bestellungen" hidden><strong data-kpi="bestellungen">0</strong><span>neue Bestellungen</span></button>
         <button type="button" class="kpi" data-goto="reservierungen"><strong data-kpi="gaeste">0</strong><span>Gäste heute</span></button>
         <button type="button" class="kpi" data-goto="reservierungen"><strong data-kpi="anfragen">0</strong><span>Tische heute</span></button>
         <button type="button" class="kpi" data-goto="einstellungen"><strong data-kpi="plaetze">0</strong><span>Plätze</span></button>
       </div>
-      <div class="card quick">
+      <div class="card quick" hidden>
         ${toggle('bestellungAktiv', 'Online-Bestellung', 'Aus: Bestellseite ist pausiert')}
       </div>
       <h3 class="list-title" data-titel-neu hidden>Neue Bestellungen</h3>
@@ -131,13 +132,13 @@ ${sprite()}
     <section class="view" data-view="karte" hidden>
       <div class="view-head">
         <h2>Karte</h2>
-        <div class="segmented" role="group" aria-label="Karte wählen">
+        <div class="segmented" role="group" aria-label="Karte wählen" hidden>
           <button type="button" aria-pressed="true" data-karte-tab="speise">Speisekarte</button>
           <button type="button" aria-pressed="false" data-karte-tab="woche">Wochenkarte</button>
         </div>
       </div>
       <div data-karte-speise>
-        <p class="fine">Preis eintippen, fertig. Der Schalter bestimmt, ob ein Gericht online bestellbar ist (z. B. aus, wenn etwas ausverkauft ist).</p>
+        <p class="fine">Preis eintippen, fertig. Gericht antippen zum Bearbeiten, Ausblenden oder Löschen. Die Wochenkarte posten Sie auf Instagram (Vorlage in Pages).</p>
         <div data-karte-liste></div>
         <button class="btn btn-ghost" type="button" data-gericht-neu>${icon('plus')}Neues Gericht</button>
       </div>
@@ -190,7 +191,7 @@ ${sprite()}
           </details>
         </div>
 
-        <div class="card">
+        <div class="card" hidden>
           <div class="card-head"><h3>${icon('calendar-plus')}Geschlossene Tage</h3></div>
           <p class="fine">Betriebsferien oder Feiertage: An diesen Tagen nimmt die Website keine Bestellungen an.</p>
           <div class="row-gap">
@@ -201,7 +202,7 @@ ${sprite()}
           <div class="chips" data-zu-liste></div>
         </div>
 
-        <div class="card">
+        <div class="card" hidden>
           <div class="card-head"><h3>${icon('moped')}Bestellung und Lieferung</h3></div>
           ${toggle('bestellungAktiv', 'Online-Bestellung aktiv', '')}
           ${toggle('abholungAktiv', 'Abholung anbieten', '')}
@@ -308,7 +309,7 @@ ${sprite()}
       <label class="check"><input type="checkbox" name="tag" value="scharf"> <span>Scharf</span></label>
     </fieldset>
     <label class="switch-row"><span><strong>Auf der Website zeigen</strong></span><input type="checkbox" class="switch" name="aktiv"></label>
-    <label class="switch-row"><span><strong>Online bestellbar</strong></span><input type="checkbox" class="switch" name="bestellbar"></label>
+    <label class="switch-row" hidden><span><strong>Online bestellbar</strong></span><input type="checkbox" class="switch" name="bestellbar"></label>
     <div class="row-gap sheet-actions">
       <button class="btn btn-accent" type="submit">${icon('check')}Übernehmen</button>
       <button class="btn btn-ghost" type="button" data-gericht-loeschen>${icon('trash')}Löschen</button>

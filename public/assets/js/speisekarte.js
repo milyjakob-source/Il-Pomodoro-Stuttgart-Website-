@@ -50,7 +50,7 @@
       })
       .join('');
     if (nav) {
-      nav.innerHTML = '<a href="#wochenkarte">Wochenkarte</a>' + gruppen.map(function (gr) {
+      nav.innerHTML = gruppen.map(function (gr) {
         return '<a href="#' + slug(gr.titel) + '">' + esc(gr.titel) + '</a>';
       }).join('');
     }

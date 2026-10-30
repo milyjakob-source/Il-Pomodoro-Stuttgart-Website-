@@ -1,6 +1,6 @@
 import { icon, foto, restaurantJsonLd } from '../../tools/build.mjs';
 import { SITE, ZEITEN, KUECHE_BIS, zeitText } from '../site.mjs';
-import { besuch, wochenkarte } from '../teile.mjs';
+import { besuch, instagram, lieferung } from '../teile.mjs';
 
 const GERICHTE = [
   'Pizza Gialla',
@@ -33,7 +33,7 @@ export default {
   priority: 1,
   title: 'Start',
   description:
-    'Il Pomodoro in Stuttgart-Süd: Pizza aus dem Holzofen, Pinsa, Pasta, Fisch und Fleisch zu fairen Preisen. Wochenkarte, Mittagstisch, online bestellen.',
+    'Il Pomodoro in Stuttgart-Süd: Pizza aus dem Holzofen, Pinsa, Pasta, Fisch und Fleisch zu fairen Preisen. Mittagstisch, Lieferung über Lieferando und Wolt.',
   jsonld: restaurantJsonLd(),
   body: (ctx) => `
 <section class="hero">
@@ -78,14 +78,14 @@ export default {
       </a>
       <a class="tile tile-c tile-plain" href="${ctx.root}speisekarte/#pasta">
         ${icon('cooking-pot', 'icon tile-icon')}
-        <div class="tile-body"><h3>Pasta, Fisch und Fleisch</h3><p>Fettuccine al Salmone, Lachs aus dem Holzofen und wechselnde Gerichte auf der Wochenkarte.</p></div>
+        <div class="tile-body"><h3>Pasta, Fisch und Fleisch</h3><p>Fettuccine al Salmone, Lachs aus dem Holzofen und wechselnde Gerichte auf der Wochenkarte bei Instagram.</p></div>
       </a>
       <div class="tile tile-d">
         <div>
           <h3>Mittagstisch von Montag bis Freitag</h3>
-          <p>Von 11:30 bis 14:00 Uhr. Was es diese Woche gibt, steht auf unserer Wochenkarte.</p>
+          <p>Von 11:30 bis 14:00 Uhr. Was es diese Woche gibt, posten wir jeden Montag auf Instagram.</p>
         </div>
-        <a class="btn btn-ghost" href="${ctx.root}speisekarte/#wochenkarte">Zur Wochenkarte${icon('arrow-right', 'icon icon-move')}</a>
+        <a class="btn btn-ghost" href="${SITE.social.instagram}" rel="noopener" target="_blank" data-track="instagram">${icon('instagram-logo')}Wochenkarte auf Instagram</a>
       </div>
     </div>
   </div>
@@ -163,7 +163,7 @@ export default {
   <div class="cta-band reveal">
     <div>
       <h2>Heute Abend schon was vor?</h2>
-      <p>Rufen Sie uns an, wir halten Ihnen gern einen Tisch frei. Oder bestellen Sie online zum Abholen und Liefern.</p>
+      <p>Rufen Sie uns an, wir halten Ihnen gern einen Tisch frei. Oder bestellen Sie über Lieferando und Wolt nach Hause.</p>
     </div>
     <div class="cta-actions">
       <a class="btn btn-lg" href="tel:${SITE.telefon.replace(/\s/g, '')}" data-track="anruf">${icon('phone')}Tisch telefonisch reservieren</a>
@@ -172,11 +172,13 @@ export default {
   </div>
 </section>
 
-${wochenkarte(ctx, { kompakt: true })}
+${lieferung(ctx)}
+
+${instagram(ctx)}
 
 ${besuch(ctx)}
 `,
-  scripts: ['reviews.js', 'wochenkarte.js'],
+  scripts: ['reviews.js'],
 };
 
 export { GERICHTE, ZEITEN, zeitText };

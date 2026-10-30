@@ -25,9 +25,13 @@ export const SITE = {
   reviewLink: 'https://www.google.com/maps/search/?api=1&query=Il+Pomodoro+Filderstra%C3%9Fe+25+70180+Stuttgart',
   // Google-Sternebewertung für die Anzeige, solange das Apps Script die Live-Werte nicht liefert. PRÜFEN
   googleBewertung: 4.4,
+  instagramName: 'ilpomodorosud',
+  // Bestellen nur über die Lieferdienste (eigene Online-Bestellung gibt es nicht).
+  lieferando: 'https://www.lieferando.de/speisekarte/pizzeria-il-pomodoro-stuttgart',
+  wolt: 'https://wolt.com/de/deu/stuttgart/restaurant/il-pomodoro-stuttgart-sued',
   social: {
     facebook: 'https://www.facebook.com/ilpomodorofilderstrasse/', // PRÜFEN
-    instagram: '', // Handle eintragen, sonst wird kein Link gezeigt
+    instagram: 'https://www.instagram.com/ilpomodorosud/',
   },
 };
 

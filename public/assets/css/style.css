@@ -2472,3 +2472,187 @@ textarea.input {
 .duo [data-foto='holzofen-feuer'] img {
   object-position: 50% 70%;
 }
+
+/* Instagram: Wochenkarte und Neuigkeiten -------------------------------- */
+.ig {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+  padding: clamp(24px, 4.5vw, 56px);
+  border-radius: calc(var(--radius) + 10px);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+.ig-text {
+  display: grid;
+  gap: 20px;
+  justify-items: start;
+}
+.ig-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px 7px 8px;
+  border-radius: 999px;
+  background: var(--tint);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.ig-badge .icon {
+  width: 26px;
+  height: 26px;
+  padding: 4px;
+  border-radius: 8px;
+  color: #fff;
+  background: linear-gradient(45deg, #f9a03f, #e1306c 50%, #833ab4);
+}
+.ig h2 {
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  line-height: 1.05;
+}
+.ig-name {
+  display: inline-block;
+  color: var(--accent);
+}
+.ig-punkte {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.ig-punkte li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+}
+.ig-punkte .icon {
+  color: var(--accent);
+}
+.btn-ig {
+  background: var(--ink);
+  color: var(--bg);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-ig:hover {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+}
+.ig-feed {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.ig-feed img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  transition: transform 500ms var(--ease-out), opacity 300ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .ig-feed:hover img {
+    opacity: 0.85;
+  }
+  .ig-feed img:hover {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+/* Liefern über Lieferando und Wolt -------------------------------------- */
+.liefern {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+}
+.liefern h2 {
+  font-size: clamp(1.9rem, 3.6vw, 2.8rem);
+  margin-bottom: 14px;
+}
+.liefern-buttons,
+.dienste {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.btn-dienst,
+.dienst-karte {
+  display: grid;
+  gap: 6px;
+  padding: 22px 24px;
+  border-radius: var(--radius);
+  color: #151a17;
+  text-decoration: none;
+  transition: transform 180ms var(--ease-out), box-shadow 200ms ease;
+}
+.btn-dienst:active,
+.dienst-karte:active {
+  transform: scale(0.98);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-dienst:hover,
+  .dienst-karte:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+  }
+}
+.btn-lieferando,
+.dienst-lieferando {
+  background: #ff8000;
+}
+.btn-wolt,
+.dienst-wolt {
+  background: #009de0;
+}
+.dienst-name {
+  font: 700 clamp(1.6rem, 3vw, 2.1rem) / 1.05 var(--font-display);
+  letter-spacing: -0.02em;
+}
+.dienst-text,
+.dienst-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+.dienst-karte {
+  min-height: 240px;
+  align-content: space-between;
+  padding: clamp(24px, 3.5vw, 40px);
+}
+.dienst-karte .dienst-name {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+}
+.dienst-info {
+  font-size: 1.05rem;
+  max-width: 34ch;
+}
+.dienst-cta {
+  justify-self: start;
+  margin-top: 12px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 85%);
+}
+@media (max-width: 1023px) {
+  .ig,
+  .liefern {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 559px) {
+  .liefern-buttons,
+  .dienste {
+    grid-template-columns: 1fr;
+  }
+  .dienst-karte {
+    min-height: 0;
+  }
+}

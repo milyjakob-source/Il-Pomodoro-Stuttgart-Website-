@@ -16,6 +16,7 @@ export default {
   <div class="cta-actions">
     <a class="btn btn-accent btn-lg" href="tel:${SITE.telefon.replace(/\s/g, '')}" data-track="anruf">${icon('phone')}${SITE.telefonAnzeige}</a>
     <a class="btn btn-ghost btn-lg" href="mailto:${SITE.email}">${icon('envelope')}${SITE.email}</a>
+    <a class="btn btn-ghost btn-lg" href="${SITE.social.instagram}" rel="noopener" target="_blank" data-track="instagram">${icon('instagram-logo')}@${SITE.instagramName}</a>
   </div>
 </section>
 

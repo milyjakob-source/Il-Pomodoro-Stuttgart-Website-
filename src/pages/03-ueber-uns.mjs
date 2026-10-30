@@ -50,9 +50,9 @@ export default {
         <p class="muted">Bei hoher Hitze gebacken, mit knusprigem Rand. Dazu Pinsa, Pasta, Fisch und Fleisch, mittags von Montag bis Freitag und abends von Montag bis Samstag.</p>
       </div>
       <div class="value">${icon('leaf')}<h3>Glutenfrei möglich</h3><p class="muted">Jede Pizza und Pinsa auch mit glutenfreiem Boden. Unsere Küche ist allerdings nicht glutenfrei.</p></div>
-      <div class="value">${icon('calendar-check')}<h3>Jede Woche neu</h3><p class="muted">Wechselnde Gerichte auf der Wochenkarte, frisch nach Saison.</p></div>
+      <div class="value">${icon('calendar-check')}<h3>Jede Woche neu</h3><p class="muted">Wechselnde Gerichte auf der Wochenkarte, jeden Montag auf <a href="${SITE.social.instagram}" rel="noopener" target="_blank">Instagram</a>.</p></div>
       <div class="value">${icon('users-three')}<h3>Feiern und Gruppen</h3><p class="muted">Geburtstag, Team-Essen oder Familienfeier: wir planen mit Ihnen.</p></div>
-      <div class="value">${icon('storefront')}<h3>Abholen und Liefern</h3><p class="muted"><a href="${ctx.root}bestellen/">Online bestellen</a> oder anrufen, dann abholen oder liefern lassen.</p></div>
+      <div class="value">${icon('storefront')}<h3>Abholen und Liefern</h3><p class="muted">Bestellen über <a href="${SITE.lieferando}" rel="noopener" target="_blank">Lieferando</a> oder <a href="${SITE.wolt}" rel="noopener" target="_blank">Wolt</a>.</p></div>
     </div>
   </div>
 </section>
