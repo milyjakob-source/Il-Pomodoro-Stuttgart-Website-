@@ -3,4 +3,4 @@ Allow: /
 Disallow: /404.html
 Disallow: /app/
 
-Sitemap: https://www.ilpomodoro-filderstrase25.de/sitemap.xml
+Sitemap: https://www.ilpomodorosued.de/sitemap.xml

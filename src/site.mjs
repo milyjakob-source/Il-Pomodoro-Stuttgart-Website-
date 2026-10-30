@@ -3,7 +3,7 @@
 // vor dem Livegang mit dem Restaurant abgeglichen werden.
 
 export const SITE = {
-  url: 'https://www.ilpomodoro-filderstrase25.de', // ohne Schrägstrich am Ende
+  url: 'https://www.ilpomodorosued.de', // ohne Schrägstrich am Ende
   name: 'Il Pomodoro',
   shortName: 'Il Pomodoro',
   claim: 'Pizza aus dem Holzofen, Pasta und Pinsa im Stuttgarter Süden',

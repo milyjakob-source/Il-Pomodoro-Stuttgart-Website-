@@ -1,7 +1,7 @@
 # Website Il Pomodoro
 
 Neue Website für das Il Pomodoro, Filderstraße 25, 70180 Stuttgart-Süd. Ersetzt die Jimdo-Seite
-ilpomodoro-filderstrase25.de. Statische Seiten ohne Framework: schnell, gut für Google, läuft auf jedem Hosting.
+ilpomodorosued.de. Statische Seiten ohne Framework: schnell, gut für Google, läuft auf jedem Hosting.
 
 | Seite | Adresse | Inhalt |
 |---|---|---|
@@ -109,13 +109,13 @@ damit die Adresse gleich bleibt.
 Netlify-Formular raus (Benachrichtigung per E-Mail unter *Forms → Notifications*), der Knopf heißt dann
 „Reservierung anfragen“ und das Restaurant bestätigt selbst.
 
-**Google-Unternehmensprofil:** Einen alten Reservierungs-Link (`/reservierung/`) unter *Profil bearbeiten → Buchungen* entfernen oder durch `https://www.ilpomodoro-filderstrase25.de/bestellen/` ersetzen. Dann führt der Knopf „Reservieren“ in Google Maps
+**Google-Unternehmensprofil:** Einen alten Reservierungs-Link (`/reservierung/`) unter *Profil bearbeiten → Buchungen* entfernen oder durch `https://www.ilpomodorosued.de/bestellen/` ersetzen. Dann führt der Knopf „Reservieren“ in Google Maps
 und in der Suche direkt zum Formular. Wer zusätzlich eine Google-Kalender-Terminbuchungsseite nutzt, kann
 deren Link in `config.js` bei `googleBookingUrl` eintragen.
 
 ## Inhaber-App (für das Restaurant)
 
-Unter **`/app/`** (z. B. `https://www.ilpomodoro-filderstrase25.de/app/`) liegt die App für den Inhaber.
+Unter **`/app/`** (z. B. `https://www.ilpomodorosued.de/app/`) liegt die App für den Inhaber.
 Sie braucht das Apps Script von oben und läuft im Browser auf Handy, Tablet oder Computer. Auf dem Handy
 im Browser *Teilen → Zum Home-Bildschirm*, dann startet sie wie eine App. Suchmaschinen sehen sie nicht.
 
@@ -166,11 +166,11 @@ schreiben“ (Link dafür: Unternehmensprofil → „Rezensionen erhalten“, in
 
 1. app.netlify.com → *Add new site → Import from Git* → dieses Repo.
    **Base directory:** leer, **Publish directory:** `public`, Build command leer (steht auch in `netlify.toml`).
-2. *Domain management*: `www.ilpomodoro-filderstrase25.de` und `ilpomodoro-filderstrase25.de` hinzufügen, DNS beim
+2. *Domain management*: `www.ilpomodorosued.de` und `ilpomodorosued.de` hinzufügen, DNS beim
    Domain-Anbieter umstellen, *HTTPS → Force HTTPS*. `netlify.toml` leitet `http://` und `www.` um und setzt
    HSTS und die Sicherheits-Header (Content-Security-Policy u. a.).
 3. Alte Adressen der Jimdo-Seite (`/wochen-und-speisekarte` …) leiten per 301 auf die neuen Seiten.
-4. Search Console: Domain bestätigen, `https://www.ilpomodoro-filderstrase25.de/sitemap.xml` einreichen.
+4. Search Console: Domain bestätigen, `https://www.ilpomodorosued.de/sitemap.xml` einreichen.
 
 Liegt die Seite stattdessen bei einem Apache-Hoster, übernimmt `public/.htaccess` dieselben Aufgaben.
 

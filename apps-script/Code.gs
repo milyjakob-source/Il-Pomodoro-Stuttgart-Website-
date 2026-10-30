@@ -49,7 +49,7 @@ var EINSTELLUNGEN = {
     name: 'Il Pomodoro',
     adresse: 'Filderstraße 25, 70180 Stuttgart',
     telefon: '0711 51 87 66 50',
-    website: 'https://www.ilpomodoro-filderstrase25.de',
+    website: 'https://www.ilpomodorosued.de',
   },
 };
 

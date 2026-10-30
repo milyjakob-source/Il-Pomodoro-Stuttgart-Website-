@@ -4,18 +4,8 @@
   publish = "public"
   command = ""
 
-# HTTPS erzwingen und ohne www auf die Hauptadresse mit www leiten. Netlify leitet http:// ohnehin auf
-# https:// um, sobald das Zertifikat aktiv ist (Domain management → HTTPS → Force HTTPS).
-[[redirects]]
-  from = "http://ilpomodoro-filderstrase25.de/*"
-  to = "https://www.ilpomodoro-filderstrase25.de/:splat"
-  status = 301
-  force = true
-[[redirects]]
-  from = "https://ilpomodoro-filderstrase25.de/*"
-  to = "https://www.ilpomodoro-filderstrase25.de/:splat"
-  status = 301
-  force = true
+# HTTPS und die Weiterleitung zwischen ilpomodorosued.de und www.ilpomodorosued.de übernimmt Netlify
+# selbst: unter Domain management die www-Adresse als „Primary domain“ setzen, HTTPS ist automatisch an.
 
 # Adressen der alten Website (Jimdo), damit Google-Treffer und Lesezeichen weiter funktionieren.
 [[redirects]]
