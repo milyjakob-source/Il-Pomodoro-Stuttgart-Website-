@@ -75,6 +75,7 @@ export default {
     </section>`,
     ).join('')}
     </div>
+  </div>
 </div>
 
 ${lieferung(ctx, { titel: 'Die Karte gibt es auch zum Liefern' })}

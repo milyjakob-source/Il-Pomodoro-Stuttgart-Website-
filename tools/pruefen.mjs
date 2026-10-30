@@ -1,7 +1,7 @@
 // Prüft die gebauten Seiten in public/ vor dem Veröffentlichen. Aufruf: npm run pruefen
 // - interne Links und Dateien (CSS, JS, Bilder, Schriften) existieren
 // - jede Seite hat Titel (≤ 60 Zeichen) und Beschreibung (≤ 160 Zeichen), beide eindeutig
-// - jedes <img> hat ein alt-Attribut, jedes Formularfeld ein Label
+// - jedes <img> hat ein alt-Attribut, jedes Formularfeld ein Label, alle <div> sind geschlossen
 // - Kontraste der Farbwerte aus style.css erfüllen WCAG AA
 // - keine Geheimnisse (API-Schlüssel, Tokens) im Frontend
 // Fehlende Fotos in assets/img/fotos werden nur gemeldet, nicht als Fehler gezählt.
@@ -43,6 +43,11 @@ for (const file of html) {
   titles.set(title, rel);
   descs.set(desc, rel);
   if (!/<h1[\s>]/.test(src)) bad(`${rel}: keine H1`);
+  // Jedes geöffnete <div> muss geschlossen werden, sonst rutschen Bereiche ins Layout daneben.
+  const ohneSkripte = src.replace(/<script[\s\S]*?<\/script>|<template[\s\S]*?<\/template>/g, '');
+  const auf = (ohneSkripte.match(/<div\b/g) || []).length;
+  const zu = (ohneSkripte.match(/<\/div>/g) || []).length;
+  if (auf !== zu) bad(`${rel}: ${auf} <div> geöffnet, aber ${zu} geschlossen`);
   if ((src.match(/<h1[\s>]/g) || []).length > 1) bad(`${rel}: mehr als eine H1`);
 
   for (const m of src.matchAll(/<img\b[^>]*>/g)) if (!/\balt="/.test(m[0])) bad(`${rel}: Bild ohne alt: ${m[0].slice(0, 80)}`);
