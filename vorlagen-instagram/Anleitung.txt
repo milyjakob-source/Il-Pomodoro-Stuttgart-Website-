@@ -1,29 +1,32 @@
 INSTAGRAM-VORLAGEN IL POMODORO – SO GEHT'S
 
-Einmalig vorbereiten (auf dem Mac)
-1. Ordner "Schriften" öffnen und jede .ttf-Datei doppelt anklicken -> "Installieren".
-   (Das sind die Schriften der Website. Ohne sie zeigt Pages eine Ersatzschrift.)
-2. Die Vorlage in Pages öffnen: Datei rechts anklicken -> "Öffnen mit" -> Pages.
-3. Tipp: In Pages "Ablage -> Als Vorlage sichern …" wählen. Dann liegt die Vorlage
-   künftig direkt in der Vorlagenauswahl von Pages.
+Es gibt drei Vorlagen (Word-Dateien, öffnen sich in Pages und Word, auch auf dem iPhone):
+- Il-Pomodoro-Tageskarte-Instagram.docx
+- Il-Pomodoro-Wochenkarte-Instagram.docx
+- Il-Pomodoro-Neuigkeiten-Instagram.docx (Seite 1 rot, Seite 2 hell)
 
-Wochenkarte (Il-Pomodoro-Wochenkarte-Instagram)
-- "Datum der Woche" anklicken und überschreiben, z. B. "13. bis 17. Oktober 2026".
-- In der Tabelle "Gericht", "Kurze Beschreibung" und "00,00 €" überschreiben.
-- Höchstens 6 Gerichte, damit alles auf das Bild passt. Weniger Gerichte:
-  Zeile auswählen -> rechts klicken -> "Zeile löschen".
-- Hintergrund, Logo, Überschrift und Fußzeile sind fest und lassen sich nicht verschieben.
+Öffnen auf dem iPhone
+- In WhatsApp die Datei antippen → oben rechts Teilen-Symbol → „Pages“ (oder „Word“).
+- Pages fragt eventuell nach Schriften oder zeigt einen Hinweis zur Umwandlung: einfach „OK“ / „Fertig“.
+- Die Texte sind in „Avenir Next“ gesetzt, die auf jedem iPhone und Mac vorhanden ist.
+  Nichts muss installiert werden. Überschrift, Logo und Hintergrund sind Teil des Bildes und bleiben fest.
 
-Neuigkeiten (Il-Pomodoro-Neuigkeiten-Instagram)
-- Zwei Seiten: Seite 1 in Rot (z. B. Urlaub, geschlossen), Seite 2 hell (z. B. Feier, Aktion).
-  Die nicht gebrauchte Seite einfach ignorieren (beim Export nur eine Seite wählen).
-- "Überschrift", den Text und "Datum oder Hinweis" überschreiben.
-- Überschrift kurz halten: 2 bis 3 Zeilen sehen am besten aus.
+Ausfüllen
+- Tageskarte: „Wochentag, Datum“ überschreiben, dann je Zeile Gericht, Beschreibung und Preis (5 Zeilen).
+- Wochenkarte: „Datum der Woche“ überschreiben, dann 6 Zeilen.
+- Neuigkeiten: „Überschrift“, Text und „Datum oder Hinweis“ überschreiben. Rot z. B. für Urlaub
+  oder geschlossen, hell z. B. für Feiern und Aktionen.
+- Weniger Gerichte: Zeile auswählen → „Zeile löschen“. Bitte nicht mehr Zeilen einfügen,
+  sonst passt es nicht mehr aufs Bild.
 
-Als Bild für Instagram speichern
-- "Ablage -> Exportieren -> Bilder …", Format PNG, beste Qualität,
-  bei Neuigkeiten nur die gewünschte Seite wählen.
-- Das Bild hat genau das Instagram-Format 4:5 (1080 × 1350). Auf das Handy schicken (AirDrop)
-  und posten.
+Als Bild speichern (für Instagram, Facebook und die Website)
+- Pages iPhone: oben ⋯ → Exportieren → Bilder → (bei Neuigkeiten nur die gewünschte Seite) → speichern.
+- Pages Mac: Ablage → Exportieren → Bilder → PNG.
+- Das Bild hat das Instagram-Format 4:5. Dasselbe Bild in den Google-Drive-Ordner
+  „Tageskarte“, „Wochenkarte“ oder „Neuigkeiten“ hochladen, dann erscheint es auch auf der Website.
 
-Die Bilder "Vorschau-…png" zeigen, wie die Vorlagen aussehen sollen.
+Wichtig beim Weiterschicken über WhatsApp
+- Als „Dokument“ schicken (Büroklammer bzw. + → Dokument), nicht als Foto.
+- Nicht aus Pages heraus „Kopie senden“ wählen, sonst wird daraus ein PDF.
+
+Die Bilder „Vorschau-…png“ zeigen, wie die Vorlagen aussehen sollen.

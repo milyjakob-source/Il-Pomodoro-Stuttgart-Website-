@@ -16,19 +16,21 @@ const T = { bg: '#f2f3ef', surface: '#fafbf8', ink: '#151a17', muted: '#4a524d',
 const D = 'font-family="Bricolage Grotesque" font-weight="700"';
 const G = 'font-family="Geist"';
 
-const wochenkarte = `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
+const karte = (eyebrow, titel, fuss) => `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
   <rect width="1080" height="1350" fill="${T.bg}"/>
   <circle cx="1010" cy="70" r="230" fill="${T.accent}" opacity="0.07"/>
   <circle cx="1010" cy="70" r="150" fill="${T.accent}" opacity="0.07"/>
   ${logo(64, 64, 64, T.accent, '#38653f')}
   <text x="1016" y="108" text-anchor="end" ${G} font-size="22" font-weight="600" fill="${T.muted}" letter-spacing="1">STUTTGART-SÜD</text>
-  <text x="64" y="232" ${G} font-size="22" font-weight="600" fill="${T.accent}" letter-spacing="4.5">LA SETTIMANA</text>
-  <text x="58" y="340" ${D} font-size="124" fill="${T.ink}" letter-spacing="-4">Wochenkarte</text>
+  <text x="64" y="232" ${G} font-size="22" font-weight="600" fill="${T.accent}" letter-spacing="4.5">${eyebrow}</text>
+  <text x="58" y="340" ${D} font-size="124" fill="${T.ink}" letter-spacing="-4">${titel}</text>
   <rect x="56" y="470" width="968" height="690" rx="40" fill="${T.surface}" stroke="${T.line}" stroke-width="2"/>
   <line x1="64" y1="1216" x2="1016" y2="1216" stroke="${T.line}" stroke-width="2"/>
-  <text x="64" y="1270" ${G} font-size="24" font-weight="600" fill="${T.ink}">Mittagstisch Mo–Fr 11:30–14:00</text>
+  <text x="64" y="1270" ${G} font-size="24" font-weight="600" fill="${T.ink}">${fuss}</text>
   <text x="1016" y="1270" text-anchor="end" ${G} font-size="24" fill="${T.muted}">Filderstraße 25 · 0711 51 87 66 50</text>
 </svg>`;
+const wochenkarte = karte('LA SETTIMANA', 'Wochenkarte', 'Mittagstisch Mo–Fr 11:30–14:00');
+const tageskarte = karte('OGGI · HEUTE', 'Tageskarte', 'Frisch für heute, solange der Vorrat reicht');
 
 const newsRot = `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
   <rect width="1080" height="1350" fill="${T.accent}"/>
@@ -54,7 +56,7 @@ const newsHell = `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1
   <text x="1016" y="1270" text-anchor="end" ${G} font-size="24" fill="${T.muted}">0711 51 87 66 50</text>
 </svg>`;
 
-for (const [name, svg] of [['wochenkarte', wochenkarte], ['news-rot', newsRot], ['news-hell', newsHell]]) {
+for (const [name, svg] of [['wochenkarte', wochenkarte], ['tageskarte', tageskarte], ['news-rot', newsRot], ['news-hell', newsHell]]) {
   await sharp(Buffer.from(svg), { density: 144 }).resize(2160, 2700).png({ compressionLevel: 9 }).toFile(join(HIER, `bg-${name}.png`));
   console.log('✓', name);
 }
