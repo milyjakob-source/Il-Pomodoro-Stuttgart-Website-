@@ -60,7 +60,7 @@ export function social(ctx) {
     ['pasta-gamberi', 'Pasta mit Garnelen'],
     ['pizzen-ofen', 'Pizzen im Holzofen'],
     ['calamari', 'Calamari fritti'],
-    ['pizzaiolo-herz', 'Pizzaiolo mit Herz-Pizza'],
+    ['dessert-pistazie', 'Dessert mit Pistazien'],
     ['tiramisu', 'Tiramisù'],
   ];
   return `<section class="section" id="social" aria-labelledby="ig-title">

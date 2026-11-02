@@ -1,4 +1,4 @@
-import { icon, esc, foto } from '../../tools/build.mjs';
+import { icon, esc } from '../../tools/build.mjs';
 import { SITE } from '../site.mjs';
 import { GRUPPEN, LEGENDE, KARTE_PDF } from '../speisekarte.mjs';
 import { lieferung, social } from '../teile.mjs';
@@ -77,7 +77,7 @@ export default {
     'Speisekarte des Il Pomodoro in Stuttgart-Süd mit Preisen: Pizza aus dem Holzofen, Pinsa, Pasta, Fisch, Steaks, Dolci, Getränke und italienische Weine.',
   jsonld: menuJsonLd(),
   body: (ctx) => `
-<section class="wrap page-hero menu-hero">
+<section class="wrap page-hero">
   <div>
     <span class="eyebrow">Menu</span>
     <h1>Speisekarte</h1>
@@ -87,7 +87,6 @@ export default {
     </div>
     ${KARTE_PDF ? `<p class="mt-12"><a class="btn btn-ghost" href="${KARTE_PDF}" download>Karte als PDF</a></p>` : ''}
   </div>
-  ${foto(ctx, 'calzone', 'Calzone aus dem Holzofen mit einem lachenden Gesicht aus Mozzarella, Tomate und Rucola', { ratio: 'wide', cls: 'menu-bild', sizes: '(min-width: 1024px) 40vw, 100vw', eager: true })}
 </section>
 
 <div class="wrap menu-layout">
