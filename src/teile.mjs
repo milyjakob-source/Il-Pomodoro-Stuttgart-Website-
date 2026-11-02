@@ -42,32 +42,40 @@ export function besuch(ctx, { titel = 'So finden Sie uns', h = 'h2' } = {}) {
 </section>`;
 }
 
+/** Knöpfe zu Instagram und Facebook, gleich groß. */
+export function socialKnoepfe(extraKlasse = '') {
+  return `<div class="social-knoepfe ${extraKlasse}">
+    <a class="btn-social btn-instagram" href="${SITE.social.instagram}" rel="noopener" target="_blank" data-track="instagram">${icon('instagram-logo')}<span><b>Instagram</b><small>@${SITE.instagramName}</small></span></a>
+    <a class="btn-social btn-facebook" href="${SITE.social.facebook}" rel="noopener" target="_blank" data-track="facebook">${icon('facebook-logo')}<span><b>Facebook</b><small>Il Pomodoro Filderstraße</small></span></a>
+  </div>`;
+}
+
 /**
- * Instagram-Bereich: Wochenkarte und Neuigkeiten erscheinen auf Instagram (@ilpomodorosud).
- * Daneben ein Raster aus eigenen Fotos im Stil eines Instagram-Profils.
+ * Bereich „Instagram und Facebook“: Tages-, Wochenkarte und Neuigkeiten erscheinen auch dort.
+ * Daneben ein Raster aus eigenen Fotos im Stil eines Social-Media-Profils.
  */
-export function instagram(ctx) {
+export function social(ctx) {
   const fotos = [
     ['pizza-herz', 'Pizza in Herzform'],
-    ['tiramisu', 'Tiramisù'],
-    ['team-pasta', 'Das Küchenteam mit Pasta'],
+    ['pasta-gamberi', 'Pasta mit Garnelen'],
+    ['pizzen-ofen', 'Pizzen im Holzofen'],
     ['calamari', 'Calamari fritti'],
-    ['pizzaiolo', 'Pizzaiolo am Holzofen'],
-    ['dessert-pistazie', 'Dessert mit Pistazien'],
+    ['pizzaiolo-herz', 'Pizzaiolo mit Herz-Pizza'],
+    ['tiramisu', 'Tiramisù'],
   ];
-  return `<section class="section" id="instagram" aria-labelledby="ig-title">
+  return `<section class="section" id="social" aria-labelledby="ig-title">
   <div class="wrap">
     <div class="ig reveal">
       <div class="ig-text">
-        <span class="ig-badge">${icon('instagram-logo')}Instagram</span>
-        <h2 id="ig-title">Wochenkarte und Neuigkeiten auf <span class="ig-name">@${SITE.instagramName}</span></h2>
-        <p class="lead">Jede Woche posten wir dort unsere neue Wochenkarte mit dem Mittagstisch. Und alles, was sonst los ist: Feiertage, Aktionen, Feiern und neue Gerichte.</p>
+        <span class="ig-badge">${icon('instagram-logo')}${icon('facebook-logo', 'icon fb')}Instagram &amp; Facebook</span>
+        <h2 id="ig-title">Folgen Sie uns auf <span class="ig-name">Instagram</span> und <span class="ig-name">Facebook</span></h2>
+        <p class="lead">Dort posten wir die Tageskarte, die Wochenkarte und alles, was sonst los ist: Feiertage, Aktionen, Feiern und neue Gerichte.</p>
         <ul class="ig-punkte">
-          <li>${icon('calendar-check')}Die Wochenkarte, jeden Montag neu</li>
+          <li>${icon('calendar-check')}Tages- und Wochenkarte, immer aktuell</li>
           <li>${icon('star')}Aktionen und neue Gerichte zuerst</li>
           <li>${icon('clock')}Geänderte Öffnungszeiten und Ruhetage</li>
         </ul>
-        <a class="btn btn-ig btn-lg" href="${SITE.social.instagram}" rel="noopener" target="_blank" data-track="instagram">${icon('instagram-logo')}@${SITE.instagramName} folgen</a>
+        ${socialKnoepfe()}
       </div>
       <a class="ig-feed" href="${SITE.social.instagram}" rel="noopener" target="_blank" aria-label="Il Pomodoro auf Instagram öffnen" data-track="instagram">
         ${fotos.map(([n, alt]) => `<img src="${ctx.root}assets/img/fotos/${n}-800.jpg" alt="${alt}" width="400" height="400" loading="lazy" decoding="async">`).join('')}
@@ -75,6 +83,49 @@ export function instagram(ctx) {
     </div>
   </div>
 </section>`;
+}
+
+/**
+ * Seiten Tageskarte, Wochenkarte und Neuigkeiten: Das aktuelle Bild kommt aus dem Google-Drive-Ordner
+ * (über das Google-Skript, siehe apps-script/Karten.gs) und erscheint groß. Ohne Bild: Hinweis auf
+ * Instagram und Facebook. Logik in assets/js/karten.js.
+ */
+export function karteSeite(ctx, { bereich, titel, eyebrow, lead, leer }) {
+  return `<section class="wrap page-hero karten-hero">
+  <span class="eyebrow">${eyebrow}</span>
+  <h1>${titel}</h1>
+  <p class="lead">${lead}</p>
+</section>
+
+<section class="wrap karten" data-karten="${bereich}" aria-live="polite">
+  <div class="karten-laden" data-karten-laden>
+    <div class="karten-skelett"></div>
+    <p class="fine">${titel} wird geladen …</p>
+  </div>
+  <div class="karten-inhalt" data-karten-inhalt hidden></div>
+  <div class="karten-leer" data-karten-leer hidden>
+    <span class="karten-leer-icon">${icon('calendar-check')}</span>
+    <h2>${leer}</h2>
+    <p class="lead">Auf Instagram und Facebook posten wir alles Aktuelle, schauen Sie dort vorbei.</p>
+    ${socialKnoepfe('social-knoepfe-gross')}
+    <p class="fine">Oder rufen Sie uns an: <a href="tel:${SITE.telefon.replace(/\s/g, '')}" data-track="anruf">${SITE.telefonAnzeige}</a></p>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap karten-social">
+    <div>
+      <h2>Auch auf Instagram und Facebook</h2>
+      <p class="muted">Tageskarte, Wochenkarte und Neuigkeiten erscheinen auch auf unseren Kanälen. Folgen Sie uns, dann verpassen Sie nichts.</p>
+    </div>
+    ${socialKnoepfe()}
+  </div>
+</section>
+
+<div class="lightbox" data-lightbox hidden role="dialog" aria-modal="true" aria-label="Bild vergrößert">
+  <button class="lightbox-zu" type="button" data-lightbox-zu aria-label="Schließen">${icon('x')}</button>
+  <img data-lightbox-bild alt="">
+</div>`;
 }
 
 /** Bestellen über Lieferando und Wolt, als großer Bereich (Startseite, Speisekarte) oder kompakt. */

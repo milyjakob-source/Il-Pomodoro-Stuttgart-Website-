@@ -4,6 +4,12 @@ import { SITE } from '../site.mjs';
 // Reihenfolge der Galerie. Dateinamen entsprechen den Fotos in bilder-original/ (siehe README).
 // Weitere Fotos: Datei nach bilder-original/, npm run bilder, hier eintragen.
 const BILDER = [
+  ['pizzaiolo-herz', 'Unser Pizzaiolo mit einer Herz-Pizza vor dem Holzofen'],
+  ['pizzen-ofen', 'Pizzen backen im Holzofen'],
+  ['pasta-gamberi', 'Bandnudeln mit Garnelen, Kirschtomaten und Kräutern'],
+  ['calzone', 'Calzone mit einem Gesicht aus Mozzarella, Tomate und Rucola'],
+  ['weinfass', 'Das Weinfass mit Tomaten-Logo vor dem Eingang'],
+  ['tonkrug', 'Tonkrug vor dem Feuer im Holzofen'],
   ['pizzaiolo', 'Unser Pizzaiolo am Holzofen'],
   ['pizza-herz', 'Pizza in Herzform mit Kirschtomaten, Rucola und Mozzarella'],
   ['team-pasta', 'Das Küchenteam mit frisch gekochter Pasta'],
@@ -18,7 +24,6 @@ const BILDER = [
   ['pizza-burrata', 'Pizza mit Burrata, Pistazie und Basilikum'],
   ['holzofen', 'Glut im Holzofen'],
   ['eingang', 'Der Eingang an der Filderstraße mit Tomaten-Laterne und Tafel'],
-  ['terrasse', 'Gäste an den Tischen vor dem Restaurant'],
 ];
 
 export default {

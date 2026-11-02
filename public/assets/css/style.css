@@ -403,7 +403,7 @@ p {
   display: none;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1279px) {
   .menu-btn {
     display: inline-grid;
   }
@@ -2406,7 +2406,7 @@ textarea.input {
 }
 
 /* Kopf zwischen Tablet und großem Bildschirm: sieben Menüpunkte passen ohne Überlauf. */
-@media (min-width: 1024px) and (max-width: 1239px) {
+@media (min-width: 1280px) and (max-width: 1359px) {
   .nav {
     gap: 12px;
   }
@@ -2654,5 +2654,583 @@ textarea.input {
   }
   .dienst-karte {
     min-height: 0;
+  }
+}
+
+/* Speisekarte mit Preisen (November 2026) --------------------------------- */
+.menu-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+.menu-tabs a {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+.menu-tabs a:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+.menu-bild {
+  margin-bottom: clamp(40px, 6vw, 72px);
+}
+.menu-bild img {
+  object-position: 50% 45%;
+}
+.menu-nav {
+  max-height: calc(100vh - var(--header-h) - 48px);
+  max-height: calc(100dvh - var(--header-h) - 48px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  padding-right: 4px;
+}
+.menu-nav a {
+  padding: 8px 16px;
+  font-size: 0.95rem;
+}
+.menu-nav-gruppe {
+  padding: 18px 16px 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.menu-nav-gruppe:first-child {
+  padding-top: 0;
+}
+.menu-inhalt {
+  min-width: 0;
+}
+.menu-gruppe {
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+.menu-gruppe + .menu-gruppe {
+  margin-top: 24px;
+  padding-top: 48px;
+  border-top: 1px solid var(--line);
+}
+.menu-gruppe-titel {
+  font-size: clamp(2.2rem, 4.4vw, 3.4rem);
+  margin-bottom: 32px;
+}
+.menu-section {
+  padding-bottom: 56px;
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+.menu-section h3 {
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  margin-bottom: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+}
+.menu-sub {
+  font: 500 1rem/1.3 var(--font-text);
+  color: var(--muted);
+}
+.menu-intro {
+  color: var(--muted);
+  max-width: 64ch;
+  margin-bottom: 20px;
+}
+.menu-section h3 + .dishes,
+.menu-section h3 + .drinks {
+  margin-top: 18px;
+}
+.menu-hinweis {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-top: 16px;
+  font-size: 0.925rem;
+  color: var(--muted);
+}
+.menu-hinweis .icon {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  color: var(--ok);
+}
+.dish {
+  align-content: start;
+  gap: 6px;
+}
+.dish-kopf {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+.dish h4 {
+  font-size: 1.1rem;
+  line-height: 1.3;
+}
+.kz {
+  font: 600 0.68rem/1 var(--font-text);
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  vertical-align: super;
+  white-space: nowrap;
+}
+.price .menge,
+.preise dt {
+  font-weight: 500;
+  color: var(--muted);
+  font-size: 0.85em;
+}
+.preise {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 0;
+}
+.preise div {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--tint);
+}
+.preise dt {
+  font-size: 0.8rem;
+}
+.preise dd {
+  margin: 0;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.menu-spezial .dish {
+  grid-column: 1 / -1;
+  background: color-mix(in srgb, #f2b21b 16%, var(--surface));
+  border-color: color-mix(in srgb, #f2b21b 45%, transparent);
+}
+.menu-spezial h3::before {
+  content: '★';
+  color: #c98a00;
+  font-size: 0.8em;
+}
+.drinks {
+  list-style: none;
+  margin: 0;
+  padding: 4px 24px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.drink {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+}
+.drink + .drink {
+  border-top: 1px solid var(--line);
+}
+.drink > div {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.drink-name {
+  font-weight: 600;
+}
+.drink-text {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.drink .price {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.drink .preise {
+  justify-content: flex-end;
+  margin: 0;
+  flex: none;
+  max-width: 60%;
+}
+.menu-legende {
+  margin-top: 24px;
+  padding: clamp(22px, 3vw, 36px);
+  border-radius: var(--radius);
+  background: var(--tint);
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+.menu-legende h2 {
+  font-size: 1.5rem;
+  margin-bottom: 18px;
+}
+.legende-spalten {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+.legende-spalten h3 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+.legende-spalten ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.legende-spalten b {
+  display: inline-block;
+  min-width: 2em;
+  color: var(--ink);
+}
+@media (max-width: 1023px) {
+  .menu-nav {
+    max-height: none;
+    overflow-y: visible;
+    overflow-x: auto;
+    align-items: center;
+    padding-right: var(--gutter);
+  }
+  .menu-nav-gruppe {
+    flex: none;
+    padding: 0 4px 0 10px;
+  }
+  .menu-nav-gruppe:first-child {
+    padding-left: 0;
+  }
+}
+@media (max-width: 767px) {
+  .drinks {
+    padding: 2px 16px;
+  }
+  .drink {
+    flex-wrap: wrap;
+    gap: 6px 16px;
+  }
+  .drink .preise {
+    max-width: none;
+    justify-content: flex-start;
+  }
+  .legende-spalten {
+    grid-template-columns: 1fr;
+  }
+  .dish {
+    padding: 18px 18px;
+  }
+}
+
+/* Instagram und Facebook ---------------------------------------------------- */
+.ig-badge .icon.fb {
+  background: #1877f2;
+  margin-left: -4px;
+}
+.social-knoepfe {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+  max-width: 520px;
+}
+.btn-social {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 60px;
+  padding: 10px 18px 10px 12px;
+  border-radius: 18px;
+  color: #fff;
+  text-decoration: none;
+  transition: transform 180ms var(--ease-out), box-shadow 200ms ease;
+}
+.btn-social:active {
+  transform: scale(0.98);
+}
+.btn-social .icon {
+  width: 34px;
+  height: 34px;
+  flex: none;
+}
+.btn-social span {
+  display: grid;
+  line-height: 1.2;
+  min-width: 0;
+}
+.btn-social b {
+  font-size: 1.05rem;
+}
+.btn-social small {
+  font-size: 0.8rem;
+  opacity: 0.92;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.btn-instagram {
+  background: linear-gradient(45deg, #e5791d, #d62976 45%, #962fbf 80%);
+}
+.btn-facebook {
+  background: #1877f2;
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-social:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+}
+.social-knoepfe-gross {
+  max-width: 600px;
+  margin-inline: auto;
+}
+.social-knoepfe-gross .btn-social {
+  min-height: 72px;
+}
+@media (max-width: 459px) {
+  .social-knoepfe {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tageskarte, Wochenkarte, Neuigkeiten ------------------------------------ */
+.karten-hero {
+  padding-bottom: clamp(20px, 3vw, 36px);
+}
+.karten {
+  min-height: 60vh;
+}
+.karten-laden {
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+}
+.karten-skelett {
+  width: min(100%, 760px);
+  aspect-ratio: 4 / 5;
+  max-height: 80vh;
+  border-radius: var(--radius);
+  background: linear-gradient(100deg, var(--tint) 30%, var(--surface) 50%, var(--tint) 70%);
+  background-size: 300% 100%;
+  animation: schimmer 1.4s linear infinite;
+}
+@keyframes schimmer {
+  to {
+    background-position: -150% 0;
+  }
+}
+.karten-haupt {
+  margin: 0 auto;
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  animation: rise 500ms var(--ease-out) both;
+}
+.karten-haupt figcaption {
+  font-size: 0.925rem;
+  color: var(--muted);
+  text-align: center;
+}
+.karten-bild {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: zoom-in;
+  box-shadow: var(--shadow);
+}
+.karten-bild img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.karten-bild-gross {
+  width: auto;
+  max-width: min(100%, 900px);
+}
+.karten-bild-gross img {
+  width: auto;
+  max-width: 100%;
+  max-height: calc(100vh - var(--header-h) - 140px);
+  max-height: calc(100dvh - var(--header-h) - 140px);
+  margin: 0 auto;
+}
+.karten-zoom {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  color: var(--ink);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.karten-zoom svg {
+  width: 22px;
+  height: 22px;
+}
+.karten-frueher {
+  font-size: 1.5rem;
+  margin: 56px 0 18px;
+}
+.karten-raster {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.karten-raster figure {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+.karten-raster img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+.karten-raster figcaption {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.karten-leer {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 56px);
+  border-radius: calc(var(--radius) + 6px);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+  text-align: center;
+  animation: rise 500ms var(--ease-out) both;
+}
+.karten-leer h2 {
+  font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+}
+.karten-leer .lead {
+  margin-inline: auto;
+}
+.karten-leer-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.karten-leer-icon .icon {
+  width: 30px;
+  height: 30px;
+}
+.karten-social {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px 48px;
+  align-items: center;
+  padding: clamp(22px, 3.5vw, 40px);
+  border-radius: var(--radius);
+  background: var(--tint);
+}
+.karten-social h2 {
+  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  margin-bottom: 8px;
+}
+.karten-social .social-knoepfe {
+  width: 460px;
+}
+@media (max-width: 899px) {
+  .karten-social {
+    grid-template-columns: 1fr;
+  }
+  .karten-social .social-knoepfe {
+    width: 100%;
+  }
+}
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  padding-top: max(16px, env(safe-area-inset-top));
+  background: rgb(10 12 11 / 92%);
+  cursor: zoom-out;
+  animation: einblenden 200ms ease both;
+}
+.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+.lightbox-zu {
+  position: absolute;
+  top: max(14px, env(safe-area-inset-top));
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 14%);
+  color: #fff;
+  cursor: pointer;
+}
+.lightbox-zu .icon {
+  width: 24px;
+  height: 24px;
+}
+@keyframes einblenden {
+  from {
+    opacity: 0;
+  }
+}
+body.lightbox-offen {
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .karten-skelett {
+    animation: none;
+  }
+}
+@media (max-width: 767px) {
+  .drink .preise {
+    flex: 1 1 100%;
+  }
+}
+.menu-hero {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(28px, 4vw, 64px);
+  align-items: center;
+}
+.menu-hero .menu-bild {
+  margin: 0;
+}
+@media (max-width: 1023px) {
+  .menu-hero {
+    grid-template-columns: 1fr;
   }
 }

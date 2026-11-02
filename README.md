@@ -6,7 +6,8 @@ ilpomodorosued.de. Statische Seiten ohne Framework: schnell, gut für Google, l�
 | Seite | Adresse | Inhalt |
 |---|---|---|
 | Start | `/` | Hero mit Holzofen, Status „jetzt geöffnet“, Küche, Geschichte, Bewertungen, Wochenkarte, Anfahrt mit Karte |
-| Speisekarte | `/speisekarte/` | Feste Karte nach Kategorien; die Wochenkarte steht auf Instagram |
+| Speisekarte | `/speisekarte/` | Ganze Karte mit Preisen, Allergenen und Zusatzstoffen (Daten: `src/speisekarte.mjs`) |
+| Tageskarte, Wochenkarte, Neuigkeiten | `/tageskarte/` usw. | Neuestes Bild aus Google Drive, groß; sonst Hinweis auf Instagram und Facebook |
 | Über uns | `/ueber-uns/` | Haus, Holzofen, Werte, Feiern |
 | Galerie | `/galerie/` | Fotos im Mauerwerk-Raster |
 | Kontakt | `/kontakt/` | Telefon (auch für Tischreservierungen), E-Mail, Zeiten, Karte, Anfrageformular (Feiern, Gutscheine) |
@@ -58,6 +59,17 @@ Die alte Website war aus dieser Arbeitsumgebung nicht abrufbar. Inhalte stammen 
       ergänzen, falls vorhanden. Rechtstexte bitte prüfen lassen.
 - [ ] **E-Mail-Adresse** in `src/site.mjs` prüfen (stammt aus einem Branchenverzeichnis).
 - [ ] **Google-Sternewert** in `src/site.mjs` (`googleBewertung`) prüfen; mit Places-API-Schlüssel kommt er live.
+
+## Tageskarte, Wochenkarte und Neuigkeiten (Google Drive)
+
+Die drei Seiten `/tageskarte/`, `/wochenkarte/` und `/neuigkeiten/` zeigen automatisch das neueste Bild aus
+den gleichnamigen Google-Drive-Ordnern. Wer hochladen darf: Ordner „Il Pomodoro- Karten“ in Google Drive,
+Freigabe als **Bearbeiter**. Neues Bild in den Ordner laden, fertig; nach spätestens etwa 5 Minuten ist es
+auf der Website. Ist ein Ordner leer, zeigt die Seite den Hinweis auf Instagram und Facebook.
+
+Technik: Das Google-Skript `apps-script/Karten.gs` (im Google-Konto, dem die Ordner gehören, als Web-App
+bereitgestellt) liest die Ordner; die Adresse steht in `public/assets/js/config.js` bei `kartenEndpoint`.
+Bei Neuigkeiten erscheinen unter dem neuesten Bild bis zu drei frühere kleiner.
 
 ## Wochenkarte, Neuigkeiten und Bestellen
 

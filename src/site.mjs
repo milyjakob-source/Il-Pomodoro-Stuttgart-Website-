@@ -47,15 +47,17 @@ export const KUECHE_BIS = '';
 
 // Hauptnavigation. Pfade sind Ordner, damit die Adressen sauber bleiben (/speisekarte/).
 export const NAV = [
-  { slug: '', label: 'Start' },
   { slug: 'speisekarte/', label: 'Speisekarte' },
+  { slug: 'tageskarte/', label: 'Tageskarte' },
+  { slug: 'wochenkarte/', label: 'Wochenkarte' },
+  { slug: 'neuigkeiten/', label: 'Neuigkeiten' },
   { slug: 'ueber-uns/', label: 'Über uns' },
-  { slug: 'galerie/', label: 'Galerie' },
   { slug: 'kontakt/', label: 'Kontakt' },
   { slug: 'bestellen/', label: 'Bestellen', cta: true },
 ];
 
 export const LEGAL = [
+  { slug: 'galerie/', label: 'Galerie' },
   { slug: 'impressum/', label: 'Impressum' },
   { slug: 'datenschutz/', label: 'Datenschutz' },
   { slug: 'agb/', label: 'AGB' },

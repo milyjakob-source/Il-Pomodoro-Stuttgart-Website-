@@ -1,60 +1,446 @@
-// Auszug aus der festen Karte. Gerichte stammen aus öffentlichen Quellen (alte Website, Speisekarten-Portale)
-// und sind vor dem Livegang mit dem Restaurant abzugleichen. PRÜFEN
-// Preise werden bewusst nicht gezeigt; die aktuelle Karte mit Preisen gibt es im Restaurant.
-// Die wechselnden Gerichte stehen auf der Wochenkarte bei Instagram (@ilpomodorosud).
-// tags: 'veg' (vegetarisch), 'gf' (glutenfrei möglich), 'haus' (Empfehlung des Hauses), 'scharf'
+// Speisekarte des Il Pomodoro, abgeschrieben von der gedruckten Karte (Stand November 2026).
+//
+// Aufbau: Gruppen (Speisen, Getränke, Weine) → Kategorien → Einträge.
+// Eintrag: { name, text, preis, a }
+//   preis: Text ('6,90', 'Glas 7,90') oder Liste von Varianten [['Kinder', '7,50'], ['Normal', '9,90']]
+//   a:     Kennzeichnung laut Karte, z. B. 'a,d' (Allergene) oder '1,10' (Zusatzstoffe); siehe LEGENDE
+// Kategorie: { id, titel, untertitel, intro, hinweis, art: 'karten' | 'liste', spezial, eintraege }
+//   art 'karten' = Kacheln, 'liste' = kompakte Zeilen (Getränke)
 
 export const KARTE_PDF = ''; // z. B. '../assets/speisekarte.pdf', dann erscheint ein Download-Knopf
 
-export const KARTE = [
+const K = (name, text, preis, a = '') => ({ name, text, preis, a });
+const KN = (normal, kind) => [['Kinder', kind], ['Normal', normal]];
+
+export const GRUPPEN = [
   {
-    id: 'antipasti',
-    titel: 'Antipasti',
-    intro: 'Zum Teilen oder als Auftakt.',
-    gerichte: [
-      { name: 'Antipasto Verdura', text: 'Gegrilltes und eingelegtes Gemüse nach Art des Hauses', tags: ['veg'] },
-      { name: 'Insalata di Mare', text: 'Meeresfrüchtesalat' },
-      { name: 'Carpaccio di Salmone', text: 'Hauchdünn geschnittener Lachs' },
-      { name: 'Carpaccio di Manzo', text: 'Hauchdünn geschnittenes Rindfleisch', tags: ['haus'] },
+    id: 'speisen',
+    titel: 'Speisen',
+    kategorien: [
+      {
+        id: 'antipasti',
+        titel: 'Antipasti',
+        untertitel: 'Vorspeisen',
+        eintraege: [
+          K('Bruschetta', 'Geröstete Weißbrotscheiben mit Rucola, Parmesansplittern und frischen Kirschtomaten', '6,90'),
+          K('Antipasto di Verdura', 'Gemischtes Gemüse aus dem Holzofen, mit Parmesansplittern überbacken', '12,90', 'a'),
+          K('Insalata di mare', 'Meeresfrüchtesalat mit Shrimps und Octopus', '13,90', 'i'),
+          K('Carpaccio di salmone', 'Rohes, dünn geschnittenes Lachsfleisch mit Olivenöl und Knoblauch', '12,90', 'j'),
+          K('Carpaccio di manzo', 'Rohes, dünn geschnittenes Rindfleisch mit Parmesansplittern und frischen Champignons', '12,90', 'd'),
+        ],
+      },
+      {
+        id: 'zuppe',
+        titel: 'Zuppe',
+        untertitel: 'Suppen',
+        eintraege: [
+          K('Stracciatella alla romana', 'Fleischbrühe mit geschlagenem Ei', '5,90', 'b'),
+          K('Zuppa di pomodoro', 'Tomatensuppe', '6,90'),
+          K('Minestrone', 'Italienische Gemüsesuppe', '7,90'),
+          K('Tortellini in Brodo', 'Tortellini mit Fleischfüllung in der Brühe', '7,90', 'a'),
+        ],
+      },
+      {
+        id: 'insalate',
+        titel: 'Insalate',
+        untertitel: 'Salate',
+        eintraege: [
+          K('Insalata verde', 'Grüner Salat mit Zwiebeln', '5,90'),
+          K('Insalata mista', 'Gemischter Salat mit Zwiebeln', '6,90'),
+          K('Insalata di pomodori', 'Mit Kirschtomaten und Zwiebeln', '7,50'),
+          K('Insalata mista con tonno', 'Gemischter Salat mit Thunfisch und Zwiebeln', '8,90', 'j'),
+          K('Insalata „Caprese“', 'Mozzarella mit Kirschtomaten und Basilikum', '9,00'),
+          K('Insalata Nizza', 'Salatteller mit Thunfisch und Ei', [['klein', '9,90'], ['groß', '11,90']], 'j'),
+          K('Insalata „Capricciosa“', 'Salatteller mit Ei, Thunfisch, Shrimps, Kapern, Artischocken und Zwiebeln', [['klein', '11,90'], ['groß', '14,50']]),
+          K('Insalata „Fantasia“', 'Salatteller mit Räucherlachs, frischen Shrimps, Parmesansplittern, Oliven¹² und Zwiebeln', [['klein', '11,90'], ['groß', '14,90']]),
+        ],
+      },
+      {
+        id: 'spaghetti',
+        titel: 'Spaghetti',
+        hinweis: 'Alle Nudeln auch glutenfrei erhältlich, zzgl. 2,50 €.',
+        eintraege: [
+          K('Spaghetti „Napoli“', 'Spaghetti mit Tomatensauce', KN('9,90', '7,50'), 'a'),
+          K('Spaghetti „Aglio Olio“', 'Spaghetti in einer pikanten Knoblauch-Olivenöl-Sauce', '9,90', 'a'),
+          K('Spaghetti „Bolognese“', 'Spaghetti in einer Rinderhackfleischsauce', KN('11,90', '9,90'), 'a'),
+          K('Spaghetti „Carbonara“', 'Spaghetti mit Speck²,³ und Ei', '12,90', 'a,b,d'),
+          K('Spaghetti „Marinara“', 'Spaghetti mit frischen Meeresfrüchten in einer Weißwein-Tomaten-Sauce', '15,90', 'a,j'),
+        ],
+      },
+      {
+        id: 'paste',
+        titel: 'Diverse Paste',
+        untertitel: 'Verschiedene Nudelgerichte',
+        eintraege: [
+          K('Penne all’arrabbiata', 'Kurze Nudeln in einer scharfen Tomatensauce mit Knoblauch', '9,90', 'a'),
+          K('Tortellini alla panna', 'Tortellini mit Fleischfüllung und Schinken²,³ in einer Sahnesauce', '12,90', 'a,d'),
+          K('Rigatoni ai 4 formaggi', 'Nudeln mit vier Käsesorten¹ (Mozzarella, Gorgonzola, Parmigiano, Büffelmozzarella)', '13,90', 'a,d'),
+          K('Fettuccine al salmone', 'Bandnudeln mit frischem Lachs in einer Tomaten-Sahne-Sauce', '15,90', 'a,b,j'),
+        ],
+      },
+      {
+        id: 'forno',
+        titel: 'Paste al Forno',
+        untertitel: 'Nudelgerichte aus dem Holzofen',
+        eintraege: [
+          K('Lasagne al forno', 'Mit Rinderhackfleisch und Champignons in einer Tomatensauce, mit Mozzarella überbacken', '13,90', 'a,d'),
+          K('Tortellini al forno', 'Mit Schinken²,³ und frischen Champignons in einer Tomaten-Sahne-Sauce, mit Mozzarella überbacken', '13,90', 'a,d'),
+          K('Cannelloni al forno', 'Mit Rinderhackfleisch gefüllte Teigrollen in einer Tomatensauce, mit Mozzarella überbacken', '13,90', 'a,b,d'),
+          K('Rigatoni al forno', 'Mit Schinken²,³ und frischen Champignons in einer Tomaten-Sahne-Sauce, mit Mozzarella überbacken', '13,90', 'a,d'),
+        ],
+      },
+      {
+        id: 'pizza',
+        titel: 'Pizza aus dem Holzofen',
+        intro: 'Alle Pizzen werden mit original Mozzarella und Tomatensauce belegt. Kinderpizza ca. 23 cm, normale Pizza ca. 33 cm.',
+        hinweis: 'Pizza nach Wunsch auch mit Ei (a, b, d). Jede Pizza auch glutenfrei erhältlich.',
+        eintraege: [
+          K('Pizza „Margherita“', 'Pizza mit Tomaten und Mozzarella', KN('9,50', '7,50'), 'a,d'),
+          K('Pizza Salame', 'Pizza mit Salami²,³', KN('10,90', '8,90'), 'a,d'),
+          K('Pizza Prosciutto', 'Pizza mit Schinken²,³', KN('10,90', '8,90'), 'a,d'),
+          K('Pizza Prosciutto e Funghi', 'Pizza mit Schinken²,³ und Champignons', KN('11,90', '9,90'), 'a,d'),
+          K('Pizza Sardelle', 'Pizza mit Sardellen', KN('11,90', '9,90'), 'a,d,j'),
+          K('Pizza „Diavola“', 'Pizza mit scharfer Salami²,³ (Salsiccia), Champignons und Peperoni²', KN('12,90', '10,90'), 'a,d'),
+          K('Pizza „Quattro Stagioni“', 'Pizza mit Schinken²,³, Artischocken, Salami²,³ und Champignons', KN('13,90', '11,90'), 'a,d'),
+          K('Pizza „Calzone“', 'Gefüllte Pizza mit Schinken²,³, Champignons und Salami²,³', '12,90', 'a,d'),
+          K('Pizza „Hawaii“', 'Pizza mit Schinken²,³ und Ananas', KN('11,90', '9,90'), 'a,d'),
+          K('Pizza Frutti di Mare', 'Pizza mit Meeresfrüchten', KN('13,90', '11,90'), 'a,d,j'),
+          K('Pizza Tonno e Cipolle', 'Pizza mit Thunfisch und Zwiebeln', KN('12,90', '10,90'), 'a,d'),
+          K('Pizza Gamberetti', 'Pizza mit Shrimps', KN('13,90', '11,90'), 'a,d,i'),
+          K('Pizza „al Capone“', 'Pizza mit Salami²,³, Champignons, Shrimps, Schinken²,³, Zwiebeln und Paprika', KN('14,90', '12,90'), 'a,d,i'),
+          K('Pizza „Tricolore“', 'Pizza mit Rucola, Parmaschinken und Grana Padano', KN('13,90', '11,90'), 'a,d'),
+          K('Pizza „Topolina“', 'Pizza mit Rucola, Parmaschinken und frischen Kirschtomaten', KN('13,90', '11,90'), 'a,d'),
+        ],
+      },
+      {
+        id: 'gialla',
+        titel: 'Einmalig in Stuttgart',
+        untertitel: 'Unsere Spezialität',
+        intro: 'In der südlichen Sonne Italiens reifen besondere Früchte: gelbe, birnenförmige Tomaten. Unsere Freunde in Apulien bereiten daraus eine milde, feinwürzige Sauce, und wir verwenden sie für unsere Spezialität.',
+        spezial: true,
+        eintraege: [
+          K('Pizza „Gialla“', 'Mit Sauce aus gelben Tomaten, Spianata²,³ (scharfe italienische Salami), Rucola und Büffelmozzarella', [['klein', '12,90'], ['groß', '14,90']], 'a,d'),
+        ],
+      },
+      {
+        id: 'vegetarisch',
+        titel: 'Vegetarische Pizzen',
+        eintraege: [
+          K('Pizza Funghi', 'Pizza mit frischen Champignons', KN('10,90', '8,90'), 'a,d'),
+          K('Pizza „Mamma mia“', 'Pizza mit Zwiebeln, Gorgonzola und frischen Kirschtomaten', KN('12,90', '10,90'), 'a,d'),
+          K('Pizza „il pomodoro“', 'Pizza mit Champignons, Kapern, Oliven¹², Zwiebeln und frischen Kirschtomaten', KN('13,90', '11,90'), 'a,d'),
+          K('Pizza Verdura', 'Pizza mit frischem Gemüse', KN('13,90', '11,90'), 'a,d'),
+          K('Pizza Spinaci', 'Pizza mit frischem Spinat und Gorgonzola', KN('12,90', '10,90'), 'a,d'),
+          K('Pizza 4 Formaggi', 'Pizza mit vier Käsesorten¹ (Mozzarella, Gorgonzola, Grana Padano, Büffelmozzarella)', KN('13,90', '11,90'), 'a,d'),
+          K('Pizzabrot', 'Mit Knoblauch', '6,90', 'a'),
+        ],
+      },
+      {
+        id: 'pinsa',
+        titel: 'Pinsa',
+        intro: 'Alle Pinse werden mit original Mozzarella und Tomatensauce belegt.',
+        hinweis: 'Jede Pinsa auch glutenfrei erhältlich.',
+        eintraege: [
+          K('Pinsa Margherita', 'Pinsa mit Tomaten und Mozzarella', '11,90', 'a,d'),
+          K('Pinsa Romana', 'Pinsa mit Rucola, Kirschtomaten und Büffelmozzarella', '13,90', 'a,d'),
+          K('Pinsa mit Aubergine', 'Pinsa mit Aubergine, Kirschtomaten, Rucola und Büffelmozzarella', '14,90', 'a,d'),
+          K('Pinsa Gialla', 'Pinsa mit gelben Tomaten, Spianata²,³ (scharfe italienische Salami), Rucola und Büffelmozzarella', '15,90', 'a,d'),
+        ],
+      },
+      {
+        id: 'vegan',
+        titel: 'Veganes',
+        eintraege: [
+          K('Aubergine al forno', 'Auberginenmedaillons mit Tomatensauce und Basilikum', '12,90'),
+          K('Insalata vegana', 'Gemüsesalat mit Avocado und Kürbiskernen', '12,90'),
+          K('Rigatoni al forno vegan', 'Mit verschiedenem Gemüse', '12,90', 'a'),
+          K('Spaghetti aglio e olio', 'Mit Zucchini und Kirschtomatensauce', '14,90', 'a'),
+        ],
+      },
+      {
+        id: 'pesce',
+        titel: 'Pesce e Gamberoni',
+        untertitel: 'Fischgerichte und Garnelen',
+        hinweis: 'Zu allen Garnelen servieren wir einen Beilagensalat. Weitere Fischgerichte auf unserer aktuellen Wochenkarte.',
+        eintraege: [
+          K('Salmone al forno', 'Lachssteak aus dem Holzofen mit frischem Gemüse in Tomatensauce', '22,90'),
+          K('Calamari alla romana', 'Frische Calamari, frittiert, mit Salat', '18,90'),
+          K('Cozze al pomodoro o al vino bianco', 'Miesmuscheln in Tomaten- oder Weißweinsauce (servieren wir nur in der Saison)', '14,90'),
+          K('Gamberoni alla griglia', 'Garnelen vom Grill', '22,90'),
+          K('Gamberoni „Diavola“', 'Garnelen in einer pikanten Tomatensauce', '23,90'),
+          K('Gamberoni in brodetto', 'Garnelen in einer tomatisierten Weißweinsauce mit Knoblauch', '23,90'),
+          K('Gamberoni all’americana', 'Garnelen in einer Sahnesauce mit Knoblauch', '23,90', 'd'),
+        ],
+      },
+      {
+        id: 'bistecca',
+        titel: 'Bistecca',
+        untertitel: 'Argentinische Rinderrückensteaks',
+        hinweis: 'Zu allen Fleischgerichten servieren wir Holzofenkartoffeln. Andere Beilage (z. B. Gemüse) zzgl. 2,00 €.',
+        eintraege: [
+          K('Bistecca alla griglia', 'Rinderrückensteak vom Grill', '22,90'),
+          K('Bistecca alla „pizzaiola“', 'Rinderrückensteak mit Kapern, Peperoni² und Knoblauch in einer Tomatensauce', '23,90', 'a'),
+          K('Bistecca alla „zingara“', 'Rinderrückensteak mit Zwiebeln und Paprika in einer Tomatensahnesauce (leicht scharf)', '23,90', 'a'),
+          K('Bistecca al gorgonzola', 'Rinderrückensteak in einer Gorgonzolasauce¹', '23,90', 'a,d'),
+        ],
+      },
+      {
+        id: 'scaloppine',
+        titel: 'Scaloppine',
+        untertitel: 'Vom Kalbsrücken',
+        hinweis: 'Zu allen Fleischgerichten servieren wir Holzofenkartoffeln. Andere Beilage (z. B. Gemüse) zzgl. 2,00 €.',
+        eintraege: [
+          K('Medaglioni al limone', 'Medaillons in einer Zitronen-Weißwein-Sauce', '21,90', 'a'),
+          K('Saltimbocca alla „romana“', 'Medaillons mit Parmaschinken und Salbei in einer Weißweinsauce', '22,50', 'a'),
+          K('Medaglioni alla „buongustaia“', 'Medaillons mit Schinken²,³ und Champignons in einer Sahnesauce', '22,50', 'a,d'),
+          K('Medaglioni al vino bianco', 'Medaillons in Weißweinsauce', '22,50'),
+          K('Medaglioni alla „pizzaiola“', 'Medaillons mit Kapern, Peperoni² und Knoblauch in einer Tomatensauce', '22,50', 'a'),
+          K('Medaglioni alla „valdostana“', 'Medaillons mit Schinken²,³ und Käse¹ überbacken, in einer Tomaten-Weißwein-Sauce', '22,50', 'a'),
+        ],
+      },
+      {
+        id: 'formaggi',
+        titel: 'Formaggi',
+        untertitel: 'Käse',
+        eintraege: [
+          K('Gorgonzola', 'Halbfester Blauschimmelkäse', '8,00'),
+          K('Parmigiano', 'Würziger, trockener Hartkäse', '9,00'),
+          K('Formaggio misto', 'Gemischter Käseteller', '11,80'),
+        ],
+      },
+      {
+        id: 'dolci',
+        titel: 'Dolci e Gelati',
+        untertitel: 'Süßspeisen',
+        eintraege: [
+          K('Tiramisù (hausgemacht)', '', '7,50', 'a,b,d'),
+          K('Pannacotta (hausgemacht)', 'Mit Waldbeeren', '6,90', 'd'),
+          K('Gelato misto', 'Gemischtes Eis mit Sahne', '6,90', 'd'),
+          K('Lamponi con gelato', 'Vanilleeis mit heißen Himbeeren', '7,90'),
+          K('Tartufo', 'Kleine Törtchen aus Zabaioneeis und Schokoladeneis (Classico, Bianco, al Limoncello, al Café)', '6,90', 'd'),
+          K('Affogato al Café', '', '4,90'),
+          K('1 Kugel Eis', '', '2,50'),
+        ],
+      },
     ],
   },
   {
-    id: 'pizza',
-    titel: 'Pizza',
-    intro: 'Aus dem Holzofen. Jede Pizza gibt es auch mit glutenfreiem Boden.',
-    gerichte: [
-      { name: 'Pizza Margherita', text: 'Tomatensauce, Mozzarella und Basilikum', tags: ['veg', 'gf'] },
-      { name: 'Pizza Salami', text: 'Tomatensauce, Mozzarella und Salami', tags: ['gf'] },
-      { name: 'Pizza Frutti di Mare', text: 'Tomatensauce, Mozzarella und Meeresfrüchte', tags: ['gf'] },
-      { name: 'Pizza Gialla', text: 'Sauce aus gelben Tomaten, scharfe Spianata, Rucola und Büffelmozzarella', tags: ['haus', 'scharf', 'gf'] },
+    id: 'getraenke',
+    titel: 'Getränke',
+    kategorien: [
+      {
+        id: 'aperitivi',
+        titel: 'Aperitivi',
+        eintraege: [
+          K('Aperol Spritz', 'Aperol, Prosecco, Soda, Orangenschnitz. Der fruchtig-herbe Klassiker mit dem gewissen Etwas.', 'Glas 7,90'),
+          K('Campari Spritz', 'Campari, Prosecco, Soda, Orangenschnitz. Intensiv bitter und doch erfrischend leicht durch den perlenden Prosecco.', 'Glas 8,50'),
+          K('Campari Amalfi', 'Campari, Bitter Lemon, ein Spritzer frische Grapefruit, Grapefruitschnitz. Erfrischend bittersüß, mit korallenroter Farbe.', 'Glas 8,50'),
+          K('Sanbittèr Sanset (mit Alkohol)', 'Sanbittèr Rosso, Vermouth Bianco, ein Spritzer Soda, Eiswürfel, Zitronenschale und frische Minze', 'Glas 8,50'),
+          K('Sanbittèr Red Passion (alkoholfrei)', 'Sanbittèr, Zitronensaft, Maracujasaft, Orangenscheibe', 'Glas 6,90'),
+          K('Crodino (alkoholfrei)', 'Crodino, Orangenschnitz. Der alkoholfreie Aperitif mit bittersüßem Geschmack.', 'Glas 4,90'),
+          K('Sanbittèr', 'Rubinrot in der Farbe und erfrischend herb-bitter im Geschmack', 'Fl. 0,098 l 4,50'),
+          K('Averna auf Eis', 'Averna mit Zitronenzeste. Ein weicher, bittersüßer Amaro, unsere Empfehlung für nach dem Essen.', 'Glas 4,90'),
+        ],
+      },
+      {
+        id: 'alkoholfrei',
+        titel: 'Alkoholfreie Getränke',
+        art: 'liste',
+        eintraege: [
+          K('Coca-Cola', '', 'Fl. 0,33 l 4,20', '1,10'),
+          K('Coca-Cola light', '', 'Fl. 0,33 l 4,20'),
+          K('Coca-Cola zero', '', 'Fl. 0,33 l 4,20', '1,8,9,10'),
+          K('Fanta', '', 'Fl. 0,33 l 4,20', '1,10'),
+          K('Mezzo Mix', '', 'Fl. 0,33 l 4,20', '1,10'),
+          K('Sprite', '', 'Fl. 0,33 l 4,20', '1,10'),
+          K('Tafelwasser', '', [['0,2 l', '2,50'], ['0,4 l', '3,50']]),
+          K('S. Pellegrino', '', [['Fl. 0,25 l', '2,90'], ['0,5 l', '3,90'], ['1,0 l', '6,50']]),
+          K('Acqua Panna', 'stilles Mineralwasser', [['Fl. 0,25 l', '2,90'], ['0,5 l', '3,90'], ['1,0 l', '6,50']]),
+          K('Vio Rhabarber', '', 'Fl. 0,2 l 4,20'),
+          K('FuzeTea Pfirsich', '', 'Fl. 0,3 l 4,20'),
+          K('FuzeTea Zitrone', '', 'Fl. 0,3 l 4,20'),
+          K('Bitter Lemon', '', 'Fl. 0,25 l 3,90', '11'),
+          K('Orangina', '', 'Fl. 0,25 l 3,90'),
+          K('Orangensaft', '', '0,2 l 4,20'),
+          K('Pfirsichsaft-Nektar', '', '0,2 l 4,20'),
+          K('Johannisbeersaft-Nektar', '', '0,2 l 4,20'),
+          K('Maracujasaft-Nektar', '', '0,2 l 4,20'),
+          K('Apfelsaft', '', '0,2 l 4,20'),
+          K('Apfelsaftschorle', '', [['0,2 l', '3,20'], ['0,4 l', '4,50']]),
+          K('Johannisbeersaftschorle', '', '0,4 l 4,50'),
+        ],
+      },
+      {
+        id: 'warm',
+        titel: 'Warme Getränke',
+        art: 'liste',
+        hinweis: 'Alle Kaffees auch koffeinfrei.',
+        eintraege: [
+          K('Tasse Kaffee', '', '2,50'),
+          K('Espresso', '', '2,50'),
+          K('Espresso Macchiato', '', '2,80'),
+          K('Espresso Corretto', '', '3,90'),
+          K('Espresso Doppio', '', '4,20'),
+          K('Cappuccino', '', '3,90'),
+          K('Latte Macchiato', '', '3,90'),
+          K('Glas Tee', '', '3,50'),
+          K('Heiße Schokolade', '', '4,50'),
+        ],
+      },
+      {
+        id: 'fassbier',
+        titel: 'Biere vom Fass',
+        art: 'liste',
+        eintraege: [
+          K('Stuttgarter Hofbräu Herren Pils', '', [['0,2 l', '3,30'], ['0,4 l', '4,30']]),
+          K('Schönbuch Naturtrüb', '', [['0,3 l', '4,00'], ['0,5 l', '4,80']], 'a1'),
+          K('Dinkelacker Privat', '', [['0,3 l', '4,00'], ['0,5 l', '4,80']], 'a1'),
+          K('Radler', '', [['0,3 l', '4,00'], ['0,5 l', '4,80']], 'a1'),
+          K('Schönbuch Hefeweizen', '', [['0,3 l', '4,00'], ['0,5 l', '4,80']], 'a2'),
+          K('Hefeweizen-Radler', '', [['0,3 l', '4,00'], ['0,5 l', '4,80']], 'a2'),
+        ],
+      },
+      {
+        id: 'flaschenbier',
+        titel: 'Flaschenbiere',
+        art: 'liste',
+        eintraege: [
+          K('Schönbuch Kristallweizen', '', '0,5 l 4,80', 'a2'),
+          K('Schönbuch Dunkles Hefeweizen', '', '0,5 l 4,80', 'a2'),
+          K('Schönbuch Hefeweizen alkoholfrei', '', '0,5 l 4,80', 'a2'),
+          K('Schwaben Bräu Freibier alkoholfrei', '', '0,33 l 4,20', 'a1'),
+          K('Dinkelacker Alkoholfrei', '', '0,33 l 4,20', 'a1'),
+          K('Peroni Nastro Azzurro', 'Klar, erfrischend und modern, passt perfekt zu gutem Essen', '0,33 l 4,10', 'a2'),
+          K('Ichnusa Anima Sarda 1912', '', '0,33 l 4,30', 'a2'),
+          K('Birra Messina Cristalli di Sale', 'Goldfarben, mit sizilianischen Salzkristallen, weich und fein mit floralen und fruchtigen Aromen', '0,33 l 5,00', 'a2'),
+        ],
+      },
+      {
+        id: 'aperitifs',
+        titel: 'Aperitifs',
+        art: 'liste',
+        eintraege: [
+          K('Prosecco', '', [['0,1 l', '5,60'], ['Fl. 0,75 l', '31,00']], 'h'),
+          K('Martini Bianco', '', '4 cl 5,20'),
+          K('Campari Soda', '', '4 cl 5,90', '1'),
+          K('Campari Orange', '', '4 cl 7,90', '1'),
+        ],
+      },
+      {
+        id: 'likoere',
+        titel: 'Bitteres und Liköre',
+        art: 'liste',
+        eintraege: [
+          K('Ramazzotti', '', '4 cl 4,90'),
+          K('Fernet Branca', '', '2 cl 4,90'),
+          K('Averna', '', '4 cl 4,90'),
+          K('Amaretto', '', '2 cl 4,90'),
+          K('Sambuca', '', '2 cl 4,90'),
+          K('Montenegro', '', '4 cl 4,90'),
+          K('Baileys', '', '4 cl 4,90'),
+          K('Limoncello', '', '4 cl 4,90'),
+        ],
+      },
+      {
+        id: 'spirituosen',
+        titel: 'Spirituosen',
+        art: 'liste',
+        eintraege: [
+          K('Hausgrappa', '', '2 cl 4,90'),
+          K('Grappa Nardini Riserva', '', '2 cl 5,90'),
+          K('Grappa Barricata', '', '2 cl 5,90'),
+          K('Jack Daniel’s', '', '4 cl 5,90'),
+          K('Amaro del Capo', '', '4 cl 4,90'),
+        ],
+      },
     ],
   },
   {
-    id: 'pinsa',
-    titel: 'Pinsa',
-    intro: 'Der luftige, knusprige Teigfladen aus Rom, auch glutenfrei.',
-    gerichte: [
-      { name: 'Pinsa Gialla', text: 'Gelbe Tomaten, scharfe Spianata, Rucola und Büffelmozzarella', tags: ['scharf', 'gf'] },
-      { name: 'Pinsa Burrata', text: 'Tomatensauce, Mozzarella, Kirschtomaten, Basilikum und Burrata', tags: ['veg', 'haus', 'gf'] },
-    ],
-  },
-  {
-    id: 'pasta',
-    titel: 'Pasta',
-    intro: 'Klassiker und Wochengerichte, frisch gekocht.',
-    gerichte: [
-      { name: "Penne all'Arrabbiata", text: 'Scharfe Tomatensauce mit Knoblauch und Peperoncino', tags: ['veg', 'scharf'] },
-      { name: 'Tortellini alla Panna', text: 'Tortellini in Sahnesauce' },
-      { name: 'Paglia e Fieno', text: 'Gelbe und grüne Bandnudeln, „Stroh und Heu“' },
-      { name: 'Fettuccine al Salmone', text: 'Bandnudeln mit Lachs', tags: ['haus'] },
-    ],
-  },
-  {
-    id: 'pesce',
-    titel: 'Fisch und Fleisch',
-    intro: 'Teilweise im Holzofen zubereitet. Weitere Gerichte auf der Wochenkarte bei Instagram.',
-    gerichte: [
-      { name: 'Salmone al Forno', text: 'Lachssteak aus dem Holzofen mit frischem Gemüse in Tomatensauce', tags: ['haus'] },
+    id: 'weine',
+    titel: 'Weine',
+    kategorien: [
+      {
+        id: 'hauswein',
+        titel: 'Hauswein aus Apulien',
+        untertitel: 'Tenuta Castellana',
+        art: 'liste',
+        eintraege: [K('Hauswein weiß, rosé oder rot', '', [['Karaffe 0,25 l', '5,90'], ['Fl. 0,75 l', '16,90']], 'h')],
+      },
+      {
+        id: 'offene-weine',
+        titel: 'Offene Weine',
+        art: 'liste',
+        eintraege: [
+          K('Pinot Grigio', 'Weiß, trocken, aus dem Friaul', '0,25 l 6,50', 'h'),
+          K('Merlot', 'Rot, würzig, lebhaft, trocken, aus dem Veneto', '0,25 l 6,20', 'h'),
+          K('Lambrusco', 'Süßer, spritziger italienischer Rotwein (kalt serviert)', '0,25 l 6,20', 'h'),
+        ],
+      },
+      {
+        id: 'weisswein',
+        titel: 'Weißweine',
+        eintraege: [
+          K('Vermentino Salento I.G.P. „Timo“', 'San Marzano, Apulien · 100 % Vermentino. Weiße Blüten, Zitrusfrüchte und mediterrane Macchia, dazu Rosmarin und Thymian, frisch und mineralisch.', [['Glas 0,2 l', '6,90'], ['Fl. 0,75 l', '24,90']], 'h'),
+          K('Chardonnay Castel del Monte D.O.C. „Preludio N.1“', 'Rivera, Apulien · 100 % Chardonnay. Vielschichtiges Bouquet mit Birne und Pfirsichblüten, fruchtig und knackig mit guter Länge.', [['Glas 0,2 l', '7,80'], ['Fl. 0,75 l', '28,00']], 'h'),
+          K('Piemonte Sauvignon D.O.C. „Tra Donne Sole“', 'Vite Colte, Piemont · 100 % Sauvignon. Komplex und elegant mit floralen Noten, ausgewogen zwischen Sanftheit und Säure.', [['Glas 0,2 l', '7,80'], ['Fl. 0,75 l', '28,00']], 'h'),
+          K('Lugana D.O.C. „I Frati“', 'Cà dei Frati, Lombardei · 100 % Turbiana. Ein Ausnahmewein vom südlichen Gardasee: frisch, spritzig, mit weißen Blüten, Aprikose und Mandel.', [['Glas 0,1 l', '5,50'], ['Glas 0,2 l', '9,90'], ['Fl. 0,75 l', '35,90']], 'h'),
+          K('Santi Lumi', 'Tenuta Castellana, Apulien · Fiano. Trocken und fruchtig.', [['Glas 0,2 l', '7,90'], ['Fl. 0,75 l', '26,00']], 'h'),
+        ],
+      },
+      {
+        id: 'rose',
+        titel: 'Roséweine',
+        eintraege: [
+          K('Rosa dei Frati D.O.C.', 'Cà dei Frati, Lombardei · Gropello, Marzemino, Sangiovese, Barbera. Frisch, zart und energisch, mit Weißdornblüten, grünem Apfel und Wildkirsche.', [['Glas 0,1 l', '5,50'], ['Glas 0,2 l', '9,90'], ['Fl. 0,75 l', '35,90']], 'h'),
+          K('Rosé di Primitivo Salento I.G.P. „Tramari“', 'San Marzano, Apulien · 100 % Primitivo. Mediterrane Macchia mit Kirsche und Himbeere, frisch und elegant.', [['Glas 0,2 l', '7,80'], ['Fl. 0,75 l', '28,00']], 'h'),
+          K('Rosato Primitivo „Rosa Mistica“', 'Tenuta Castellana, Apulien · Primitivo. Trocken und fruchtig.', [['Glas 0,2 l', '7,90'], ['Fl. 0,75 l', '26,00']], 'h'),
+        ],
+      },
+      {
+        id: 'rotwein',
+        titel: 'Rotweine',
+        eintraege: [
+          K('Primitivo di Manduria D.O.P. „Rivale“', 'Tre Mani, Apulien · 100 % Primitivo. Rote Früchte mit Noten von Kirsche und Pflaume, am Gaumen weich und anhaltend.', [['Glas 0,2 l', '6,90'], ['Fl. 0,75 l', '24,90']], 'h'),
+          K('Chianti Classico D.O.C.G.', 'Borgo Scopeto, Toskana · Sangiovese, Merlot, Colorino. Schwarze Waldbeeren, edles Holz, Vanille und Kakao, trocken und elegant.', [['Glas 0,2 l', '7,80'], ['Fl. 0,75 l', '28,00']], 'h'),
+          K('Montepulciano d’Abruzzo Riserva D.O.P. „MO“', 'Cantina Tollo, Abruzzen · 100 % Montepulciano. Schwarze Kirschen und Beeren, voll und weich mit seidigen Tanninen, 24 Monate im Eichenfass.', [['Glas 0,2 l', '8,50'], ['Fl. 0,75 l', '30,00']], 'h'),
+          K('Primitivo di Manduria D.O.P. „Rivale Black Edition“', 'Tre Mani, Apulien · 100 % Primitivo. Tiefes Granatrot, reife rote Früchte und Marmelade, konzentriert und lang.', [['Glas 0,1 l', '4,80'], ['Glas 0,2 l', '9,50'], ['Fl. 0,75 l', '34,00']], 'h'),
+          K('Negroamaro „Madonna Niura“', 'Tenuta Castellana, Apulien · Negroamaro. Würzig und kräftig.', [['Glas 0,2 l', '7,90'], ['Fl. 0,75 l', '26,00']], 'h'),
+          K('Primitivo „Pater Nosci“', 'Tenuta Castellana, Apulien · Primitivo. Trocken und kräftig.', [['Glas 0,2 l', '8,90'], ['Fl. 0,75 l', '32,90']], 'h'),
+        ],
+      },
     ],
   },
 ];
+
+// Kennzeichnung laut gedruckter Karte.
+export const LEGENDE = {
+  allergene: [
+    ['a', 'enthält glutenhaltiges Getreide'],
+    ['a1', 'enthält Getreide (Gerste)'],
+    ['a2', 'enthält Getreide (Gerste und Weizen)'],
+    ['b', 'enthält Hühnerei'],
+    ['c', 'enthält Erdnüsse'],
+    ['d', 'enthält Kuhmilch'],
+    ['e', 'enthält Mandeln'],
+    ['f', 'enthält Sellerie'],
+    ['g', 'enthält Senf'],
+    ['h', 'enthält Sulfite'],
+    ['i', 'enthält Krebstiere'],
+    ['j', 'enthält Fische'],
+    ['k', 'enthält Schalenfrüchte'],
+  ],
+  zusatzstoffe: [
+    ['1', 'mit Farbstoff'],
+    ['2', 'mit Konservierungsstoff'],
+    ['3', 'mit Antioxidationsmittel'],
+    ['4', 'mit Geschmacksverstärker'],
+    ['5', 'mit Schwefeldioxid'],
+    ['6', 'mit Nitritpökelsalz'],
+    ['7', 'mit Phosphat'],
+    ['8', 'mit Süßungsmittel'],
+    ['9', 'enthält eine Phenylalaninquelle'],
+    ['10', 'koffeinhaltig'],
+    ['11', 'chininhaltig'],
+    ['12', 'geschwärzt'],
+  ],
+};

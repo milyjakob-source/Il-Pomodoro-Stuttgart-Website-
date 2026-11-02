@@ -1,6 +1,6 @@
 import { icon, foto, restaurantJsonLd } from '../../tools/build.mjs';
 import { SITE, ZEITEN, KUECHE_BIS, zeitText } from '../site.mjs';
-import { besuch, instagram, lieferung } from '../teile.mjs';
+import { besuch, social, lieferung } from '../teile.mjs';
 
 const GERICHTE = [
   'Pizza Gialla',
@@ -76,16 +76,16 @@ export default {
         ${icon('leaf', 'icon tile-icon')}
         <div class="tile-body"><h3>Pinsa</h3><p>Luftig, knusprig und leicht, zum Beispiel mit Kirschtomaten, Basilikum und Burrata.</p></div>
       </a>
-      <a class="tile tile-c tile-plain" href="${ctx.root}speisekarte/#pasta">
+      <a class="tile tile-c tile-plain" href="${ctx.root}speisekarte/#spaghetti">
         ${icon('cooking-pot', 'icon tile-icon')}
-        <div class="tile-body"><h3>Pasta, Fisch und Fleisch</h3><p>Fettuccine al Salmone, Lachs aus dem Holzofen und wechselnde Gerichte auf der Wochenkarte bei Instagram.</p></div>
+        <div class="tile-body"><h3>Pasta, Fisch und Fleisch</h3><p>Fettuccine al Salmone, Lachs aus dem Holzofen und wechselnde Gerichte auf der Wochenkarte.</p></div>
       </a>
       <div class="tile tile-d">
         <div>
           <h3>Mittagstisch von Montag bis Freitag</h3>
-          <p>Von 11:30 bis 14:00 Uhr. Was es diese Woche gibt, posten wir jeden Montag auf Instagram.</p>
+          <p>Von 11:30 bis 14:00 Uhr. Was es diese Woche gibt, steht auf unserer Wochenkarte.</p>
         </div>
-        <a class="btn btn-ghost" href="${SITE.social.instagram}" rel="noopener" target="_blank" data-track="instagram">${icon('instagram-logo')}Wochenkarte auf Instagram</a>
+        <a class="btn btn-ghost" href="${ctx.root}wochenkarte/">Zur Wochenkarte${icon('arrow-right', 'icon icon-move')}</a>
       </div>
     </div>
   </div>
@@ -117,8 +117,8 @@ export default {
     </div>
     <div class="teller reveal-stagger">
       ${[
-        ['pizzaiolo', 'Pizzaiolo schiebt eine Pizza mit der Schaufel in den Holzofen', 'Am Ofen'],
-        ['calamari', 'Frittierte Calamari mit Zitrone und gemischtem Salat', 'Calamari fritti'],
+        ['pizzen-ofen', 'Mehrere Pizzen backen nebeneinander im Holzofen', 'Aus dem Holzofen'],
+        ['pasta-gamberi', 'Bandnudeln mit Garnelen, Kirschtomaten und Kräutern', 'Pasta con gamberi'],
         ['tiramisu', 'Tiramisù mit Kakao und Physalis vor der Dessertkarte', 'Tiramisù'],
         ['dessert-pistazie', 'Dessert mit gehackten Pistazien, Sahne und Physalis', 'Dolci'],
       ]
@@ -174,7 +174,7 @@ export default {
 
 ${lieferung(ctx)}
 
-${instagram(ctx)}
+${social(ctx)}
 
 ${besuch(ctx)}
 `,

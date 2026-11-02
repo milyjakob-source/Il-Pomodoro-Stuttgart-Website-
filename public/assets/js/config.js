@@ -5,6 +5,10 @@ window.SITE_CONFIG = {
   // Leer: Reservierungen und Anfragen gehen als Netlify-Formular raus (E-Mail an das Restaurant).
   endpoint: '',
 
+  // Tageskarte, Wochenkarte und Neuigkeiten aus Google Drive: Adresse des Google-Skripts (apps-script/Karten.gs).
+  // Leer: Die drei Seiten zeigen den Hinweis auf Instagram und Facebook.
+  kartenEndpoint: 'https://script.google.com/macros/s/AKfycbyP9JO9l-MTQykuZV1A1tlqCDBLhMlKaIdRbly2pWy0dvEoPY1Ooocc0SD3AlC0ZuzR/exec',
+
   // Optional: Link zu einer Google-Kalender-Terminbuchungsseite (calendar.app.google/…). Erscheint als
   // zusätzlicher Weg auf der Reservierungsseite. Leer lassen, wenn nur das Formular genutzt wird.
   googleBookingUrl: '',

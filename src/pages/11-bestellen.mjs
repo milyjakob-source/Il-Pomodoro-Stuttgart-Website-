@@ -1,6 +1,6 @@
 import { icon, foto } from '../../tools/build.mjs';
 import { SITE } from '../site.mjs';
-import { instagram } from '../teile.mjs';
+import { social } from '../teile.mjs';
 
 // Bestellen geht ausschließlich über Lieferando und Wolt. Diese Seite führt dorthin.
 export default {
@@ -49,6 +49,6 @@ export default {
   </div>
 </section>
 
-${instagram(ctx)}
+${social(ctx)}
 `,
 };

@@ -35,8 +35,11 @@ export default {
       ${foto(ctx, 'team-fisch', 'Drei Köche des Il Pomodoro in der Küche, einer hält einen großen frischen Fisch', { ratio: 'wide', sizes: '(min-width: 768px) 50vw, 100vw' })}
       ${foto(ctx, 'holzofen-feuer', 'Holzscheite brennen im Pizzaofen', { ratio: 'wide', sizes: '(min-width: 768px) 50vw, 100vw' })}
       ${foto(ctx, 'gastraum-eckbank', 'Gedeckte Tische an der hölzernen Eckbank im Gastraum', { ratio: 'wide', sizes: '(min-width: 768px) 50vw, 100vw' })}
+      ${foto(ctx, 'weinfass', 'Rotes Weinfass mit Tomaten-Logo und Olivenbäumchen vor dem Eingang an der Filderstraße', { ratio: 'wide', sizes: '(min-width: 768px) 50vw, 100vw' })}
+      ${foto(ctx, 'tonkrug', 'Tonkrug vor dem Feuer im Holzofen', { ratio: 'wide', sizes: '(min-width: 768px) 50vw, 100vw' })}
       ${foto(ctx, 'tafel-antipasti', 'Festlich gedeckte Tafel mit Antipasti, Wurst- und Käseplatten für eine Feier', { ratio: 'wide', sizes: '(min-width: 768px) 50vw, 100vw' })}
     </div>
+    <a class="text-link mt-28" href="${ctx.root}galerie/">Alle Bilder in der Galerie${icon('arrow-right')}</a>
   </div>
 </section>
 
@@ -50,7 +53,7 @@ export default {
         <p class="muted">Bei hoher Hitze gebacken, mit knusprigem Rand. Dazu Pinsa, Pasta, Fisch und Fleisch, mittags von Montag bis Freitag und abends von Montag bis Samstag.</p>
       </div>
       <div class="value">${icon('leaf')}<h3>Glutenfrei möglich</h3><p class="muted">Jede Pizza und Pinsa auch mit glutenfreiem Boden. Unsere Küche ist allerdings nicht glutenfrei.</p></div>
-      <div class="value">${icon('calendar-check')}<h3>Jede Woche neu</h3><p class="muted">Wechselnde Gerichte auf der Wochenkarte, jeden Montag auf <a href="${SITE.social.instagram}" rel="noopener" target="_blank">Instagram</a>.</p></div>
+      <div class="value">${icon('calendar-check')}<h3>Jede Woche neu</h3><p class="muted">Wechselnde Gerichte auf unserer <a href="${ctx.root}wochenkarte/">Wochenkarte</a>, frisch nach Saison.</p></div>
       <div class="value">${icon('users-three')}<h3>Feiern und Gruppen</h3><p class="muted">Geburtstag, Team-Essen oder Familienfeier: wir planen mit Ihnen.</p></div>
       <div class="value">${icon('storefront')}<h3>Abholen und Liefern</h3><p class="muted">Bestellen über <a href="${SITE.lieferando}" rel="noopener" target="_blank">Lieferando</a> oder <a href="${SITE.wolt}" rel="noopener" target="_blank">Wolt</a>.</p></div>
     </div>

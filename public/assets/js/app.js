@@ -948,7 +948,6 @@
     ['gastraum-eckbank', 'Gastraum', 'Über uns'],
     ['tafel-antipasti', 'Tafel mit Antipasti', 'Über uns'],
     ['eingang', 'Eingang', 'Galerie'],
-    ['terrasse', 'Terrasse', 'Galerie'],
   ];
   function bilderZeigen() {
     var inh = st.inhalte || {};

@@ -58,7 +58,7 @@
         menuBtn.focus();
       }
     });
-    matchMedia('(min-width: 1024px)').addEventListener('change', function () {
+    matchMedia('(min-width: 1280px)').addEventListener('change', function () {
       setMenu(false);
     });
   }
