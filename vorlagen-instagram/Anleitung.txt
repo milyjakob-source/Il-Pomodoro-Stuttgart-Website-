@@ -1,9 +1,10 @@
 INSTAGRAM-VORLAGEN IL POMODORO – SO GEHT'S
 
-Es gibt drei Vorlagen (Word-Dateien, öffnen sich in Pages und Word, auch auf dem iPhone):
+Es gibt vier Vorlagen (Word-Dateien, öffnen sich in Pages und Word, auch auf dem iPhone):
 - Il-Pomodoro-Tageskarte-Instagram.docx
 - Il-Pomodoro-Wochenkarte-Instagram.docx
-- Il-Pomodoro-Neuigkeiten-Instagram.docx (Seite 1 rot, Seite 2 hell)
+- Il-Pomodoro-Neuigkeiten-rot-Instagram.docx (z. B. Urlaub, geschlossen)
+- Il-Pomodoro-Neuigkeiten-hell-Instagram.docx (z. B. Feiern, Aktionen)
 
 Öffnen auf dem iPhone
 - In WhatsApp die Datei antippen → oben rechts Teilen-Symbol → „Pages“ (oder „Word“).
@@ -14,13 +15,12 @@ Es gibt drei Vorlagen (Word-Dateien, öffnen sich in Pages und Word, auch auf de
 Ausfüllen
 - Tageskarte: „Wochentag, Datum“ überschreiben, dann je Zeile Gericht, Beschreibung und Preis (5 Zeilen).
 - Wochenkarte: „Datum der Woche“ überschreiben, dann 6 Zeilen.
-- Neuigkeiten: „Überschrift“, Text und „Datum oder Hinweis“ überschreiben. Rot z. B. für Urlaub
-  oder geschlossen, hell z. B. für Feiern und Aktionen.
+- Neuigkeiten: „Überschrift“, Text und „Datum oder Hinweis“ überschreiben.
 - Weniger Gerichte: Zeile auswählen → „Zeile löschen“. Bitte nicht mehr Zeilen einfügen,
   sonst passt es nicht mehr aufs Bild.
 
 Als Bild speichern (für Instagram, Facebook und die Website)
-- Pages iPhone: oben ⋯ → Exportieren → Bilder → (bei Neuigkeiten nur die gewünschte Seite) → speichern.
+- Pages iPhone: oben ⋯ → Exportieren → Bilder → speichern.
 - Pages Mac: Ablage → Exportieren → Bilder → PNG.
 - Das Bild hat das Instagram-Format 4:5. Dasselbe Bild in den Google-Drive-Ordner
   „Tageskarte“, „Wochenkarte“ oder „Neuigkeiten“ hochladen, dann erscheint es auch auf der Website.
